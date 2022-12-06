@@ -8,8 +8,7 @@ function classNames(...classes) {
 }
 
 const Sort = () => {
-  console.log(window.location.pathname);
-
+  const curentURL = window.location.pathname;
   const [tabs, setTabs] = useState([
     { name: 'Active', href: '/customer/myorders/active', current: true },
     { name: 'Draft', href: '/customer/myorders/draft', current: false },
@@ -27,7 +26,7 @@ const Sort = () => {
                   key={tab.name}
                   href={tab.href}
                   className={classNames(
-                    window.location.pathname === tab.href
+                    curentURL === tab.href
                       ? 'border-[#286bb8] text-[#286bb8]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
                     'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',

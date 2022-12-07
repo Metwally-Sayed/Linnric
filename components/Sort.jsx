@@ -2,13 +2,16 @@ import React from 'react';
 import SortInput from './SortInput';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 const Sort = () => {
-  const curentURL = window.location.pathname;
+  const router = useRouter();
+  const curentURL = router.asPath;
+
   const [tabs, setTabs] = useState([
     { name: 'Active', href: '/customer/myorders/active', current: true },
     { name: 'Draft', href: '/customer/myorders/draft', current: false },

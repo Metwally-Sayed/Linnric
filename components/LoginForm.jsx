@@ -4,24 +4,35 @@ import { signupSchema } from '../schemas/index';
 import { XCircleIcon } from '@heroicons/react/20/solid';
 import * as Yup from 'yup';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const LoginForm = () => {
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
-    },
+
     validationSchemas: Yup.object({
       email: Yup.string().required('Please enter your email'),
       password: Yup.string().min(8).required('Required'),
     }),
+
+    onSubmit: (values) => {
+      console.log(values);
+
+      if (values.email && values.password) {
+        router.push('/customer/active');
+      }
+    },
   });
+
+  console.log(formik.errors.email);
   return (
     <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-      <form className="space-y-6">
+      <form onSubmit={() => formik.handleSubmit()} className="space-y-6">
         <div>
           <label
             htmlFor="email"
@@ -39,8 +50,16 @@ const LoginForm = () => {
               type="email"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
+            {formik.errors.email && formik.touched.email ? (
+              <div
+                className="p-2 mb-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
+                {formik.errors.email}
+              </div>
+            ) : null}
           </div>
         </div>
         <div>
@@ -60,11 +79,19 @@ const LoginForm = () => {
               type="password"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
+            {formik.errors.password && formik.touched.password ? (
+              <div
+                className="p-2 mb-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
+                {formik.errors.password}
+              </div>
+            ) : null}
             <Link
               href={'/recovery'}
-              className="text-sm text-indigo-600 hover:text-indigo-500 pt-4"
+              className="text-sm text-[#286bb8] hover:text-[#2c76ca] pt-4"
             >
               Forgotten password?
             </Link>
@@ -72,9 +99,8 @@ const LoginForm = () => {
         </div>
         <div>
           <button
-            onClick={() => formik.handleSubmit()}
-            type="button"
-            className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            type="submit"
+            className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-[#286bb8] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#358ff5] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
           >
             Login
           </button>

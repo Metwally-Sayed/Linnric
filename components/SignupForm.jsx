@@ -49,7 +49,7 @@ const SignupForm = () => {
               name="firstName"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8]"
             />
             {formik.errors.firstName && formik.touched.firstName ? (
               <div
@@ -75,7 +75,7 @@ const SignupForm = () => {
               type="text"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
         </div>
@@ -96,7 +96,7 @@ const SignupForm = () => {
               type="email"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ const SignupForm = () => {
               type="password"
               autoComplete="on"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
         </div>
@@ -138,7 +138,7 @@ const SignupForm = () => {
               type="password"
               autoComplete="off"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
         </div>
@@ -147,7 +147,7 @@ const SignupForm = () => {
           <button
             onClick={() => formik.handleSubmit()}
             type="button"
-            className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-[#286bb8] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#307ed8] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
           >
             Sign up
           </button>

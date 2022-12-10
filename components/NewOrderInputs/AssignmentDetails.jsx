@@ -28,7 +28,7 @@ const AssignmentDetails = () => {
     <>
       <div className="col-span-6 sm:col-span-3">
         <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-          <Combobox.Label className="block text-sm font-medium text-gray-700">
+          <Combobox.Label className="block text-sm font-medium dark:text-white text-gray-700">
             Assignment details:
           </Combobox.Label>
           <div className="relative mt-1">

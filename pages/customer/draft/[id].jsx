@@ -1,14 +1,16 @@
 import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-import NewOrderFrom from '../components/NewOrderFrom';
 import { useRouter } from 'next/router';
-const Neworder = () => {
+import { AiOutlineClose } from 'react-icons/ai';
+import DraftForm from '../../../components/DraftForm';
+
+const Draftorder = () => {
   const router = useRouter();
+
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto w-full my-8   flex justify-between">
-          <h1 className="text-5xl font-bold">Create new order</h1>
+          <h1 className="text-5xl font-bold">Order [id] (Draft)</h1>
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -19,10 +21,10 @@ const Neworder = () => {
             <AiOutlineClose />
           </button>
         </div>
-        <NewOrderFrom />
+        <DraftForm />
       </div>
     </>
   );
 };
 
-export default Neworder;
+export default Draftorder;

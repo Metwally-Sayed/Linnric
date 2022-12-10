@@ -21,7 +21,7 @@ function SignpPage() {
             Or{' '}
             <Link
               href={'/login'}
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-[#286bb8] hover:text-[#286bb8]"
             >
               Login to your account
             </Link>

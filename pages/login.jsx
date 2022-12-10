@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
 
-const loginPage = () => {
+const LoginPage = () => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -21,7 +21,7 @@ const loginPage = () => {
             Or{' '}
             <Link
               href={'/signup'}
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+              className="font-medium text-[#286bb8] hover:text-[#286bb8]"
             >
               Create a new account
             </Link>
@@ -36,4 +36,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

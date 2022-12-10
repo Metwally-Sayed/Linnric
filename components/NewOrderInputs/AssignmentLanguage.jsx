@@ -28,7 +28,7 @@ const AssignmentLanguage = () => {
     <>
       <div className="col-span-6 sm:col-span-3">
         <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-          <Combobox.Label className="block text-sm font-medium text-gray-700">
+          <Combobox.Label className="block text-sm font-medium text-gray-700 dark:text-white ">
             Assignment language:
           </Combobox.Label>
           <div className="relative mt-1">

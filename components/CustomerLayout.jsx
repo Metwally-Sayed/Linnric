@@ -4,15 +4,8 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import {
   Bars3BottomLeftIcon,
-  BellIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
   HomeIcon,
-  InboxIcon,
-  UsersIcon,
   XMarkIcon,
-  BoltIcon,
 } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import NewOrderBtn from '../components/NewOrderBtn';
@@ -20,7 +13,7 @@ import NewOrderBtn from '../components/NewOrderBtn';
 const navigation = [
   {
     name: 'My Orders',
-    href: '/customer/myorders/active',
+    href: '/customer/active',
     icon: HomeIcon,
     current: true,
   },
@@ -69,7 +62,7 @@ const CustomerLayout = ({ children }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4">
+              <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white dark:bg-[#273142] pt-5 pb-4">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -82,12 +75,12 @@ const CustomerLayout = ({ children }) => {
                   <div className="absolute top-0 right-0 -mr-12 pt-2">
                     <button
                       type="button"
-                      className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                      className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#273142]"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
                       <XMarkIcon
-                        className="h-6 w-6 text-white"
+                        className="h-6 w-6 text-[#273142]"
                         aria-hidden="true"
                       />
                     </button>
@@ -102,8 +95,8 @@ const CustomerLayout = ({ children }) => {
                       <Link
                         className={classNames(
                           item.current
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                            ? 'bg-gray-100 text-gray-900 dark:bg-[#1f2735] dark:text-white'
+                            : 'text-gray-600 hover:bg-gray-50 dark:hover:text-white hover:text-gray-900',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md',
                         )}
                         href={item.href}
@@ -135,7 +128,7 @@ const CustomerLayout = ({ children }) => {
       {/* Static sidebar for desktop */}
       <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
+        <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-600 pt-5 dark:bg-[#273142]  ">
           <div className="flex flex-shrink-0 items-center px-4">
             <img className="h-12 w-auto" src="" alt="Logo" />
           </div>
@@ -145,8 +138,8 @@ const CustomerLayout = ({ children }) => {
                 <Link
                   className={classNames(
                     item.current
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      ? 'bg-gray-100 text-gray-900 dark:bg-[#1f2735] dark:text-white'
+                      : 'text-gray-600 hover:bg-gray-50 dark:hover:text-white hover:text-gray-900',
                     'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                   )}
                   href={item.href}
@@ -169,10 +162,10 @@ const CustomerLayout = ({ children }) => {
         </div>
       </div>
       <div className="flex flex-1 flex-col md:pl-64">
-        <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
+        <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white dark:bg-[#273142] shadow-lg">
           <button
             type="button"
-            className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+            className="border-r border-gray-400 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:focus:ring-[#53678a] dark:ring-[#273142] md:hidden"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
@@ -183,16 +176,15 @@ const CustomerLayout = ({ children }) => {
             <div className="ml-4 flex items-center md:ml-6">
               <button
                 type="button"
-                className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 "
               >
-                <span className="sr-only">View notifications</span>
                 userName
               </button>
 
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">
                 <div>
-                  <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm ">
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full"
@@ -210,15 +202,15 @@ const CustomerLayout = ({ children }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-[#273142] py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
                           <Link
                             href={item.href}
                             className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700',
+                              active ? 'bg-gray-100  dark:bg-[#1F2735] ' : '',
+                              'block px-4 py-2 text-sm text-gray-700 dark:text-white',
                             )}
                           >
                             <button onClick={() => signOut()}>

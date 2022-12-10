@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { Combobox } from '@headlessui/react';
+import React from 'react';
+import { Fragment, useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { Combobox, Dialog, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 const people = [
@@ -11,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function AssignmentTypeInput() {
+const StyleInput = () => {
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 
@@ -26,14 +28,13 @@ export default function AssignmentTypeInput() {
     <>
       <div className="col-span-6 sm:col-span-3">
         <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-          <Combobox.Label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Assignment type:
-          </Combobox.Label>
+          <Combobox.Label className="block text-sm font-medium text-gray-700 dark:text-white "></Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
-              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+              className="w-full rounded-md border dark:text-black border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(person) => person?.name}
+              placeholder="Select style"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
               <ChevronUpDownIcon
@@ -87,4 +88,6 @@ export default function AssignmentTypeInput() {
       </div>
     </>
   );
-}
+};
+
+export default StyleInput;

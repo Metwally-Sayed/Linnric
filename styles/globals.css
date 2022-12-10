@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: rgb(243 244 246);
+  /* background-color: rgb(243 244 246); */
 }
 
 a {
@@ -21,4 +21,19 @@ a {
   box-sizing: border-box;
 }
 
+@layer base {
+  html,
+  body {
+    @apply dark:bg-[#1F2735] dark:text-white;
+  }
+}
 
+
+/* .ck
+  ck-content
+  ck-editor__editable
+  ck-rounded-corners
+  ck-editor__editable_inline
+  ck-blurred {
+  background-color: black;
+} */

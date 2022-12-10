@@ -13,9 +13,9 @@ const Sort = () => {
   const curentURL = router.asPath;
 
   const [tabs, setTabs] = useState([
-    { name: 'Active', href: '/customer/myorders/active', current: true },
-    { name: 'Draft', href: '/customer/myorders/draft', current: false },
-    { name: 'Closed', href: '/customer/myorders/closed', current: false },
+    { name: 'Active', href: '/customer/active', current: true },
+    { name: 'Draft', href: '/customer/draft', current: false },
+    { name: 'Closed', href: '/customer/closed', current: false },
   ]);
 
   return (

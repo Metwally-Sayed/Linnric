@@ -5,8 +5,17 @@ import AssignmentDetails from './NewOrderInputs/AssignmentDetails';
 import AssignmentEducationLevel from './NewOrderInputs/AssignmentEducationLevel';
 import AssignmentDeadline from './NewOrderInputs/AssignmentDeadline';
 import AssignmentSize from './NewOrderInputs/AssignmentSize';
+import { useState, useEffect } from 'react';
 
 const NewOrderFrom = () => {
+  let [formData, setFormData] = useState({});
+
+  const assignmentTypeData = (data) => {
+    setFormData({ ...formData, assignmentTypeData: data });
+  };
+
+  console.log(formData);
+
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">
@@ -16,7 +25,9 @@ const NewOrderFrom = () => {
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
                   <div className="grid grid-cols-6 gap-6 my-5">
-                    <AssignmentTypeInput />
+                    <AssignmentTypeInput
+                      assignmentTypeData={assignmentTypeData}
+                    />
                     <AssignmentLanguage />
                   </div>
                   <div className="grid grid-cols-6 gap-6 mt-20 ">

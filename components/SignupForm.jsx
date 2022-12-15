@@ -1,35 +1,32 @@
 import React from 'react';
-import { Formik, useFormik } from 'formik';
 import { signupSchema } from '../schemas/index';
-import { XCircleIcon } from '@heroicons/react/20/solid';
-import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import validationSchema from '../schemas/index';
+import { userAuth } from '../utilities/apiFunctions';
 
 const SignupForm = () => {
   const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
   const formik = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
+      username: '',
+      phoneNumber: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema,
+    onSubmit: (values, actions) => {
+      const number = +values.phoneNumber;
+      console.log(number);
+      const data = {
+        Username: values.username,
+        Phonenumber: values.phoneNumber,
+        password: values.password,
+        email: values.email,
+      };
+      userAuth('https://linnric.com/api/v1/register/', data);
     },
-    validationSchemas: Yup.object({
-      firstName: Yup.string().required('Please enter your first name'),
-      lastName: Yup.string().required('Please enter your last name'),
-      email: Yup.string().required('Please enter your email'),
-      password: Yup.string()
-        .min(8)
-        .matches(passwordRules, { message: 'please enter a stronger password' })
-        .required('Required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'password not matching')
-        .required('required'),
-    }),
   });
 
   return (
@@ -37,44 +34,15 @@ const SignupForm = () => {
       <form className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            First Name
+            Username
           </label>
           <div className="mt-1">
             <input
+              id="username"
+              type="text"
+              value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.firstName}
-              type="text"
-              id="firstName"
-              name="firstName"
-              autoComplete="on"
-              required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm sm:text-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8]"
-            />
-            {formik.errors.firstName && formik.touched.firstName ? (
-              <div
-                className="p-2 mb-2 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-                role="alert"
-              >
-                {formik.errors.firstName}
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Last Name
-          </label>
-          <div className="mt-1">
-            <input
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.lastName}
-              id="lastName"
-              name="lastName"
-              type="text"
-              autoComplete="on"
-              required
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
@@ -88,14 +56,30 @@ const SignupForm = () => {
           </label>
           <div className="mt-1">
             <input
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
               id="email"
               name="email"
               type="email"
-              autoComplete="on"
-              required
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="phoneNumber"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Phone
+          </label>
+          <div className="mt-1">
+            <input
+              id="phoneNumber"
+              type="text"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
@@ -109,14 +93,11 @@ const SignupForm = () => {
           </label>
           <div className="mt-1">
             <input
+              id="password"
+              type="password"
+              value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.password}
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="on"
-              required
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>
@@ -130,14 +111,11 @@ const SignupForm = () => {
           </label>
           <div className="mt-1">
             <input
+              id="confirmPassword"
+              type="password"
+              value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.confirmPassword}
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              autoComplete="off"
-              required
               className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />
           </div>

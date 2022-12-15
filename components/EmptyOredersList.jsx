@@ -21,10 +21,10 @@ const EmptyOredersList = () => {
           />
         </svg>
         <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white ">
-          No projects
+          No orders
         </h3>
         <p className="mt-1 text-sm text-gray-500 dark:text-white">
-          Get started by creating a new project.
+          Get started by creating a new order.
         </p>
         <div className="mt-6">
           <NewOrderBtn />

@@ -2,23 +2,22 @@ import { useState } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const people = [
-  { id: 1, name: 'Leslie Alexander', url: '#' },
-  // More people...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function AssignmentTypeInput() {
+export default function AssignmentTypeInput({ assignmentTypeData }) {
+  const [assignment, setAssignment] = useState([
+    { id: 1, name: 'Leslie Alexander', url: '#' },
+    { id: 2, name: 'test', url: '#' },
+  ]);
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   const filteredPeople =
     query === ''
-      ? people
-      : people.filter((person) => {
+      ? assignment
+      : assignment.filter((person) => {
           return person.name.toLowerCase().includes(query.toLowerCase());
         });
 
@@ -31,9 +30,13 @@ export default function AssignmentTypeInput() {
           </Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
-              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
-              onChange={(event) => setQuery(event.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:text-black "
+              onChange={(event) => {
+                setQuery(event.target.value);
+                assignmentTypeData(query);
+              }}
               displayValue={(person) => person?.name}
+              value={assignment}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
               <ChevronUpDownIcon

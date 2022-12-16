@@ -1,19 +1,17 @@
 import React from 'react';
-import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const schema = Yup.object({
+  email: Yup.string().email().required(),
+});
 
 const Recovery = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-    validationSchemas: Yup.object({
-      email: Yup.string().required('Please enter your email'),
-    }),
-  });
+  const submitForm = (values) => {
+    console.log(values);
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -31,30 +29,28 @@ Company Logo:-
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-            <form className="space-y-6">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email address
-                </label>
-                <div className="mt-1">
-                  <input
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="on"
-                    required
-                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  />
-                </div>
+            <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  {...register('email', { required: true })}
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="on"
+                  required
+                  className="block w-full appearance-none rounded-md border dark:bg-[#33415A] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
+                />
+                <p className="text-red-400 text-xs">{errors.email?.message}</p>
+              </div>
               <div>
                 <button
-                  onClick={() => formik.handleSubmit()}
-                  type="button"
+                  type="submit"
                   className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Send

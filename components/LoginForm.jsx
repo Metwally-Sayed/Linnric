@@ -1,6 +1,4 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import { signupSchema } from '../schemas/index';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

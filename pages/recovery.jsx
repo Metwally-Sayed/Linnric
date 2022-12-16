@@ -8,6 +8,14 @@ const schema = Yup.object({
 });
 
 const Recovery = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const submitForm = (values) => {
     console.log(values);
   };

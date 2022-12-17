@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import LoginForm from '../components/LoginForm';
+import Cookies from 'universal-cookie';
+import { userLogInWithToken } from '../utilities/apiFunctions';
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
+
+  const router = useRouter();
+  const cookies = new Cookies();
+  const token = cookies.get('jwt_token');
+  console.log(token);
+
+  // const getUser = async () => {
+  //   const currentUser = await userLogInWithToken(
+  //     'https://backend420.linnric.com/api/v1/login/',
+  //     token,
+  //     router,
+  //   );
+  // };
+
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
+
+
+
+
+
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 ">

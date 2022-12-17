@@ -2,12 +2,12 @@ import React from 'react';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { userAuth } from '../utilities/apiFunctions';
+import { userLogIn } from '../utilities/apiFunctions';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = Yup.object({
-  username: Yup.string().required(),
+  email: Yup.string().email().required(),
   password: Yup.string().min(6).required(),
 });
 
@@ -16,13 +16,7 @@ const LoginForm = () => {
 
   const submitForm = (values) => {
     console.log(values);
-    const userData = {
-      Username: values.username,
-      password: values.password,
-    };
-    console.log(userData);
-
-    userAuth('https://linnric.com/api/v1/login/', userData);
+    userLogIn('https://backend420.linnric.com/api/v1/login/', values, router);
   };
 
   const {
@@ -38,17 +32,17 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
         <div>
           <label
-            htmlFor="username"
+            htmlFor="email"
             className="block text-sm font-medium text-gray-700 dark:text-white"
           >
-            Username
+            Email
           </label>
           <div className="mt-1">
             <input
-              {...register('username', { required: true })}
-              id="username"
-              type="text"
-              name="username"
+              {...register('email', { required: true })}
+              id="email"
+              type="email"
+              name="email"
               required
               className="block w-full appearance-none rounded-md border dark:bg-[#33415A] border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[#286bb8] focus:outline-none focus:ring-[#286bb8] sm:text-sm"
             />

@@ -1,8 +1,9 @@
 import React from 'react';
-import { userAuth } from '../utilities/apiFunctions';
+import { userSignup } from '../utilities/apiFunctions';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
 
 const schema = Yup.object({
   username: Yup.string().required(),
@@ -13,6 +14,7 @@ const schema = Yup.object({
 });
 
 const SignupForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -31,7 +33,11 @@ const SignupForm = () => {
     };
     console.log(userData);
 
-    userAuth('https://linnric.com/api/v1/register/', userData);
+    userSignup(
+      'https://backend420.linnric.com/api/v1/register/',
+      userData,
+      router,
+    );
   };
 
   return (

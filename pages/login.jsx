@@ -6,10 +6,9 @@ import { userLogInWithToken } from '../utilities/apiFunctions';
 import { useRouter } from 'next/router';
 
 const LoginPage = () => {
-
   const router = useRouter();
   const cookies = new Cookies();
-  const token = cookies.get('jwt_token');
+  const token = cookies.get('accessToken');
   console.log(token);
 
   // const getUser = async () => {
@@ -23,10 +22,6 @@ const LoginPage = () => {
   // useEffect(() => {
   //   getUser();
   // }, []);
-
-
-
-
 
   return (
     <>

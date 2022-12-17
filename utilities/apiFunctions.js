@@ -41,17 +41,18 @@ export const userLogIn = async (endpoint, userData, router) => {
   }
 };
 
-//fuction userLogIn with token
+// fuction userLogIn with token
 // export const userLogInWithToken = async (endpoint, token, router) => {
 //   const decoded = jwt_decode(token);
+//   console.log(decoded);
 
 //   if (decoded.exp < Date.now() / 1000) {
-//     cookies.remove('token');
+//     cookies.remove('accessToken');
 //   }
 
 //   try {
 //     const res = await axios.post(endpoint, {
-//       headers: { 'content-type': 'text/json', token },
+//       headers: { token },
 //     });
 //     router.push('/');
 //   } catch (error) {
@@ -61,5 +62,5 @@ export const userLogIn = async (endpoint, userData, router) => {
 
 //fuction userLogOut
 export const userLogOut = () => {
-  cookies.remove('jwt_token');
+  cookies.remove('accessToken');
 };

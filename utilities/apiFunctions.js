@@ -4,6 +4,8 @@ import jwt_decode from 'jwt-decode';
 
 const cookies = new Cookies();
 
+const allCockies = cookies.getAll();
+console.log(allCockies);
 // userSignUp function
 export const userSignup = async (endpoint, userData, router) => {
   try {
@@ -29,8 +31,12 @@ export const userLogIn = async (endpoint, userData, router) => {
         if (res.data.Accesstoken && res.data.Refreshtoken) {
           const accessToken = res.data.Accesstoken;
           const refreshToken = res.data.Refreshtoken;
-          cookies.set('accessToken', accessToken);
-          cookies.set('refreshToken', refreshToken);
+          if (!allCockies.hasOwnProperty('accessToken')) {
+            cookies.set('accessToken', accessToken);
+          }
+          if (!allCockies.hasOwnProperty('refreshToken')) {
+            cookies.set('refreshToken', refreshToken);
+          }
           router.push('/customer/active');
         } else {
           alert(res.data);
@@ -62,5 +68,6 @@ export const userLogIn = async (endpoint, userData, router) => {
 
 //fuction userLogOut
 export const userLogOut = () => {
-  cookies.remove('accessToken');
+  cookies.remove('accessToken', { path: '/' });
+  cookies.remove('refreshToken', { path: '/' });
 };

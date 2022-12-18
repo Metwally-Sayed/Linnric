@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Datepicker from 'react-tailwindcss-datepicker';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Combobox, Dialog, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Combobox } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
 const people = [
   { id: 1, name: 'Leslie Alexander', url: '#' },
@@ -14,6 +12,7 @@ function classNames(...classes) {
 }
 
 const App = () => {
+  
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 

@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import NewOrderBtn from '../components/NewOrderBtn';
+import { userLogOut } from '../utilities/apiFunctions';
 
 const navigation = [
   {
@@ -28,6 +29,7 @@ const CustomerLayout = ({ children }) => {
   const router = useRouter();
 
   const signOut = () => {
+    userLogOut();
     router.push('/login');
   };
 
@@ -213,7 +215,10 @@ const CustomerLayout = ({ children }) => {
                               'block px-4 py-2 text-sm text-gray-700 dark:text-white',
                             )}
                           >
-                            <button onClick={() => signOut()}>
+                            <button
+                              className="w-full"
+                              onClick={() => userLogOut()}
+                            >
                               {item.name}
                             </button>
                           </Link>

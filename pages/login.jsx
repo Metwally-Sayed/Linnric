@@ -6,11 +6,9 @@ import { userLogInWithToken } from '../utilities/apiFunctions';
 import { useRouter } from 'next/router';
 
 const LoginPage = () => {
-  const router = useRouter();
-  const cookies = new Cookies();
-  const token = cookies.get('accessToken');
-  console.log(token);
-
+  // const router = useRouter();
+  // const cookies = new Cookies();
+  // const token = cookies.get('accessToken');
   // const getUser = async () => {
   //   const currentUser = await userLogInWithToken(
   //     'https://backend420.linnric.com/api/v1/login/',

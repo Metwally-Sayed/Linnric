@@ -2,8 +2,10 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { AiOutlineClose } from 'react-icons/ai';
 import CheckoutForm from '../../components/CheckoutForm';
+import { AssignmentTypeDataHandler } from '../../utilities/apiFunctions';
 
 const checkout = () => {
+  // console.log(AssignmentTypeData);
   const router = useRouter;
   return (
     <>
@@ -27,3 +29,11 @@ const checkout = () => {
 };
 
 export default checkout;
+
+// export const getStaticProps = async () => {
+//   const AssignmentTypeData = await AssignmentTypeDataHandler();
+
+//   return {
+//     props: { AssignmentTypeData },
+//   };
+// };

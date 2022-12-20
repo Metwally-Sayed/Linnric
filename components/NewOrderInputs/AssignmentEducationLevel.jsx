@@ -4,23 +4,31 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Combobox, Dialog, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const people = [
-  { id: 1, name: 'Leslie Alexander', url: '#' },
-  // More people...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
-const AssignmentEducationLevel = () => {
+const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
+  const [
+    assignmentassignmentEducationLevel,
+    setAssignmentassignmentEducationLevel,
+  ] = useState([
+    { id: '1', name: 'School' },
+    { id: '2', name: 'College' },
+    { id: '3', name: 'University' },
+    { id: '4', name: 'Master' },
+    { id: '5', name: 'Doctorate' },
+  ]);
+
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 
-  const filteredPeople =
+  const filtered =
     query === ''
-      ? people
-      : people.filter((person) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
+      ? assignmentassignmentEducationLevel
+      : assignmentassignmentEducationLevel.filter((assignmentassignment) => {
+          return assignmentassignment.name
+            .toLowerCase()
+            .includes(query.toLowerCase());
         });
 
   return (
@@ -30,9 +38,17 @@ const AssignmentEducationLevel = () => {
           <Combobox.Label className="block text-sm font-medium text-gray-700"></Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
-              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
-              onChange={(event) => setQuery(event.target.value)}
-              displayValue={(person) => person?.name}
+              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:text-black"
+              onChange={(event) => {
+                setQuery(event.target.value);
+                assignmentDataCollecter(
+                  'assignmentEducationLevel',
+                  event.target.value,
+                );
+              }}
+              displayValue={(assignmentassignmentEducationLevel) =>
+                assignmentassignmentEducationLevel?.name
+              }
               placeholder="Education Level*"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -42,12 +58,12 @@ const AssignmentEducationLevel = () => {
               />
             </Combobox.Button>
 
-            {filteredPeople.length > 0 && (
+            {filtered.length > 0 && (
               <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filteredPeople.map((person) => (
+                {filtered.map((assignmentassignment) => (
                   <Combobox.Option
-                    key={person.id}
-                    value={person}
+                    key={assignmentassignment.id}
+                    value={assignmentassignment}
                     className={({ active }) =>
                       classNames(
                         'relative cursor-default select-none py-2 pl-3 pr-9',
@@ -63,7 +79,7 @@ const AssignmentEducationLevel = () => {
                             selected && 'font-semibold',
                           )}
                         >
-                          {person.name}
+                          {assignmentassignment.name}
                         </span>
 
                         {selected && (

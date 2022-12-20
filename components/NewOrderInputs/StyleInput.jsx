@@ -4,36 +4,45 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Combobox, Dialog, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const people = [
-  { id: 1, name: 'Leslie Alexander', url: '#' },
-  // More people...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const StyleInput = () => {
+const StyleInput = ({ assignmentDataCollecter }) => {
+  const [assignmentStyle, setAssignmentStyle] = useState([
+    { id: 1, name: 'APA 6th edition' },
+    { id: 2, name: 'APA 7th edition' },
+    { id: 3, name: 'Bluebook' },
+    { id: 4, name: 'Chicago/Turabian' },
+    { id: 5, name: 'Harvard' },
+    { id: 6, name: 'IEEE' },
+    { id: 7, name: 'MLA' },
+    { id: 8, name: 'Other' },
+    { id: 9, name: 'Not Apllicable' },
+  ]);
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   const filteredPeople =
     query === ''
-      ? people
-      : people.filter((person) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
+      ? assignmentStyle
+      : assignmentStyle.filter((style) => {
+          return style.name.toLowerCase().includes(query.toLowerCase());
         });
 
   return (
     <>
-      <div className="col-span-6 sm:col-span-3">
+      <div className="col-span-6 sm:col-span-3 mt-5">
         <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
           <Combobox.Label className="block text-sm font-medium text-gray-700 dark:text-white "></Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
               className="w-full rounded-md border dark:text-black border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
-              onChange={(event) => setQuery(event.target.value)}
-              displayValue={(person) => person?.name}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                assignmentDataCollecter('style', event.target.value);
+              }}
+              displayValue={(assignmentStyle) => assignmentStyle?.name}
               placeholder="Select style"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

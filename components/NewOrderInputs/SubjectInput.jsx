@@ -12,15 +12,45 @@ const people = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
-const SubjectInput = () => {
+const SubjectInput = ({ assignmentDataCollecter }) => {
+  const [assignmentSubject, setAssignmentSubject] = useState([
+    { id: '1', name: 'Advertising' },
+    { id: '2', name: 'Agriculture' },
+    { id: '3', name: 'Algebra' },
+    { id: '4', name: 'American History' },
+    { id: '5', name: 'American Literature' },
+    { id: '6', name: 'Anatomy' },
+    { id: '7', name: 'Ancient Literature' },
+    { id: '8', name: 'Anthropology' },
+    { id: '9', name: 'Application Writing' },
+    { id: '10', name: 'Architecture' },
+    { id: '11', name: 'Art' },
+    { id: '12', name: 'Astronomy' },
+    { id: '13', name: 'Aviation' },
+    { id: '14', name: 'Biology' },
+    { id: '15', name: 'Business and manageme' },
+    { id: '16', name: 'Criminology' },
+    { id: '17', name: 'Cryptography' },
+    { id: '18', name: 'Cultural Studies' },
+    { id: '19', name: 'Dance' },
+    { id: '20', name: 'Dentistry' },
+    { id: '21', name: 'Drama and Theatre' },
+    { id: '22', name: 'Economics' },
+    { id: '23', name: 'Education' },
+    { id: '24', name: 'Engineering' },
+    { id: '25', name: 'English' },
+    { id: '26', name: 'Entrepreneurship' },
+    { id: '27', name: 'Environmental Science' },
+    { id: '28', name: 'Ethics' },
+  ]);
   const [query, setQuery] = useState('');
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   const filteredPeople =
     query === ''
-      ? people
-      : people.filter((person) => {
-          return person.name.toLowerCase().includes(query.toLowerCase());
+      ? assignmentSubject
+      : assignmentSubject.filter((subject) => {
+          return subject.name.toLowerCase().includes(query.toLowerCase());
         });
 
   return (
@@ -33,7 +63,10 @@ const SubjectInput = () => {
           <div className="relative mt-1">
             <Combobox.Input
               className="w-full rounded-md border dark:text-black border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                assignmentDataCollecter('subject', event.target.value);
+              }}
               displayValue={(person) => person?.name}
               placeholder="Select subject"
             />

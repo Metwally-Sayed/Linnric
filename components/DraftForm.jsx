@@ -1,25 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AssignmentTopic from './NewOrderInputs/AssignmentTopic';
-import SourcesInput from './NewOrderInputs/SourcesInput';
 import SubjectInput from './NewOrderInputs/SubjectInput';
 import StyleInput from './NewOrderInputs/StyleInput';
+import { useSelector } from 'react-redux';
+import { postingOrderHandler } from '../utilities/apiFunctions';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+const token = cookies.get('accessToken');
+console.log(token);
 
 const DraftForm = () => {
+  const firstFormdata = useSelector((state) => state.assignmentData);
+  const [formData, setFormData] = useState({});
+  const assignmentDataCollecter = (dataKey, data) => {
+    setFormData({ ...formData, [dataKey]: data });
+    // console.log(formData);
+  };
+  console.log(firstFormdata);
+  console.log(formData);
+  const AllFormData = { ...firstFormdata, ...formData };
+  console.log(AllFormData);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    postingOrderHandler(
+      AllFormData,
+      token,
+      'https://backend420.linnric.com/api/v1/create_order',
+    );
+  };
+
+  const changeHandler = (event) => {
+    assignmentDataCollecter('file', event.target.files[0]);
+  };
+
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-2 md:gap-6">
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form>
+            <form onSubmit={submitHandler}>
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
                   <div className="my-5">
-                    <AssignmentTopic />
+                    <AssignmentTopic
+                      assignmentDataCollecter={assignmentDataCollecter}
+                    />
                   </div>
                   <div className="grid grid-cols-6 gap-6 mt-20 ">
-                    <SourcesInput />
-                    <SubjectInput />
-                    <StyleInput />
+                    <StyleInput
+                      assignmentDataCollecter={assignmentDataCollecter}
+                    />
+                    <SubjectInput
+                      assignmentDataCollecter={assignmentDataCollecter}
+                    />
+                    {/* <SourcesInput /> */}
                   </div>
                   <div className="mt-20">
                     <label
@@ -35,6 +70,12 @@ const DraftForm = () => {
                         rows={4}
                         className="block w-full rounded-md bg-[#F3F4F6] border-gray-300 py-3 px-4 shadow-sm dark:text-black focus:border-[#367fd3] focus:ring-[#367fd3]"
                         defaultValue={''}
+                        onChange={(e) => {
+                          assignmentDataCollecter(
+                            'instruction',
+                            e.target.value,
+                          );
+                        }}
                       />
                     </div>
                   </div>
@@ -67,6 +108,7 @@ const DraftForm = () => {
                               name="file-upload"
                               type="file"
                               className="sr-only"
+                              onChange={changeHandler}
                             />
                           </label>
                           <p className="pl-1">or drag and drop</p>
@@ -83,7 +125,7 @@ const DraftForm = () => {
                     type="submit"
                     className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
                   >
-                    Save
+                    Send
                   </button>
                 </div>
               </div>

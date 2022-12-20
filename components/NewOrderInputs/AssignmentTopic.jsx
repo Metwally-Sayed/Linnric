@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const AssignmentTopic = () => {
+const AssignmentTopic = ({ assignmentDataCollecter }) => {
   return (
     <>
       <div className="col-span-6 sm:col-span-3">
@@ -12,7 +12,12 @@ const AssignmentTopic = () => {
             Assignment topic:
           </Combobox.Label>
           <div className="relative mt-1">
-            <input className="w-full rounded-md border dark:text-black border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm" />
+            <input
+              onChange={(e) => {
+                assignmentDataCollecter('assigment_topic', e.target.value);
+              }}
+              className="w-full rounded-md border dark:text-black border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            />
           </div>
         </Combobox>
       </div>

@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 const cookies = new Cookies();
 
 const allCockies = cookies.getAll();
-console.log(allCockies);
+
 // userSignUp function
 export const userSignup = async (endpoint, userData, router) => {
   try {
@@ -70,4 +70,51 @@ export const userLogIn = async (endpoint, userData, router) => {
 export const userLogOut = () => {
   cookies.remove('accessToken', { path: '/' });
   cookies.remove('refreshToken', { path: '/' });
+};
+
+// input fields data
+
+// export const AssignmentTypeDataHandler = async () => {
+//   try {
+//     const data = await axios.get(
+//       'https://backend420.linnric.com/api/v1/topic_list',
+//     );
+//     return data.data.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// export const AssignmentServicesDataHandler = async () => {
+//   try {
+//     const data = await axios.get(
+//       'https://backend420.linnric.com/api/v1/service_list',
+//     );
+//     return data.data.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// export const AssignmentEducationLevelDataHandler = async () => {
+//   try {
+//     const data = await axios.get(
+//       'https://backend420.linnric.com/api/v1/education_list',
+//     );
+//     return data.data.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const postingOrderHandler = async (Formdata, tokenStr, endpoint) => {
+  try {
+    const sendData = await axios
+      .post(endpoint, Formdata, {
+        headers: { Authorization: `Bearer ${tokenStr}` },
+      })
+      .then((res) => console.log(res));
+  } catch (error) {
+    console.log(error);
+  }
 };

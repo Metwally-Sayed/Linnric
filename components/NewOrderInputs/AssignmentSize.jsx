@@ -14,7 +14,7 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
           <input
             type="number"
             placeholder="Pages*"
-            className="w-[88%] bg-[#F3F4F6] rounded-md border border-gray-300   shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm "
+            className="w-[88%] bg-[#F3F4F6] rounded-md border border-gray-300 dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm "
             onChange={(e) => {
               assignmentDataCollecter('pages', e.target.value);
             }}
@@ -27,7 +27,7 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
           </label>
           <input
             type="number"
-            className="w-[88%]  bg-[#F3F4F6] rounded-md border border-gray-300   shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            className="w-[88%]  bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
             placeholder="Words*"
             onChange={(e) => {
               assignmentDataCollecter('words', e.target.value);
@@ -42,13 +42,12 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
           <input
             placeholder="Line spacing*"
             type="number"
-            className="w-[90%]  bg-[#F3F4F6] rounded-md border border-gray-300  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            className="w-[90%]  bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
             onChange={(e) => {
               console.log(e.target.value);
               assignmentDataCollecter('line_spacing', e.target.value);
             }}
           />{' '}
-          
         </div>
       </div>
     </>

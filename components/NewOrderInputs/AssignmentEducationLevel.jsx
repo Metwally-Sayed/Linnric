@@ -38,7 +38,7 @@ const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
           <Combobox.Label className="block text-sm font-medium text-gray-700"></Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
-              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:text-black"
+              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:bg-[#33415a]"
               onChange={(event) => {
                 setQuery(event.target.value);
                 assignmentDataCollecter(

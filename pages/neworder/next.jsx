@@ -10,7 +10,7 @@ const Draftorder = () => {
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto w-full my-8   flex justify-between">
-          <h1 className="text-5xl font-bold">Order [id] (Draft)</h1>
+          <h1 className="text-5xl font-bold"></h1>
           <button
             onClick={(e) => {
               e.preventDefault();

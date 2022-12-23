@@ -72,7 +72,7 @@ const DraftForm = () => {
                         id="message"
                         name="message"
                         rows={4}
-                        className="block w-full rounded-md bg-[#F3F4F6] border-gray-300 py-3 px-4 shadow-sm dark:text-black focus:border-[#367fd3] focus:ring-[#367fd3]"
+                        className="block w-full rounded-md bg-[#F3F4F6] border-gray-300 py-3 px-4 shadow-sm dark:bg-[#33415a] focus:border-[#367fd3] focus:ring-[#367fd3]"
                         defaultValue={''}
                         onChange={(e) => {
                           assignmentDataCollecter(

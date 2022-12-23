@@ -75,7 +75,7 @@ export default function AssignmentTypeInput({ assignmentDataCollecter }) {
           </Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
-              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:text-black "
+              className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm dark:bg-[#33415a] focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm  "
               onChange={(event) => {
                 setQuery(event.target.value);
                 assignmentDataCollecter('assigment_type', event.target.value);
@@ -90,7 +90,7 @@ export default function AssignmentTypeInput({ assignmentDataCollecter }) {
             </Combobox.Button>
 
             {filteredPeople.length > 0 && (
-              <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#33415a]  py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {filteredPeople.map((person) => (
                   <Combobox.Option
                     key={person.id}

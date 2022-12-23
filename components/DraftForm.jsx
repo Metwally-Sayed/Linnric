@@ -5,12 +5,14 @@ import StyleInput from './NewOrderInputs/StyleInput';
 import { useSelector } from 'react-redux';
 import { postingOrderHandler } from '../utilities/apiFunctions';
 import Cookies from 'universal-cookie';
+import { useRouter } from 'next/router';
 
 const cookies = new Cookies();
 const token = cookies.get('accessToken');
-console.log(token);
+
 
 const DraftForm = () => {
+  const router = useRouter()
   const firstFormdata = useSelector((state) => state.assignmentData);
   const [formData, setFormData] = useState({});
   const assignmentDataCollecter = (dataKey, data) => {
@@ -28,10 +30,12 @@ const DraftForm = () => {
       token,
       'https://backend420.linnric.com/api/v1/create_order',
     );
+    router.push("/customer/payment")
   };
 
   const changeHandler = (event) => {
-    assignmentDataCollecter('file', event.target.files[0]);
+    // assignmentDataCollecter('file', event.target.files[0]);
+    assignmentDataCollecter('file', event.target.value);
   };
 
   return (
@@ -125,7 +129,7 @@ const DraftForm = () => {
                     type="submit"
                     className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
                   >
-                    Send
+                    Checkout
                   </button>
                 </div>
               </div>

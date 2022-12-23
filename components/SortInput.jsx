@@ -7,7 +7,7 @@ import {
 
 const SortInput = () => {
   return (
-    <div className="mt-5 p-2 w-full rounded bg-white sm:flex sm:items-center sm:justify-between">
+    <div className="mt-5 p-2 w-full rounded bg-white dark:bg-[#1F2735] sm:flex sm:items-center sm:justify-between">
       <div className="mt-3 sm:mt-0 sm:ml-4">
         <label htmlFor="mobile-search-candidate" className="sr-only">
           Search
@@ -27,20 +27,20 @@ const SortInput = () => {
               type="text"
               name="mobile-search-candidate"
               id="mobile-search-candidate"
-              className="block w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:hidden"
+              className="block w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 dark:bg-[#1F2735] focus:ring-indigo-500 sm:hidden"
               placeholder="Search"
             />
             <input
               type="text"
               name="desktop-search-candidate"
               id="desktop-search-candidate"
-              className="hidden w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:block sm:text-sm"
+              className="hidden w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 dark:bg-[#1F2735] focus:ring-indigo-500 sm:block sm:text-sm"
               placeholder="Search candidates"
             />
           </div>
           <button
             type="button"
-            className="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-gray-50 dark:bg-[#1F2735] px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           >
             <BarsArrowUpIcon
               className="h-5 w-5 text-gray-400"

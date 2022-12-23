@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {};
 
-export const assignmentData = createSlice({
+export  const assignmentData = createSlice({
   name: 'assignmentData',
   initialState,
   reducers: {
@@ -12,6 +12,6 @@ export const assignmentData = createSlice({
   },
 });
 
-export const { getAssignmentData } = assignmentData.actions;
+export  const { getAssignmentData } = assignmentData.actions;
 
 export default assignmentData.reducer;

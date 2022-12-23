@@ -13,8 +13,8 @@ const Sort = () => {
   const curentURL = router.asPath;
 
   const [tabs, setTabs] = useState([
-    { name: 'Active', href: '/customer/active', current: true },
-    { name: 'Draft', href: '/customer/draft', current: false },
+    { name: 'All Orders', href: '/customer/active', current: true },
+    { name: 'In Progress', href: '/customer/inprogress', current: false },
     { name: 'Closed', href: '/customer/closed', current: false },
   ]);
 
@@ -42,7 +42,7 @@ const Sort = () => {
           </div>
         </div>
       </div>
-      {/* <SortInput /> */}
+      <SortInput />
     </>
   );
 };

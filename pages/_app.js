@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider>
+    <ThemeProvider attribute="class">
       <Provider store={store}>
         <Component {...pageProps} />
       </Provider>

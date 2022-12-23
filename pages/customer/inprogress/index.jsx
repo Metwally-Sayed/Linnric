@@ -8,14 +8,14 @@ import EmptyOredersList from '../../../components/EmptyOredersList';
 
 const cookies = new Cookies();
 
-const Closed = () => {
+const Draft = () => {
   const [data, setData] = useState([]);
   const getUserInprogressOrders = async () => {
     const token = cookies.get('refreshToken');
     console.log(token);
     try {
       const getData = await axios.get(
-        'https://backend420.linnric.com/api/v1/get_client_finshed_orders',
+        'https://backend420.linnric.com/api/v1/get_client_inprogress_orders',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ const Closed = () => {
     getUserInprogressOrders();
   }, []);
 
-  console.log(data);
+
   let renderCondition = '';
 
   if (data.length === 0) {
@@ -40,16 +40,13 @@ const Closed = () => {
   } else {
     renderCondition = <OrderCard data={data} />;
   }
-
   return (
-    <div>
-      <Layout>
-        <MyOrderLayout>
-          <div>{renderCondition}</div>
-        </MyOrderLayout>
-      </Layout>
-    </div>
+    <Layout>
+      <MyOrderLayout>
+        <div>{renderCondition}</div>
+      </MyOrderLayout>
+    </Layout>
   );
 };
 
-export default Closed;
+export default Draft;

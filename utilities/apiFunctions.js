@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import jwt_decode from 'jwt-decode';
+import { data } from 'autoprefixer';
 
 const cookies = new Cookies();
 
@@ -10,7 +11,7 @@ const allCockies = cookies.getAll();
 export const userSignup = async (endpoint, userData, router) => {
   try {
     const newUser = await axios.post(endpoint, userData, {
-      headers: { 'content-type': 'text/json' },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     router.push('/customer/active');
@@ -24,7 +25,11 @@ export const userLogIn = async (endpoint, userData, router) => {
   try {
     const newUser = await axios
       .post(endpoint, userData, {
-        headers: { 'content-type': 'text/json' },
+        headers: {
+          withCredentials: true,
+          'Content-Type': 'application/json',
+          Cookie: 'Cookie_1=value;',
+        },
       })
       .then((res) => {
         console.log(res.data);
@@ -114,6 +119,22 @@ export const postingOrderHandler = async (Formdata, tokenStr, endpoint) => {
         headers: { Authorization: `Bearer ${tokenStr}` },
       })
       .then((res) => console.log(res));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserOrders = async (endpoint) => {
+  const token = cookies.get('refreshToken');
+  console.log(token);
+  try {
+    const getData = await axios.get(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(getData.data.data);
+    return getData.data.data;
   } catch (error) {
     console.log(error);
   }

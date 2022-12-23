@@ -8,7 +8,7 @@ export default function middleware(req) {
   let decoded;
 
   if (!verify && url.includes('/customer')) {
-    return NextResponse.redirect('http://localhost:3000/login');
+    return NextResponse.redirect('http://https://linnric.com/login');
   }
 
   if (verify && url.includes('/login')) {
@@ -17,7 +17,7 @@ export default function middleware(req) {
       res.cookies.delete('refreshToken');
     }
 
-    return NextResponse.redirect('http://localhost:3000/customer/active');
+    return NextResponse.redirect('http://https://linnric.com/customer/active');
   }
 
   return res;

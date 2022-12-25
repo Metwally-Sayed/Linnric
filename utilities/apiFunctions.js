@@ -22,20 +22,65 @@ export const userSignup = async (endpoint, userData, router) => {
 
 //fuction userLogIn
 export const userLogIn = async (endpoint, userData, router) => {
+  console.log(userData);
   try {
-    const newUser = await axios
-      .post(endpoint, userData, {
-        headers: {
-          withCredentials: true,
-          'Content-Type': 'application/json',
-          Cookie: 'Cookie_1=value;',
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.Accesstoken && res.data.Refreshtoken) {
-          const accessToken = res.data.Accesstoken;
-          const refreshToken = res.data.Refreshtoken;
+    // const newUser = await axios
+    //   .post(endpoint, userData, {
+    //     headers: {
+    //       withCredentials: true,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.data.Accesstoken && res.data.Refreshtoken) {
+    //       const accessToken = res.data.Accesstoken;
+    //       const refreshToken = res.data.Refreshtoken;
+    //       if (!allCockies.hasOwnProperty('accessToken')) {
+    //         cookies.set('accessToken', accessToken);
+    //       }
+    //       if (!allCockies.hasOwnProperty('refreshToken')) {
+    //         cookies.set('refreshToken', refreshToken);
+    //       }
+    //       router.push('/customer/active');
+    //     } else {
+    //       alert(res.data);
+    //     }
+    //   });
+
+    // await fetch(endpoint, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: userData,
+    // });
+    // response.json().then((data) => {
+    //   console.log(data);
+    // });
+
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+      email: userData.email,
+      password: userData.password,
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(endpoint, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.Accesstoken && result.Refreshtoken) {
+          const accessToken = result.Accesstoken;
+          const refreshToken = result.Refreshtoken;
           if (!allCockies.hasOwnProperty('accessToken')) {
             cookies.set('accessToken', accessToken);
           }
@@ -44,9 +89,13 @@ export const userLogIn = async (endpoint, userData, router) => {
           }
           router.push('/customer/active');
         } else {
-          alert(res.data);
+          alert(result);
         }
-      });
+
+        console.log(result);
+      })
+
+      .catch((error) => console.log('error', error));
   } catch (error) {
     console.log(error);
   }

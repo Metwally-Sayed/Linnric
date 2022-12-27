@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AssignmentTopic from './NewOrderInputs/AssignmentTopic';
 import SubjectInput from './NewOrderInputs/SubjectInput';
 import StyleInput from './NewOrderInputs/StyleInput';
@@ -6,23 +6,32 @@ import { useSelector } from 'react-redux';
 import { postingOrderHandler } from '../utilities/apiFunctions';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
-
+import { editingOrderHandler } from '../utilities/apiFunctions';
 const cookies = new Cookies();
-const token = cookies.get('accessToken');
+const token = cookies.get('refreshToken');
 
+const DraftForm = ({ updateAssignmentDataCollecter, editOrderData }) => {
+  const [orderId, setOrderId] = useState(0);
+  let id = 0;
+  Array.isArray(editOrderData)
+    ? editOrderData.map((order) => {
+        id = order.ID;
+      })
+    : null;
 
-const DraftForm = () => {
-  const router = useRouter()
+  const router = useRouter();
   const firstFormdata = useSelector((state) => state.assignmentData);
   const [formData, setFormData] = useState({});
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
     // console.log(formData);
   };
-  console.log(firstFormdata);
-  console.log(formData);
+  const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
+  console.log(endpoint);
+
   const AllFormData = { ...firstFormdata, ...formData };
   console.log(AllFormData);
+
   const submitHandler = (e) => {
     e.preventDefault();
     postingOrderHandler(
@@ -30,7 +39,12 @@ const DraftForm = () => {
       token,
       'https://backend420.linnric.com/api/v1/create_order',
     );
-    router.push("/customer/payment")
+    router.push('/customer/payment');
+  };
+
+  const editHandler = (e) => {
+    e.preventDefault();
+    editingOrderHandler(formData, token, endpoint);
   };
 
   const changeHandler = (event) => {
@@ -38,6 +52,10 @@ const DraftForm = () => {
     assignmentDataCollecter('file', event.target.value);
   };
 
+  const currentURL = router.pathname;
+  console.log(currentURL);
+
+  updateAssignmentDataCollecter(formData);
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">
@@ -125,12 +143,24 @@ const DraftForm = () => {
                   </div>
                 </div>
                 <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
-                  >
-                    Checkout
-                  </button>
+                  {currentURL === '/customer/active/[id]' ? (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        editHandler(e);
+                      }}
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                    >
+                      Check out
+                    </button>
+                  )}
                 </div>
               </div>
             </form>

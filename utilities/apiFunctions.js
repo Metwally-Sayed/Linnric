@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import jwt_decode from 'jwt-decode';
-import { data } from 'autoprefixer';
 
 const cookies = new Cookies();
 
@@ -174,6 +173,19 @@ export const postingOrderHandler = async (Formdata, tokenStr, endpoint) => {
         headers: { Authorization: `Bearer ${tokenStr}` },
       })
       .then((res) => console.log(res));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editingOrderHandler = async (Formdata, tokenStr, endpoint) => {
+  try {
+    const sendData = await axios
+      .put(endpoint, Formdata, {
+        headers: { Authorization: `Bearer ${tokenStr}` },
+      })
+      .then((res) => console.log(res));
+      
   } catch (error) {
     console.log(error);
   }

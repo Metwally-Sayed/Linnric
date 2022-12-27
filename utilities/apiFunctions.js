@@ -60,15 +60,15 @@ export const userLogIn = async (endpoint, userData, router) => {
     //   console.log(data);
     // });
 
-    var myHeaders = new Headers();
+    const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
-    var raw = JSON.stringify({
+    const raw = JSON.stringify({
       email: userData.email,
       password: userData.password,
     });
 
-    var requestOptions = {
+    const requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
@@ -78,16 +78,22 @@ export const userLogIn = async (endpoint, userData, router) => {
     fetch(endpoint, requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        const username = result.user.Username;
+        window.localStorage.setItem('username', username);
+
         if (result.Accesstoken && result.Refreshtoken) {
           const accessToken = result.Accesstoken;
           const refreshToken = result.Refreshtoken;
           if (!allCockies.hasOwnProperty('accessToken')) {
             cookies.set('accessToken', accessToken);
+            window.localStorage.setItem('username', username);
           }
           if (!allCockies.hasOwnProperty('refreshToken')) {
             cookies.set('refreshToken', refreshToken);
+            window.localStorage.setItem('username', username);
           }
           router.push('/customer/active');
+          window.localStorage.setItem('username', username);
         } else {
           alert(result);
         }

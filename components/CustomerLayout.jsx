@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import {
@@ -9,6 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { userLogOut } from '../utilities/apiFunctions';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import logo from '../assessed/WhatsApp-Image-logo.jpg';
 
 const navigation = [
   {
@@ -26,6 +28,11 @@ function classNames(...classes) {
 
 const CustomerLayout = ({ children }) => {
   const { setTheme, theme, systemTheme } = useTheme();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    setUserName(window.localStorage.getItem('username'));
+  }, []);
 
   const renderThemeChanger = () => {
     const currentTheme = theme === 'system' ? systemTheme : theme;
@@ -132,7 +139,7 @@ const CustomerLayout = ({ children }) => {
                   </div>
                 </Transition.Child>
                 <div className="flex flex-shrink-0 items-center px-4">
-                  <img className="h-8 w-auto" src="" alt="logo" />
+                  <Image className="h-8 w-auto" src={logo} alt="logo" />
                 </div>
                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
                   <nav className="space-y-1 px-2">
@@ -175,7 +182,7 @@ const CustomerLayout = ({ children }) => {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-600 pt-5 dark:bg-[#273142]  ">
           <div className="flex flex-shrink-0 items-center px-4">
-            <img className="h-12 w-auto" src="" alt="Logo" />
+            <Image className="h-12 w-auto" src={logo} alt="Logo" />
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <nav className="flex-1 space-y-1 px-2 pb-4">
@@ -224,7 +231,7 @@ const CustomerLayout = ({ children }) => {
                 type="button"
                 className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 "
               >
-                userName
+                {userName}
               </button>
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">

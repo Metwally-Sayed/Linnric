@@ -28,7 +28,6 @@ const Active = () => {
 
   const getUserOrders = async () => {
     const token = cookies.get('refreshToken');
-    console.log(token);
     try {
       const getData = await axios.get(
         'https://backend420.linnric.com/api/v1/get_all_client_orders',

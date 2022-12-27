@@ -268,7 +268,7 @@ const CustomerLayout = ({ children }) => {
                           >
                             <button
                               className="w-full"
-                              onClick={() => userLogOut()}
+                              onClick={() => signOut()}
                             >
                               {item.name}
                             </button>

@@ -23,7 +23,6 @@ const EditOrder = () => {
         {/* <DraftForm /> */}
         <div className="m-5 ">
           <DraftForm
-            updateAssignmentDataCollecter={updateAssignmentDataCollecter}
             editOrderData={editOrderData}
           />
         </div>

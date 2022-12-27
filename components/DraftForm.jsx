@@ -10,7 +10,7 @@ import { editingOrderHandler } from '../utilities/apiFunctions';
 const cookies = new Cookies();
 const token = cookies.get('refreshToken');
 
-const DraftForm = ({ updateAssignmentDataCollecter, editOrderData }) => {
+const DraftForm = ({  editOrderData }) => {
   const [orderId, setOrderId] = useState(0);
   let id = 0;
   Array.isArray(editOrderData)
@@ -55,7 +55,6 @@ const DraftForm = ({ updateAssignmentDataCollecter, editOrderData }) => {
   const currentURL = router.pathname;
   console.log(currentURL);
 
-  updateAssignmentDataCollecter(formData);
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">

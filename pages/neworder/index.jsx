@@ -9,8 +9,6 @@ import {
 } from '../../utilities/apiFunctions';
 
 const Neworder = () => {
-
-
   const router = useRouter();
   return (
     <>

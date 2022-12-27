@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAssignmentData } from '../redux/features/assignmentData';
 import { useRouter } from 'next/router';
 
-const NewOrderFrom = ({ updateAssignmentDataCollecter }) => {
+const NewOrderFrom = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -18,7 +18,6 @@ const NewOrderFrom = ({ updateAssignmentDataCollecter }) => {
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
   };
-  updateAssignmentDataCollecter(formData);
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">

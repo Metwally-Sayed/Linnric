@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import AssignmentTopic from './NewOrderInputs/AssignmentTopic';
 import SubjectInput from './NewOrderInputs/SubjectInput';
 import StyleInput from './NewOrderInputs/StyleInput';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { postingOrderHandler } from '../utilities/apiFunctions';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { editingOrderHandler } from '../utilities/apiFunctions';
+import { getOrderPrice } from '../utilities/apiFunctions';
+
 const cookies = new Cookies();
 const token = cookies.get('refreshToken');
 
-const DraftForm = ({  editOrderData }) => {
-  const [orderId, setOrderId] = useState(0);
+const DraftForm = ({ editOrderData }) => {
+  const dispatch = useDispatch();
+
   let id = 0;
   Array.isArray(editOrderData)
     ? editOrderData.map((order) => {
@@ -27,10 +30,14 @@ const DraftForm = ({  editOrderData }) => {
     // console.log(formData);
   };
   const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
-  console.log(endpoint);
 
   const AllFormData = { ...firstFormdata, ...formData };
-  console.log(AllFormData);
+
+  const orderPrice = {
+    service: AllFormData.assignment_details,
+    education: AllFormData.assignmentEducationLevel,
+    topic: AllFormData.assigment_topic,
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -39,12 +46,23 @@ const DraftForm = ({  editOrderData }) => {
       token,
       'https://backend420.linnric.com/api/v1/create_order',
     );
+
+    getOrderPrice(
+      orderPrice,
+      token,
+      'https://backend420.linnric.com/api/v1/estimate_order_price?service=Writing&education=School&topic=Business Plan',
+    );
     router.push('/customer/payment');
   };
 
   const editHandler = (e) => {
     e.preventDefault();
     editingOrderHandler(formData, token, endpoint);
+    getOrderPrice(
+      orderPrice,
+      token,
+      'https://backend420.linnric.com/api/v1/estimate_order_price?service=Writing&education=School&topic=Business Plan',
+    );
   };
 
   const changeHandler = (event) => {
@@ -53,7 +71,6 @@ const DraftForm = ({  editOrderData }) => {
   };
 
   const currentURL = router.pathname;
-  console.log(currentURL);
 
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">

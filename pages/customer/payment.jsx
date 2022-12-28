@@ -29,8 +29,8 @@ const Payment = () => {
         className=" flex justify-self-center h-full"
         onSubmit={handleSubmit(submitForm)}
       >
-        <div className="w-[35%] mx-auto my-auto mt-[290px] bg-[#273142] rounded-lg">
-          <div className="m-9 grid grid-cols-4 gap-y-6 gap-x-4">
+        <div className="lg:w-[35%] sm:w-[50%] w-[80%] mx-auto my-auto mt-[290px] bg-[#273142] rounded-lg">
+          <div className="lg:m-9 m-5 lg:grid lg:grid-cols-4 lg:gap-y-6 lg:gap-x-4 sm:m-4 sm:grid sm:grid-cols-4 sm:gap-y-10 sm:gap-x-2  ">
             <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100 ">
               Payment
             </h2>
@@ -119,9 +119,17 @@ const Payment = () => {
                 <p className="text-red-400 text-xs">{errors.cvc?.message}</p>
               </div>
             </div>
-            <button className="bg-[#286bb8] h-10 rounded-md text-md font-bold">
+            <button className="  md:col-span-2 col-span-2 p-2 mt-2 bg-[#286bb8] h-10 rounded-md text-md font-bold">
               Pay
             </button>
+            <div className=" md:col-span-2 col-span-2 m-auto flex">
+              <p className="block text-md font-medium text-gray-700 dark:text-gray-100">
+                Total Price :
+              </p>
+              <p className="ml-1  text-gray-700 dark:text-gray-100">
+                {`$${window.localStorage.getItem('orderPrice')} `}
+              </p>
+            </div>
           </div>
         </div>
       </form>

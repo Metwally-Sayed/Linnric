@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import jwt_decode from 'jwt-decode';
+import { getOrderPriceReducer } from '../utilities/apiFunctions';
 
 const cookies = new Cookies();
 
@@ -185,7 +186,21 @@ export const editingOrderHandler = async (Formdata, tokenStr, endpoint) => {
         headers: { Authorization: `Bearer ${tokenStr}` },
       })
       .then((res) => console.log(res));
-      
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOrderPrice = async (Formdata, tokenStr, endpoint) => {
+  try {
+    const sendData = await axios
+      .post(endpoint, Formdata, {
+        headers: { Authorization: `Bearer ${tokenStr}` },
+      })
+      .then((res) => {
+        const orderPrice = res.data.data;
+        window.localStorage.setItem('orderPrice', orderPrice);
+      });
   } catch (error) {
     console.log(error);
   }

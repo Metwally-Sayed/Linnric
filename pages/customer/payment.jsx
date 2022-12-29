@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -15,6 +15,12 @@ const Payment = () => {
   const submitForm = (values) => {
     console.log(values);
   };
+
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    setPrice(window.localStorage.getItem('orderPrice'));
+  }, []);
 
   const {
     register,
@@ -127,7 +133,7 @@ const Payment = () => {
                 Total Price :
               </p>
               <p className="ml-1  text-gray-700 dark:text-gray-100">
-                {`$${window.localStorage.getItem('orderPrice')} `}
+                {`$${price} `}
               </p>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EmptyOredersList from '../../../components/EmptyOredersList';
-import Layout from '../../../components/Layout';
+import CustomerLayout from '../../../components/CustomerLayout';
 import MyOrderLayout from '../../../components/MyOrderLayout';
 import { getUserOrders } from '../../../utilities/apiFunctions';
 import Cookies from 'universal-cookie';
@@ -15,7 +15,6 @@ const Active = () => {
 
   const data = useSelector((state) => state.orderData);
   console.log(data);
-
 
   // const getAll = async () => {
   //   const userOrder = await getUserOrders(
@@ -58,11 +57,11 @@ const Active = () => {
 
   const activeOrder = [];
   return (
-    <Layout>
+    <CustomerLayout>
       <MyOrderLayout>
         <div>{renderCondition}</div>
       </MyOrderLayout>
-    </Layout>
+    </CustomerLayout>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from './Layout';
 import NewOrderBtn from './NewOrderBtn';
 import Sort from './Sort';
 import EmptyOredersList from './EmptyOredersList';

@@ -2,7 +2,7 @@ import React from 'react';
 import CustomerLayout from './CustomerLayout';
 import { Children } from 'react';
 
-const Layout = ({ children }) => {
+const CustomerLayoutWrapper = ({ children }) => {
   return (
     <div>
       <CustomerLayout>{children}</CustomerLayout>
@@ -10,4 +10,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default CustomerLayoutWrapper;

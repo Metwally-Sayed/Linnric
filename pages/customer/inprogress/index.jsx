@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../../../components/Layout';
+import CustomerLayout from '../../../components/CustomerLayout';
 import MyOrderLayout from '../../../components/MyOrderLayout';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -32,7 +32,6 @@ const Draft = () => {
     getUserInprogressOrders();
   }, []);
 
-
   let renderCondition = '';
 
   if (data.length === 0) {
@@ -41,11 +40,11 @@ const Draft = () => {
     renderCondition = <OrderCard data={data} />;
   }
   return (
-    <Layout>
+    <CustomerLayout>
       <MyOrderLayout>
         <div>{renderCondition}</div>
       </MyOrderLayout>
-    </Layout>
+    </CustomerLayout>
   );
 };
 

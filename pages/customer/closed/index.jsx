@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../../../components/Layout';
+import CustomerLayout from '../../../components/CustomerLayout';
 import MyOrderLayout from '../../../components/MyOrderLayout';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -43,11 +43,11 @@ const Closed = () => {
 
   return (
     <div>
-      <Layout>
+      <CustomerLayout>
         <MyOrderLayout>
           <div>{renderCondition}</div>
         </MyOrderLayout>
-      </Layout>
+      </CustomerLayout>
     </div>
   );
 };

@@ -16,7 +16,7 @@ import userImage from '../assessed/blank-profile-picture-973460.png';
 const navigation = [
   {
     name: 'My Orders',
-    href: '/writer/myorder',
+    href: '/writer/myorders/applied',
     icon: HomeIcon,
     current: true,
   },
@@ -84,6 +84,8 @@ const CustomerLayout = ({ children }) => {
   };
 
   const router = useRouter();
+
+  const curentURL = router.asPath;
 
   const signOut = () => {
     userLogOut();
@@ -153,9 +155,9 @@ const CustomerLayout = ({ children }) => {
                     {navigation.map((item) => (
                       <Link
                         className={classNames(
-                          item.current
+                          curentURL === item.href
                             ? 'bg-gray-100 text-gray-900 dark:bg-[#1f2735] dark:text-white'
-                            : 'text-gray-600 hover:bg-gray-50 dark:hover:text-white hover:text-gray-900',
+                            : 'text-gray-600 hover:bg-gray-50 dark:hover:bg-[#1f2735] dark:hover:text-white hover:text-gray-900',
                           'group flex items-center px-2 py-2 text-base font-medium rounded-md',
                         )}
                         href={item.href}
@@ -196,9 +198,9 @@ const CustomerLayout = ({ children }) => {
               {navigation.map((item) => (
                 <Link
                   className={classNames(
-                    item.current
+                    curentURL === item.href
                       ? 'bg-gray-100 text-gray-900 dark:bg-[#1f2735] dark:text-white'
-                      : 'text-gray-600 hover:bg-gray-50 dark:hover:text-white hover:text-gray-900',
+                      : 'text-gray-600 hover:bg-gray-50 dark:hover:bg-[#1f2735] dark:hover:text-white hover:text-gray-900',
                     'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                   )}
                   href={item.href}

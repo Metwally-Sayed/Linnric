@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { userLogIn } from '../utilities/apiFunctions';
 import { useForm } from 'react-hook-form';
+import { writerLogIn } from '../utilities/apiFunctions';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = Yup.object({
@@ -15,8 +16,19 @@ const LoginForm = () => {
   const router = useRouter();
 
   const submitForm = (values) => {
-    console.log(values);
-    userLogIn('https://backend420.linnric.com/api/v1/login/', values, router);
+    router.asPath === '/workersslogin'
+      ? (writerLogIn(
+          'https://backend420.linnric.com/api/v1/login/',
+          values,
+          router,
+        ),
+        console.log('done writer'))
+      : (userLogIn(
+          'https://backend420.linnric.com/api/v1/login/',
+          values,
+          router,
+        ),
+        console.log('done writer'));
   };
 
   const {
@@ -29,7 +41,7 @@ const LoginForm = () => {
 
   return (
     <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 dark:bg-[#273142] ">
-      <form onSubmit={handleSubmit(submitForm)} className="space-y-6">
+      <form className="space-y-6">
         <div>
           <label
             htmlFor="email"
@@ -75,13 +87,36 @@ const LoginForm = () => {
             </Link>
           </div>
         </div>
+
         <div>
-          <button
-            type="submit"
-            className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-[#286bb8] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#358ff5] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
-          >
-            Login
-          </button>
+          {router.asPath === '/workersslogin' ? (
+            <button
+              onClick={handleSubmit(submitForm)}
+              type="button"
+              className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-[#286bb8] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#358ff5] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
+            >
+              Login
+            </button>
+          ) : (
+            <div>
+              <button
+                onClick={handleSubmit(submitForm)}
+                type="button"
+                className="flex w-full mt-10 justify-center rounded-md border border-transparent bg-[#286bb8] py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-[#358ff5] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
+              >
+                Login
+              </button>
+              <p>
+                If you are writer please click
+                <Link
+                  href={'/workersslogin'}
+                  className="text-sm text-[#286bb8] hover:text-[#2c76ca] pt-4 pl-1"
+                >
+                  here
+                </Link>
+              </p>
+            </div>
+          )}
         </div>
       </form>
     </div>

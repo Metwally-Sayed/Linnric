@@ -10,7 +10,7 @@ import { editingOrderHandler } from '../utilities/apiFunctions';
 import { getOrderPrice } from '../utilities/apiFunctions';
 
 const cookies = new Cookies();
-const token = cookies.get('refreshToken');
+const token = cookies.get('userrefreshToken');
 
 const DraftForm = ({ editOrderData }) => {
   const dispatch = useDispatch();

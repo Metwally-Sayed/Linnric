@@ -26,7 +26,7 @@ const Active = () => {
   // };
 
   const getUserOrders = async () => {
-    const token = cookies.get('refreshToken');
+    const token = cookies.get('userrefreshToken');
     try {
       const getData = await axios.get(
         'https://backend420.linnric.com/api/v1/get_all_client_orders',
@@ -45,7 +45,6 @@ const Active = () => {
   useEffect(() => {
     getUserOrders();
   }, []);
-  console.log(data);
 
   let renderCondition = '';
 

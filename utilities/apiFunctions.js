@@ -24,42 +24,6 @@ export const userSignup = async (endpoint, userData, router) => {
 export const userLogIn = async (endpoint, userData, router) => {
   console.log(userData);
   try {
-    // const newUser = await axios
-    //   .post(endpoint, userData, {
-    //     headers: {
-    //       withCredentials: true,
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data.Accesstoken && res.data.Refreshtoken) {
-    //       const accessToken = res.data.Accesstoken;
-    //       const refreshToken = res.data.Refreshtoken;
-    //       if (!allCockies.hasOwnProperty('accessToken')) {
-    //         cookies.set('accessToken', accessToken);
-    //       }
-    //       if (!allCockies.hasOwnProperty('refreshToken')) {
-    //         cookies.set('refreshToken', refreshToken);
-    //       }
-    //       router.push('/customer/active');
-    //     } else {
-    //       alert(res.data);
-    //     }
-    //   });
-
-    // await fetch(endpoint, {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: userData,
-    // });
-    // response.json().then((data) => {
-    //   console.log(data);
-    // });
-
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -78,24 +42,31 @@ export const userLogIn = async (endpoint, userData, router) => {
     fetch(endpoint, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        const username = result.user.Username;
-        window.localStorage.setItem('username', username);
-
-        if (result.Accesstoken && result.Refreshtoken) {
-          const accessToken = result.Accesstoken;
-          const refreshToken = result.Refreshtoken;
-          if (!allCockies.hasOwnProperty('accessToken')) {
-            cookies.set('accessToken', accessToken);
-            window.localStorage.setItem('username', username);
-          }
-          if (!allCockies.hasOwnProperty('refreshToken')) {
-            cookies.set('refreshToken', refreshToken);
-            window.localStorage.setItem('username', username);
-          }
-          router.push('/customer/active');
+        if (result.user.IsWriter === false) {
+          cookies.remove('writeraccessToken', { path: '/' });
+          cookies.remove('writerrefreshToken', { path: '/' });
+          const username = result.user.Username;
           window.localStorage.setItem('username', username);
-        } else {
-          alert(result);
+          if (result.Accesstoken && result.Refreshtoken) {
+            const accessToken = result.Accesstoken;
+            const refreshToken = result.Refreshtoken;
+            if (!allCockies.hasOwnProperty('useraccessToken')) {
+              cookies.set('useraccessToken', accessToken);
+              window.localStorage.setItem('username', username);
+            }
+            if (!allCockies.hasOwnProperty('userrefreshToken')) {
+              cookies.set('userrefreshToken', refreshToken);
+              window.localStorage.setItem('username', username);
+            }
+            router.push('/customer/active');
+            window.localStorage.setItem('username', username);
+          } else {
+            alert(result);
+          }
+        } else if (result.user.IsWriter === true) {
+          cookies.remove('useraccessToken', { path: '/' });
+          cookies.remove('userrefreshToken', { path: '/' });
+          router.push('/writerlogin');
         }
 
         console.log(result);
@@ -107,29 +78,75 @@ export const userLogIn = async (endpoint, userData, router) => {
   }
 };
 
-// fuction userLogIn with token
-// export const userLogInWithToken = async (endpoint, token, router) => {
-//   const decoded = jwt_decode(token);
-//   console.log(decoded);
+export const writerLogIn = async (endpoint, userData, router) => {
+  console.log(userData);
+  try {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
 
-//   if (decoded.exp < Date.now() / 1000) {
-//     cookies.remove('accessToken');
-//   }
+    const raw = JSON.stringify({
+      email: userData.email,
+      password: userData.password,
+    });
 
-//   try {
-//     const res = await axios.post(endpoint, {
-//       headers: { token },
-//     });
-//     router.push('/');
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch(endpoint, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.user.IsWriter === false) {
+          if (result.Accesstoken && result.Refreshtoken) {
+            cookies.remove('writeraccessToken', { path: '/' });
+            cookies.remove('writerrefreshToken', { path: '/' });
+            router.push('/login');
+          }
+        } else if (result.user.IsWriter === true) {
+          cookies.remove('useraccessToken', { path: '/' });
+          cookies.remove('userrefreshToken', { path: '/' });
+          const writerrname = result.user.Username;
+          window.localStorage.setItem('writerrname', writerrname);
+          if (result.Accesstoken && result.Refreshtoken) {
+            const accessToken = result.Accesstoken;
+            const refreshToken = result.Refreshtoken;
+            if (!allCockies.hasOwnProperty('writeraccessToken')) {
+              cookies.set('writeraccessToken', accessToken);
+              window.localStorage.setItem('writerrname', writerrname);
+            } else if (!allCockies.hasOwnProperty('writerrefreshToken')) {
+              cookies.set('writerrefreshToken', refreshToken);
+              window.localStorage.setItem('writerrname', writerrname);
+            } else if (
+              allCockies.hasOwnProperty('writerrefreshToken') &&
+              allCockies.hasOwnProperty('writeraccessToken')
+            ) {
+              return;
+            }
+            router.push('/writer/availableorders');
+            window.localStorage.setItem('writerrname', writerrname);
+          } else {
+            alert(result);
+          }
+        }
+
+        console.log(result);
+      })
+
+      .catch((error) => console.log('error', error));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //fuction userLogOut
 export const userLogOut = () => {
-  cookies.remove('accessToken', { path: '/' });
-  cookies.remove('refreshToken', { path: '/' });
+  cookies.remove('userrefreshToken', { path: '/' });
+  cookies.remove('useraccessToken', { path: '/' });
+  cookies.remove('writerrefreshToken', { path: '/' });
+  cookies.remove('writeraccessToken', { path: '/' });
 };
 
 // input fields data
@@ -209,6 +226,20 @@ export const getOrderPrice = async (Formdata, tokenStr, endpoint) => {
 export const getUserOrders = async (endpoint) => {
   const token = cookies.get('refreshToken');
   console.log(token);
+  try {
+    const getData = await axios.get(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(getData.data.data);
+    return getData.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getWriterrOrders = async (endpoint, token) => {
   try {
     const getData = await axios.get(endpoint, {
       headers: {

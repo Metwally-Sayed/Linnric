@@ -78,7 +78,6 @@ const CustomerLayout = ({ children }) => {
   };
 
   const router = useRouter();
-
   const signOut = () => {
     userLogOut();
     router.push('/login');

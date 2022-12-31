@@ -55,7 +55,7 @@ const Availableorder = () => {
                     </p>
                   </div>
                   <div>
-                    <button className="bg-blue-500 hover:bg-blue-500 px-9 py-1 rounded-lg text-sm ">
+                    <button className="bg-blue-600 hover:bg-blue-500 px-9 py-1 rounded-lg text-sm ">
                       start
                     </button>
                   </div>

@@ -5,7 +5,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../assessed/WhatsApp-Image-logo.jpg';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion"
 import { AiFillSafetyCertificate } from 'react-icons/ai';
 import { RiFolder2Fill } from 'react-icons/ri';
 import { BiSupport } from 'react-icons/bi';

@@ -211,33 +211,26 @@ export default function Home() {
             <div className="mx-auto w-full max-w-7xl pt-16 pb-20 text-center dark:bg-[#1F2735] lg:py-48 lg:text-left   ">
               <div className="px-4 sm:px-8 lg:w-1/2 xl:pr-16">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                  <motion.span
-                    animate={{ x: 0, opacity: 1 }}
-                    initial={{ x: -600, opacity: 0.2 }}
-                    transition={{ duration: 0.7 }}
+                  <span
                     className="block xl:inline dark:text-white"
                   >
                     Data to enrich your
-                  </motion.span>{' '}
-                  <motion.span
-                    animate={{ x: 0, opacity: 1 }}
-                    initial={{ x: -600, opacity: 0.2 }}
-                    transition={{ duration: 0.7 }}
+                  </span>{' '}
+                  <span
+
                     className="block text-blue-600 xl:inline"
                   >
                     online business
-                  </motion.span>
+                  </span>
                 </h1>
-                <motion.p
-                  animate={{ x: 0, opacity: 1 }}
-                  initial={{ opacity: 0.2 }}
-                  transition={{ duration: 2 }}
+                <p
+
                   className="mx-auto mt-3 max-w-md text-lg dark:text-gray-300 sm:text-xl md:mt-5 md:max-w-3xl"
                 >
                   Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
                   qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
                   occaecat fugiat aliqua.
-                </motion.p>
+                </p>
                 <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <Link
@@ -250,10 +243,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <motion.div
-              animate={{ x: 0, opacity: 1 }}
-              initial={{ x: 600, opacity: 0.2 }}
-              transition={{ duration: 0.7 }}
+            <div
               className="relative h-64 w-full sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2"
             >
               <img
@@ -261,7 +251,7 @@ export default function Home() {
                 src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
                 alt=""
               />
-            </motion.div>
+            </div>
           </div>
         </main>
         <div className="h-screen mt-[180px] ">

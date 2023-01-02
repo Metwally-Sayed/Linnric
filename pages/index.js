@@ -192,6 +192,15 @@ export default function Home() {
                 >
                   Our services{' '}
                 </Scroll.Link>
+                <Scroll.Link
+                  to="aboutus"
+                  spy={true}
+                  offset={-70}
+                  duration={500}
+                  className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900 cursor-pointer"
+                >
+                  About us{' '}
+                </Scroll.Link>
               </Popover.Group>
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                 <Link
@@ -442,6 +451,31 @@ export default function Home() {
                 </div>
               </>
             ))}
+          </div>
+          <div
+            id="aboutus"
+            className="h-screen flex flex-col justify-center items-center align-middle "
+          >
+            <motion.div
+              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <motion.h2 className="font-bold text-4xl text-center">
+                About
+                <span className="text-blue-500 pl-2">Us</span>
+              </motion.h2>
+            </motion.div>
+            <div className="mt-44 w-1/2 ">
+              <p className="dark:text-gray-500 text-lg">
+                We offer all students quality papers and online class
+                assistance. By hiring a professional writer, you could wrest
+                control of your academic life from a demanding curriculum and
+                random circumstances. Spectacular success does not arise by
+                magic; it occurs through the sequence of small and sure steps,
+                the first of which is to place an order.
+              </p>
+            </div>
           </div>
           <div id="services" className="min-h-screen mt-64">
             <motion.h2

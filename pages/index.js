@@ -9,7 +9,10 @@ import { motion } from 'framer-motion';
 import { AiFillSafetyCertificate } from 'react-icons/ai';
 import { RiFolder2Fill } from 'react-icons/ri';
 import { BiSupport } from 'react-icons/bi';
-import { FaKeyboard } from 'react-icons/fa';
+import { MdOutlineMonetizationOn } from 'react-icons/md';
+import Footer from '../components/footer';
+import Services from '../components/Services';
+import * as Scroll from 'react-scroll';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -17,28 +20,28 @@ function classNames(...classes) {
 
 const features = [
   {
-    name: 'Unique essay',
+    name: 'ZERO PERCENT PLAGIARISM GUARANTEE',
     description:
-      'When you hire someone to write a paper, you want the completed text to meet the originality demands of your institution. With our essay writing service, you can rest assured that your papers are 100% unique and request detailed originality reports free of charge.',
+      'Plagiarism is a serious academic misconduct. Our writers understand and uphold academic dignity. As such, always expect 100% unique essays.',
     icon: RiFolder2Fill,
   },
   {
-    name: 'Around-The-Clock Customer Support',
+    name: 'AROUND-THE-CLOCK CUSTOMER SUPPORT',
     description:
       'Feel free to contact us at any time to say “write my essays for me” or ask your questions. The friendly customer support team of our essay service is here 24/7 to give you a helping hand.',
     icon: BiSupport,
   },
   {
-    name: 'Guaranteed Anonymity',
+    name: 'ANONIMITY QUARANTEED',
     description:
-      'When you hire a paper writer and pay for essay at linnric, your data remains confidential, so no one will ever find out that you’ve been here.',
+      'We assure all our clients 100% protection from third- party. Your identity is always SEALED.',
     icon: AiFillSafetyCertificate,
   },
   {
-    name: 'Limitless Amendments',
+    name: 'AFFORDABLE PRICES',
     description:
-      'After completing the order, our essay writers will be happy to revise it as many times as needed to make it flawless. Thus, when you pay for essay writing with us, you can expect excellent quality.',
-    icon: FaKeyboard,
+      'We are the top agency to write your essay not only because we have talented English- speaking writers, but also because our prices are fair and affordable.',
+    icon: MdOutlineMonetizationOn,
   },
 ];
 
@@ -88,37 +91,6 @@ const writer = [
 ];
 
 export default function Home() {
-  const tiers = [
-    {
-      id: 'tier-hobby',
-      name: 'Hobby',
-      href: '#',
-      priceMonthly: 49,
-      description:
-        'Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.',
-      features: [
-        'Pariatur quod similique',
-        'Sapiente libero doloribus modi nostrum',
-        'Vel ipsa esse repudiandae excepturi',
-        'Itaque cupiditate adipisci quibusdam',
-      ],
-    },
-    {
-      id: 'tier-team',
-      name: 'Team',
-      href: '#',
-      priceMonthly: 79,
-      description:
-        'Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.',
-      features: [
-        'Pariatur quod similique',
-        'Sapiente libero doloribus modi nostrum',
-        'Vel ipsa esse repudiandae excepturi',
-        'Itaque cupiditate adipisci quibusdam',
-        'Sapiente libero doloribus modi nostrum',
-      ],
-    },
-  ];
   return (
     <>
       <Head>
@@ -155,18 +127,34 @@ export default function Home() {
                 as="nav"
                 className="hidden dark:bg-[#1F2735] space-x-10 md:flex"
               >
-                <a
+                <Scroll.Link
+                  to="whyus"
+                  spy={true}
+                  offset={-70}
+                  duration={500}
+                  className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900 cursor-pointer"
+                >
+                  Why us
+                </Scroll.Link>
+                <Scroll.Link
+                  to="writer"
+                  spy={true}
+                  offset={-70}
+                  duration={500}
                   href="#"
                   className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900"
                 >
-                  Pricing
-                </a>
-                <a
-                  href="#"
-                  className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900"
+                  Writers{' '}
+                </Scroll.Link>
+                <Scroll.Link
+                  to="services"
+                  spy={true}
+                  offset={-70}
+                  duration={500}
+                  className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900 cursor-pointer"
                 >
-                  Docs
-                </a>
+                  Our services{' '}
+                </Scroll.Link>
               </Popover.Group>
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
                 <Link
@@ -293,24 +281,17 @@ export default function Home() {
               <div className="px-4 sm:px-8 lg:w-1/2 xl:pr-16">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
                   <span className="block xl:inline dark:text-white">
-                    Data to enrich your
+                    YOU GOT AN ASSIGNMENT DUE,{' '}
+                    <span className="text-blue-500 pl-2">WE GOT YOU.</span>
                   </span>{' '}
-                  <span className="block text-blue-600 xl:inline">
-                    online business
-                  </span>
                 </h1>
-                <p className="mx-auto mt-3 max-w-md text-lg dark:text-gray-300 sm:text-xl md:mt-5 md:max-w-3xl">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
-                </p>
                 <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <Link
                       href="/customer/active"
                       className="flex w-full items-center justify-center rounded-md border border-transparent animate-pulse bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 md:py-4 md:px-10 md:text-lg"
                     >
-                      Get started
+                      Place Your Order Now!{' '}
                     </Link>
                   </div>
                 </div>
@@ -330,20 +311,22 @@ export default function Home() {
             </motion.div>
           </div>
         </main>
+
         <motion.div
           // animate={{ x: 0, opacity: 1 }}
           className="h-screen mt-[180px] "
         >
           <motion.div
+            id="whyus"
             whileInView={{ opacity: 1 }}
             initial={{ opacity: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex justify-center flex-col items-center"
           >
             <h1 className="font-bold text-center dark:text-white text-black text-4xl">
-              The Benefits of Using Our{' '}
-              <span className="text-blue-500 dark:hover:text-white hover:text-black   transform transition duration-500 ">
-                Essays Writing Service
+              Why
+              <span className="text-blue-500 dark:hover:text-white hover:text-black pl-1 transform transition duration-500 ">
+                Us{' '}
               </span>
             </h1>
           </motion.div>
@@ -374,7 +357,10 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-        <div className="flex flex-col min-h-screen w-[85%] mt-[570px] justify-center mx-auto md:mt-0 items-center ">
+        <div
+          id="writer"
+          className="flex flex-col min-h-screen w-[85%] mt-[570px] justify-center mx-auto md:mt-0 items-center "
+        >
           <motion.div
             whileInView={{ opacity: 1 }}
             initial={{ opacity: 0 }}
@@ -420,7 +406,19 @@ export default function Home() {
               </>
             ))}
           </div>
+          <div id="services" className="min-h-screen mt-64">
+            <motion.h2
+              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="text-3xl font-bold text-center tracking-tight sm:text-4xl"
+            >
+              Types Of Essays We Write{' '}
+            </motion.h2>
+            <Services />
+          </div>
         </div>
+        <Footer />
       </div>
     </>
   );

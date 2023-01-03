@@ -89,7 +89,7 @@ const CustomerLayout = ({ children }) => {
 
   const signOut = () => {
     userLogOut();
-    router.push('/login');
+    window.location.reload(false);
   };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

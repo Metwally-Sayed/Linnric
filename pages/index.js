@@ -405,7 +405,7 @@ export default function Home() {
         </motion.div>
         <div
           id="writer"
-          className="flex flex-col min-h-screen w-[85%] mt-[570px] justify-center mx-auto md:mt-0 items-center "
+          className="flex flex-col min-h-screen w-[85%] mt-[820px] justify-center mx-auto md:mt-0 items-center "
         >
           <motion.div
             whileInView={{ opacity: 1 }}
@@ -452,42 +452,42 @@ export default function Home() {
               </>
             ))}
           </div>
-          <div
-            id="aboutus"
-            className="h-screen flex flex-col justify-center items-center align-middle "
+        </div>
+        <div
+          id="aboutus"
+          className="min-h-screen flex flex-col justify-center items-center align-middle mt-[150px] md:mt-0 "
+        >
+          <motion.div
+            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
-            <motion.div
-              whileInView={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <motion.h2 className="font-bold text-4xl text-center">
-                About
-                <span className="text-blue-500 pl-2">Us</span>
-              </motion.h2>
-            </motion.div>
-            <div className="mt-44 w-1/2 ">
-              <p className="dark:text-gray-500 text-lg">
-                We offer all students quality papers and online class
-                assistance. By hiring a professional writer, you could wrest
-                control of your academic life from a demanding curriculum and
-                random circumstances. Spectacular success does not arise by
-                magic; it occurs through the sequence of small and sure steps,
-                the first of which is to place an order.
-              </p>
-            </div>
-          </div>
-          <div id="services" className="min-h-screen mt-64">
-            <motion.h2
-              whileInView={{ opacity: 1 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-3xl font-bold text-center tracking-tight sm:text-4xl"
-            >
-              Types Of Essays We Write{' '}
+            <motion.h2 className="font-bold text-4xl text-center">
+              About
+              <span className="text-blue-500 pl-2">Us</span>
             </motion.h2>
-            <Services />
+          </motion.div>
+          <div className="md:mt-44 mt-24 md:w-1/2 w-[70%] ">
+            <p className="dark:text-gray-500 md:text-lg">
+              We offer all students quality papers and online class assistance.
+              By hiring a professional writer, you could wrest control of your
+              academic life from a demanding curriculum and random
+              circumstances. Spectacular success does not arise by magic; it
+              occurs through the sequence of small and sure steps, the first of
+              which is to place an order.
+            </p>
           </div>
+        </div>
+        <div id="services" className="">
+          <motion.h2
+            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="text-3xl font-bold text-center tracking-tight sm:text-4xl"
+          >
+            Types Of Essays We Write{' '}
+          </motion.h2>
+          <Services />
         </div>
         <footer className="">
           <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">

@@ -48,20 +48,20 @@ export default function Services() {
         <div className="space-y-12">
           <ul
             role="list"
-            className="space-y-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 lg:gap-y-12 lg:space-y-0"
+            className="space-y-64 md:space-y-12 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 lg:gap-y-12 lg:space-y-0"
           >
             {people.map((person) => (
               <li key={person.name}>
-                <div className="space-y-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:space-y-0 lg:gap-8">
-                  <div className="aspect-w-3 aspect-h-2 h-0 sm:aspect-w-3 sm:aspect-h-4">
+                <div className="space-y-4 sm:grid sm:grid-cols-3 sm:gap-6 sm:space-y-0 lg:gap-8 flex flex-col ">
+                  <div className="aspect-w-3 mb-10 md:mb-0 aspect-h-2  md:h-0 sm:aspect-w-3 sm:aspect-h-4">
                     <img
                       className="rounded-lg object-cover shadow-lg"
                       src={person.imageUrl}
                       alt=""
                     />
                   </div>
-                  <div className="sm:col-span-2">
-                    <div className="space-y-4">
+                  <div className="sm:col-span-2 ">
+                    <div className="md:space-y-4 space-y-4 ">
                       <div className="space-y-1 text-lg font-medium leading-6">
                         <h3>{person.name}</h3>
                         <p className="text-indigo-600">{person.role}</p>

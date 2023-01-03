@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { editingOrderHandler } from '../utilities/apiFunctions';
 import { getOrderPrice } from '../utilities/apiFunctions';
+import axios from 'axios';
 
 const cookies = new Cookies();
 const token = cookies.get('userrefreshToken');
@@ -66,8 +67,22 @@ const DraftForm = ({ editOrderData }) => {
   };
 
   const changeHandler = (event) => {
-    // assignmentDataCollecter('file', event.target.files[0]);
-    assignmentDataCollecter('file', event.target.value);
+    // assignmentDataCollecter('file', event.target.value);
+    // const fileData = { file: event.target.files[0] };
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    formData.append('upload_preset', 'dmaf6vws');
+    try {
+      axios
+        .post(
+          'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
+          formData,
+        )
+        .then((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
+    // assignmentDataCollecter('file', event.target.value);
   };
 
   const currentURL = router.pathname;

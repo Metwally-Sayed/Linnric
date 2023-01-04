@@ -15,7 +15,6 @@ const token = cookies.get('userrefreshToken');
 
 const DraftForm = ({ editOrderData }) => {
   const dispatch = useDispatch();
-
   let id = 0;
   Array.isArray(editOrderData)
     ? editOrderData.map((order) => {
@@ -26,6 +25,8 @@ const DraftForm = ({ editOrderData }) => {
   const router = useRouter();
   const firstFormdata = useSelector((state) => state.assignmentData);
   const [formData, setFormData] = useState({});
+  const [docURL, setDocURL] = useState('');
+  const [files, setFiles] = useState([]);
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
     // console.log(formData);
@@ -67,23 +68,33 @@ const DraftForm = ({ editOrderData }) => {
   };
 
   const changeHandler = (event) => {
+    console.log('rrrrrrr');
     // assignmentDataCollecter('file', event.target.value);
     // const fileData = { file: event.target.files[0] };
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
     formData.append('upload_preset', 'dmaf6vws');
     try {
-      axios
-        .post(
+      const sendData = async () => {
+        const res = await axios.post(
           'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
           formData,
-        )
-        .then((res) => console.log(res));
+        );
+        const { url } = await res.data;
+        setFiles((prev) => {
+          return [...prev, { field_id: url }];
+        });
+        assignmentDataCollecter('File', url);
+        return res;
+      };
+      sendData();
     } catch (error) {
       console.log(error);
     }
     // assignmentDataCollecter('file', event.target.value);
   };
+
+  console.log(AllFormData);
 
   const currentURL = router.pathname;
 

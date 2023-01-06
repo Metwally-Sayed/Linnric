@@ -8,43 +8,17 @@ import axios from 'axios';
 import OrderCard from '../../../components/OrderCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderData } from '../../../redux/features/orderData';
+import { NextRequest, NextResponse } from 'next/server';
+
 const cookies = new Cookies();
 
-const Active = () => {
+const Active = ({ orderData }) => {
+  console.log(orderData);
   const dispatch = useDispatch();
+  dispatch(getOrderData(orderData));
 
   const data = useSelector((state) => state.orderData);
-  console.log(data);
 
-  // const getAll = async () => {
-  //   const userOrder = await getUserOrders(
-  //     'https://backend420.linnric.com/api/v1/get_all_client_orders',
-  //   );
-  //   const ordersInfo = await userOrder;
-  //   setData(ordersInfo);
-  //   console.log(data);
-  // };
-
-  const getUserOrders = async () => {
-    const token = cookies.get('userrefreshToken');
-    try {
-      const getData = await axios.get(
-        'https://backend420.linnric.com/api/v1/get_all_client_orders',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      dispatch(getOrderData(getData.data.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserOrders();
-  }, []);
 
   let renderCondition = '';
 
@@ -54,7 +28,6 @@ const Active = () => {
     renderCondition = <OrderCard data={data} />;
   }
 
-  const activeOrder = [];
   return (
     <CustomerLayout>
       <MyOrderLayout>
@@ -66,12 +39,22 @@ const Active = () => {
 
 export default Active;
 
-// export const getStaticProps = async () => {
-//   const res = await getUserOrders(
-//     'https://backend420.linnric.com/api/v1/get_all_client_orders',
-//   );
-//   console.log(res);
-//   return {
-//     props: { orders:JSON.parse(JSON.stringify(res))}
-//   };
-// };
+export const getServerSideProps = async (context) => {
+  const token = await context.req.cookies.userrefreshToken;
+  const config = {
+    method: 'get',
+    url: 'https://backend420.linnric.com/api/v1/get_all_client_orders',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Cookie: 'Cookie_1=value',
+    },
+  };
+  const getData = await axios(config);
+  const orderData = await getData.data.data;
+
+  return {
+    props: {
+      orderData,
+    },
+  };
+};

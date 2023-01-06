@@ -14,6 +14,7 @@ const cookies = new Cookies();
 const token = cookies.get('userrefreshToken');
 
 const DraftForm = ({ editOrderData }) => {
+  console.log(editOrderData);
   const dispatch = useDispatch();
   let id = 0;
   Array.isArray(editOrderData)

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getEditOrderData } from '../redux/features/editOrederData';
 
 const OrderCard = ({ data }) => {
-  console.log(data);
   const dispaych = useDispatch();
 
   const inProgress = (

@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import PaymentBtn from '../../../components/PaymentBtn';
 
-const schema = Yup.object({
-  cardNumber: Yup.string().required(),
-  password: Yup.string().min(6).required(),
-  nameOnCard: Yup.string().required(),
-  expirationDate: Yup.string().required(),
-  cvc: Yup.string().required(),
-});
+// const schema = Yup.object({
+//   cardNumber: Yup.string().required(),
+//   password: Yup.string().min(6).required(),
+//   nameOnCard: Yup.string().required(),
+//   expirationDate: Yup.string().required(),
+//   cvc: Yup.string().required(),
+// });
 
 const Payment = () => {
-  const submitForm = (values) => {
-    console.log(values);
-  };
+  // const submitForm = (values) => {
+  //   console.log(values);
+  // };
 
   const [price, setPrice] = useState(0);
 
@@ -22,16 +23,16 @@ const Payment = () => {
     setPrice(window.localStorage.getItem('orderPrice'));
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: yupResolver(schema),
+  // });
   return (
     <>
-      <form
+      {/* <form
         className=" flex justify-self-center h-full"
         onSubmit={handleSubmit(submitForm)}
       >
@@ -125,6 +126,7 @@ const Payment = () => {
                 <p className="text-red-400 text-xs">{errors.cvc?.message}</p>
               </div>
             </div>
+
             <button className="  md:col-span-2 col-span-2 p-2 mt-2 bg-[#286bb8] h-10 rounded-md text-md font-bold">
               Pay
             </button>
@@ -138,7 +140,10 @@ const Payment = () => {
             </div>
           </div>
         </div>
-      </form>
+      </form> */}
+      <div className="w-full mx-auto flex flex-col justify-center items-center ">
+        <PaymentBtn price={price} />
+      </div>
     </>
   );
 };

@@ -143,7 +143,7 @@ const Availableorder = () => {
                                 aria-hidden="true"
                               /> */}
                               <span className="ml-2 w-0 flex-1 truncate">
-                                {order.file}
+                                {order.File}
                               </span>
                             </div>
                             <div className="ml-4 flex-shrink-0">

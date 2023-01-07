@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAssignmentData } from '../redux/features/assignmentData';
 import { useRouter } from 'next/router';
+import AssignmntQuestion from './NewOrderInputs/AssignmentQuestions';
 
 const NewOrderFrom = () => {
   const dispatch = useDispatch();
@@ -51,9 +52,15 @@ const NewOrderFrom = () => {
                     />
                   </div>
                   <div className="mt-20">
-                    <AssignmentSize
-                      assignmentDataCollecter={assignmentDataCollecter}
-                    />
+                    {formData?.assigment_type?.includes('Assignment') ? (
+                      <AssignmntQuestion
+                        assignmentDataCollecter={assignmentDataCollecter}
+                      />
+                    ) : (
+                      <AssignmentSize
+                        assignmentDataCollecter={assignmentDataCollecter}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">

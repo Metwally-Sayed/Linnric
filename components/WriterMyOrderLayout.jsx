@@ -22,18 +22,8 @@ const WriterMyOrderLayout = ({ children }) => {
       current: false,
     },
     {
-      name: 'Cancelled',
-      href: '/writer/myorders/cancelled',
-      current: false,
-    },
-    {
       name: 'Dispute',
       href: '/writer/myorders/dispute',
-      current: false,
-    },
-    {
-      name: 'Chargeback',
-      href: '/writer/myorders/chargeback',
       current: false,
     },
   ]);
@@ -48,7 +38,7 @@ const WriterMyOrderLayout = ({ children }) => {
         <div className="border-b border-gray-200">
           <div className="sm:flex w-full ">
             <div className="mt-4 sm:mt-0">
-              <nav className="-mb-px flex justify-center md:space-x-8">
+              <nav className="-mb-px flex justify-start text-left md:space-x-9">
                 {tabs?.map((tab) => (
                   <Link
                     key={tab.name}
@@ -57,7 +47,7 @@ const WriterMyOrderLayout = ({ children }) => {
                       curentURL === tab.href
                         ? 'border-[#286bb8] text-[#286bb8]'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                      'whitespace-nowrap pb-4 px-1 border-b-2 md:font-medium md:text-sm text-xs  md:w-[20%] ',
+                      'whitespace-nowrap pb-4 px-1 border-b-2 md:font-medium md:text-sm text-xs md:w-[30%] text-left ',
                     )}
                   >
                     {tab.name}

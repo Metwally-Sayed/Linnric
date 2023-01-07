@@ -8,38 +8,10 @@ import EmptyOredersList from '../../../components/EmptyOredersList';
 
 const cookies = new Cookies();
 
-const Closed = () => {
-  const [data, setData] = useState([]);
-  const getUserInprogressOrders = async () => {
-    const token = cookies.get('userrefreshToken');
-    console.log(token);
-    try {
-      const getData = await axios.get(
-        'https://backend420.linnric.com/api/v1/get_client_finshed_orders',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      setData(getData.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUserInprogressOrders();
-  }, []);
-
-  console.log(data);
+const Closed = ({ orderData }) => {
   let renderCondition = '';
 
-  if (data.length === 0) {
-    renderCondition = <EmptyOredersList />;
-  } else {
-    renderCondition = <OrderCard data={data} />;
-  }
+  renderCondition = <OrderCard data={orderData} />;
 
   return (
     <div>
@@ -53,3 +25,22 @@ const Closed = () => {
 };
 
 export default Closed;
+
+export const getServerSideProps = async (context) => {
+  const token = await context.req.cookies.userrefreshToken;
+  const config = {
+    method: 'get',
+    url: 'https://backend420.linnric.com/api/v1/get_client_finshed_orders',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const getData = await axios(config);
+  const orderData = await getData.data.data;
+
+  return {
+    props: {
+      orderData,
+    },
+  };
+};

@@ -38,7 +38,7 @@ const CustomerLayout = ({ children }) => {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    setUserName(window.localStorage.getItem('username'));
+    setUserName(window.localStorage.getItem('writerrname'));
   }, []);
 
   const renderThemeChanger = () => {
@@ -238,9 +238,9 @@ const CustomerLayout = ({ children }) => {
               {renderThemeChanger()}
               <button
                 type="button"
-                className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 "
+                className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 capitalize "
               >
-                Writter name
+                {userName}
               </button>
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">

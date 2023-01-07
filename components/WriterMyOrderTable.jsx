@@ -10,10 +10,9 @@ const people = [
   // More people...
 ];
 
-export default function Example() {
+export default function WriterMyOrderTable({ orderData }) {
   const router = useRouter();
   const pageName = router.asPath.split('/')[3];
-  console.log(pageName);
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -31,65 +30,85 @@ export default function Example() {
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50 dark:bg-[#1f2735]   ">
+                <thead className="bg-gray-50 dark:bg-[#273142]   ">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-500 sm:pl-6"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-bold text-gray-500 dark:text-white"
                     >
-                      Name
+                      id
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-500"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
                     >
-                      Title
+                      Topic
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-500"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
                     >
-                      Email
+                      Subject
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-500"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
                     >
-                      Role
+                      Pg
                     </th>
                     <th
                       scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
                     >
-                      <span className="sr-only">Edit</span>
+                      Pr
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
+                    >
+                      Price
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-bold text-gray-500 dark:text-white"
+                    >
+                      Deadline
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:bg-[#273142] ">
-                  {people.map((person) => (
-                    <tr key={person.email}>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                        {person.name}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.title}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.email}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {person.role}
-                      </td>
-                      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                        <a
-                          href="#"
-                          className="text-indigo-600 hover:text-indigo-900"
-                        >
-                          Edit<span className="sr-only">, {person.name}</span>
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
+                <tbody className="divide-y divide-gray-200 dark:bg-[#273142]  ">
+                  {Array.isArray(orderData)
+                    ? orderData.map((item, idx) => (
+                        <tr key={idx}>
+                          <td
+                            onClick={() => {
+                              selectOrderHandler(item.ID);
+                            }}
+                            className="whitespace-nowrap flex justify-start py-3 pl-4 text-sm dark:text-gray-400"
+                          >
+                            <span className="mr-3 w-4">{item.ID}</span>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400 ">
+                            {item.assigment_topic}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
+                            {item.subject}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
+                            {item.pages}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
+                            {/* {person.role} */}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
+                            {/* {person.role} */}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
+                            {item.deadline}
+                          </td>
+                        </tr>
+                      ))
+                    : null}
                 </tbody>
               </table>
             </div>

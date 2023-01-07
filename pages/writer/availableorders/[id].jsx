@@ -3,43 +3,41 @@ import { useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
-const Availableorder = () => {
+const Availableorder = ({ orderData }) => {
+  console.log(orderData);
   const cookies = new Cookies();
   const router = useRouter();
   const id = router.query.id;
-  const idURL = router.asPath.split('/')[3];
   const [orderId, setOrderId] = useState([]);
-  const [orderdara, setOrderData] = useState([]);
-  console.log(
-    `https://backend420.linnric.com/api/v1/writer/detail_order/${orderId}`,
-  );
 
-  const getWriterOrder = async () => {
-    const token = cookies.get('writerrefreshToken');
+  const token = cookies.get('writerrefreshToken');
+
+
+
+  const startHandler = async () => {
     try {
-      const getData = await axios.get(
-        `https://backend420.linnric.com/api/v1/writer/detail_order/${id}`,
+      const start = await axios.get(
+        `https://backend420.linnric.com/api/v1/writer/start_order/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            // mode: cors,
+            //   'Access-Control-Allow-Origin': '*',
+            //   'Content-Type': 'application/json',
+            //   mode: 'no-cors',
           },
         },
       );
-      setOrderData(getData.data.data);
+      console.log(start);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-
-  useEffect(() => {
-    setOrderId(window.sessionStorage.getItem('writerOrderId'));
-    getWriterOrder();
-  }, []);
 
   return (
     <div className="flex justify-center items-center md:mt-20  ">
       {Array.isArray
-        ? orderdara.map((order, idx) => {
+        ? orderData.map((order, idx) => {
             return (
               <div
                 key={idx}
@@ -55,7 +53,10 @@ const Availableorder = () => {
                     </p>
                   </div>
                   <div>
-                    <button className="bg-blue-600 hover:bg-blue-500 px-9 py-1 rounded-lg text-sm ">
+                    <button
+                      onClick={startHandler}
+                      className="bg-blue-600 hover:bg-blue-500 px-9 py-2  rounded-lg text-md font-semibold "
+                    >
                       start
                     </button>
                   </div>
@@ -131,29 +132,37 @@ const Availableorder = () => {
                       <dt className="text-sm font-medium text-gray-500">
                         Attachments
                       </dt>
-                      <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300">
-                        <ul
-                          role="list"
-                          className="divide-y divide-gray-200 rounded-md border border-gray-200"
-                        >
-                          <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                            <div className="flex w-0 flex-1 items-center">
-                              {/* <PaperClipIcon
-                                className="h-5 w-5 flex-shrink-0 text-gray-400"
-                                aria-hidden="true"
-                              /> */}
-                              <span className="ml-2 w-0 flex-1 truncate">
-                                {order.File}
-                              </span>
-                            </div>
-                            <div className="ml-4 flex-shrink-0">
-                              <button className="font-medium text-blue-600 hover:text-blue-500">
-                                Download
-                              </button>
-                            </div>
-                          </li>
-                        </ul>
-                      </dd>
+                      {order.File.map((item, idx) => {
+                        return (
+                          <dd
+                            key={idx}
+                            className="mt-2 text-sm text-gray-900 dark:text-gray-300"
+                          >
+                            <ul
+                              role="list"
+                              className="divide-y divide-gray-200 rounded-md border border-gray-200"
+                            >
+                              <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                                <div className="flex w-0 flex-1 items-center">
+                                  <a
+                                    href={item.field_id}
+                                    target="_blank"
+                                    className="ml-2 w-0 flex-1 truncate"
+                                    rel="noreferrer"
+                                  >
+                                    {item.field_id}
+                                  </a>
+                                </div>
+                                <div className="ml-4 flex-shrink-0">
+                                  <button className="font-medium text-blue-600 hover:text-blue-500">
+                                    Download
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </dd>
+                        );
+                      })}
                     </div>
                   </dl>
                 </div>
@@ -166,3 +175,25 @@ const Availableorder = () => {
 };
 
 export default Availableorder;
+
+export const getServerSideProps = async (context) => {
+  const token = await context.req.cookies.writerrefreshToken;
+  console.log(token);
+  const id = context.params?.id;
+  const config = {
+    method: 'get',
+    url: `https://backend420.linnric.com/api/v1/writer/detail_order/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Cookie: 'Cookie_1=value',
+    },
+  };
+
+  const Data = await axios(config);
+  // console.log(Data);
+  const orderData = await Data.data.data;
+
+  return {
+    props: { orderData },
+  };
+};

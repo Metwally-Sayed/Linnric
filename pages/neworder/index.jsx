@@ -33,21 +33,3 @@ const Neworder = () => {
 
 export default Neworder;
 
-// export const getStaticProps = async () => {
-//   const assignmentType = await AssignmentTypeDataHandler();
-//   const assignmentServicesData = await AssignmentServicesDataHandler();
-//   const assignmentEducationLevelData =
-//     await AssignmentEducationLevelDataHandler();
-
-//   return {
-//     props: {
-//       AssignmentTypeData: JSON.parse(JSON.stringify(assignmentType)),
-//       AssignmentServicesData: JSON.parse(
-//         JSON.stringify(assignmentServicesData),
-//       ),
-//       AssignmentEducationLevelData: JSON.parse(
-//         JSON.stringify(assignmentEducationLevelData),
-//       ),
-//     },
-//   };
-// };

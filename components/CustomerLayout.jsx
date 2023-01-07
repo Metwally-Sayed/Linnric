@@ -229,7 +229,7 @@ const CustomerLayout = ({ children }) => {
               {renderThemeChanger()}
               <button
                 type="button"
-                className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 "
+                className="rounded-full bg-white dark:bg-[#273142] p-1 text-gray-400 dark:text-white hover:text-gray-500 capitalize "
               >
                 {userName}
               </button>

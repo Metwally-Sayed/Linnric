@@ -11,7 +11,6 @@ export default function WriterAvailableOrderTable({ availableOrdersData }) {
   const selectOrderHandler = (orderId) => {
     const selected = availableOrdersData.filter(
       (order) => order.ID === orderId,
-      sessionStorage.setItem('writerOrderId', orderId),
     );
 
     dispatch(getWriterOrderData(selected));

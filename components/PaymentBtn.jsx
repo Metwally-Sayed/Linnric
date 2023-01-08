@@ -7,6 +7,8 @@ import Cookies from 'universal-cookie';
 import { postingOrderHandler } from '../utilities/apiFunctions';
 
 const PaymentBtn = ({ price }) => {
+  const orderPrice = Math.round(price);
+  console.log(orderPrice);
   const cookies = new Cookies();
   const token = cookies.get('userrefreshToken');
   const [done, setDone] = useState(false);
@@ -52,7 +54,7 @@ const PaymentBtn = ({ price }) => {
               purchase_units: [
                 {
                   amount: {
-                    value: +price,
+                    value: orderPrice,
                   },
                 },
               ],

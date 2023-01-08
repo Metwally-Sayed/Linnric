@@ -23,6 +23,7 @@ const Payment = () => {
     setPrice(window.sessionStorage.getItem('orderPrice'));
   }, []);
 
+  
   // const {
   //   register,
   //   handleSubmit,

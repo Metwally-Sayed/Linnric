@@ -30,7 +30,6 @@ export const getServerSideProps = async (context) => {
   };
   const getData = await axios(config);
   const orderData = await getData.data.data;
-  console.log(orderData);
 
   return {
     props: {

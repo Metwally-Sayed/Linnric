@@ -13,12 +13,10 @@ import { NextRequest, NextResponse } from 'next/server';
 const cookies = new Cookies();
 
 const Active = ({ orderData }) => {
-  console.log(orderData);
   const dispatch = useDispatch();
   dispatch(getOrderData(orderData));
 
   const data = useSelector((state) => state.orderData);
-
 
   let renderCondition = '';
 

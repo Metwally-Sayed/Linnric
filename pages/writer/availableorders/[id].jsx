@@ -28,7 +28,6 @@ const Availableorder = ({ orderData }) => {
           },
         },
       );
-      console.log(start);
     } catch (error) {
       console.error(error);
     }
@@ -178,7 +177,6 @@ export default Availableorder;
 
 export const getServerSideProps = async (context) => {
   const token = await context.req.cookies.writerrefreshToken;
-  console.log(token);
   const id = context.params?.id;
   const config = {
     method: 'get',

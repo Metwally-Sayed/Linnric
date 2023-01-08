@@ -5,7 +5,6 @@ import CheckoutForm from '../../components/CheckoutForm';
 import { AssignmentTypeDataHandler } from '../../utilities/apiFunctions';
 
 const checkout = () => {
-  // console.log(AssignmentTypeData);
   const router = useRouter;
   return (
     <>

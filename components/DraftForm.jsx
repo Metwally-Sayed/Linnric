@@ -8,13 +8,13 @@ import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { editingOrderHandler } from '../utilities/apiFunctions';
 import { getOrderPrice } from '../utilities/apiFunctions';
+import { getOrderPayData } from '../redux/features/orderPayData';
 import axios from 'axios';
 
 const cookies = new Cookies();
 const token = cookies.get('userrefreshToken');
 
 const DraftForm = ({ editOrderData }) => {
-  console.log(editOrderData);
   const dispatch = useDispatch();
   let id = 0;
   Array.isArray(editOrderData)
@@ -30,7 +30,6 @@ const DraftForm = ({ editOrderData }) => {
   const [files, setFiles] = useState([]);
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
-    // console.log(formData);
   };
   const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
 
@@ -39,39 +38,68 @@ const DraftForm = ({ editOrderData }) => {
   const orderPrice = {
     service: AllFormData.assignment_details,
     education: AllFormData.assignmentEducationLevel,
-    topic: AllFormData.assigment_topic,
+    topic: AllFormData.assigment_type,
+    pages: AllFormData.pages,
   };
+  console.log(AllFormData);
 
-  const submitHandler = (e) => {
+  console.log(orderPrice);
+
+  const data = useSelector((state) => console.log(state.orderPayData));
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    postingOrderHandler(
-      AllFormData,
-      token,
-      'https://backend420.linnric.com/api/v1/create_order',
-    );
+    dispatch(getOrderPayData(AllFormData));
 
-    getOrderPrice(
-      orderPrice,
-      token,
-      'https://backend420.linnric.com/api/v1/estimate_order_price?service=Writing&education=School&topic=Business Plan',
-    );
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append('Cookie', 'Cookie_1=value');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
+      requestOptions,
+    )
+      .then((response) => response.json())
+      .then((result) =>
+        sessionStorage.setItem('orderPrice', result.Total_price),
+      )
+      .catch((error) => console.log('error', error));
+
     router.push('/customer/payment');
   };
 
   const editHandler = (e) => {
     e.preventDefault();
     editingOrderHandler(formData, token, endpoint);
-    getOrderPrice(
-      orderPrice,
-      token,
-      'https://backend420.linnric.com/api/v1/estimate_order_price?service=Writing&education=School&topic=Business Plan',
-    );
+
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${token}`);
+    myHeaders.append('Cookie', 'Cookie_1=value');
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow',
+    };
+
+    fetch(
+      `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
+      requestOptions,
+    )
+      .then((response) => response.json())
+      .then((result) =>
+        sessionStorage.setItem('orderPrice', result.Total_price),
+      )
+      .catch((error) => console.log('error', error));
   };
 
   const changeHandler = (event) => {
-    console.log('rrrrrrr');
-    // assignmentDataCollecter('file', event.target.value);
-    // const fileData = { file: event.target.files[0] };
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
     formData.append('upload_preset', 'dmaf6vws');
@@ -92,10 +120,7 @@ const DraftForm = ({ editOrderData }) => {
     } catch (error) {
       console.log(error);
     }
-    // assignmentDataCollecter('file', event.target.value);
   };
-
-  console.log(AllFormData);
 
   const currentURL = router.pathname;
 

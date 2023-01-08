@@ -8,9 +8,7 @@ import axios from 'axios';
 const EditOrder = ({ orderData }) => {
   const [updateFormData, setUpdateFormData] = useState({});
 
-  const updateAssignmentDataCollecter = (data) => {
-    console.log(data);
-  };
+ 
   return (
     <>
       <div className="w-full">

@@ -8,7 +8,6 @@ export default function middleware(req) {
   let url = req.nextUrl.pathname;
   let decoded;
   // const writer = jwt_decode(verify?.value?.isWriter);
-  console.log(url);
 
   if (!userVerify && url.includes('/customer')) {
     return NextResponse.redirect('http://localhost:3000/login');

@@ -24,14 +24,12 @@ const SignupForm = () => {
   });
 
   const submitForm = (values) => {
-    console.log(values);
     const userData = {
       Username: values.username,
       email: values.email,
       password: values.password,
       Phonenumber: values.phoneNumber,
     };
-    console.log(userData);
 
     userSignup(
       'https://backend420.linnric.com/api/v1/register/',

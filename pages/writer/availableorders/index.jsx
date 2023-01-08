@@ -21,7 +21,6 @@ const Availableorders = () => {
       },
     );
   });
-  console.log(data?.data.data);
   const availableOrdersData = data?.data.data;
   // setAvailableOrdersData(data);
   // const getWriterOrders = async () => {

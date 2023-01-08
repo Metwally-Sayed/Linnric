@@ -23,7 +23,6 @@ const OrderCard = ({ data }) => {
       return order.ID === orderId;
     });
     dispaych(getEditOrderData(editOrder));
-    console.log(editOrder);
   };
 
   let service = '';

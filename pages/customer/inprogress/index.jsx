@@ -12,7 +12,6 @@ const Draft = () => {
   const [data, setData] = useState([]);
   const getUserInprogressOrders = async () => {
     const token = cookies.get('userrefreshToken');
-    console.log(token);
     try {
       const getData = await axios.get(
         'https://backend420.linnric.com/api/v1/get_client_inprogress_orders',

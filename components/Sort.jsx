@@ -42,7 +42,7 @@ const Sort = () => {
           </div>
         </div>
       </div>
-      <SortInput />
+      {/* <SortInput /> */}
     </>
   );
 };

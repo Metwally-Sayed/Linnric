@@ -20,7 +20,7 @@ const Payment = () => {
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
-    setPrice(window.localStorage.getItem('orderPrice'));
+    setPrice(window.sessionStorage.getItem('orderPrice'));
   }, []);
 
   // const {

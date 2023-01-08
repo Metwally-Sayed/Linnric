@@ -22,7 +22,6 @@ export const userSignup = async (endpoint, userData, router) => {
 
 //fuction userLogIn
 export const userLogIn = async (endpoint, userData, router) => {
-  console.log(userData);
   try {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -69,7 +68,6 @@ export const userLogIn = async (endpoint, userData, router) => {
           router.push('/workersslogin');
         }
 
-        console.log(result);
       })
 
       .catch((error) => console.log('error', error));
@@ -79,7 +77,6 @@ export const userLogIn = async (endpoint, userData, router) => {
 };
 
 export const writerLogIn = async (endpoint, userData, router) => {
-  console.log(userData);
   try {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -122,7 +119,6 @@ export const writerLogIn = async (endpoint, userData, router) => {
           }
         }
 
-        console.log(result);
       })
 
       .catch((error) => console.log('error', error));
@@ -179,8 +175,9 @@ export const postingOrderHandler = async (Formdata, tokenStr, endpoint) => {
     const sendData = await axios
       .post(endpoint, Formdata, {
         headers: { Authorization: `Bearer ${tokenStr}` },
+        'Access-Control-Allow-Origin': '*',
       })
-      .then((res) => console.log(res));
+      .then((res) => res);
   } catch (error) {
     console.log(error);
   }
@@ -192,7 +189,7 @@ export const editingOrderHandler = async (Formdata, tokenStr, endpoint) => {
       .put(endpoint, Formdata, {
         headers: { Authorization: `Bearer ${tokenStr}` },
       })
-      .then((res) => console.log(res));
+      .then((res) => res);
   } catch (error) {
     console.log(error);
   }
@@ -229,14 +226,12 @@ export const getWriterOrder = async (tokenStr, endpoint) => {
 
 export const getUserOrders = async (endpoint) => {
   const token = cookies.get('refreshToken');
-  console.log(token);
   try {
     const getData = await axios.get(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(getData.data.data);
     return getData.data.data;
   } catch (error) {
     console.log(error);
@@ -250,7 +245,6 @@ export const getWriterrOrders = async (endpoint, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(getData.data.data);
     return getData.data.data;
   } catch (error) {
     console.log(error);

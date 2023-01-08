@@ -20,7 +20,6 @@ const NewOrderFrom = () => {
     setFormData({ ...formData, [dataKey]: data });
   };
 
-  console.log(formData);
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
       <div className="mt-10 sm:mt-0">

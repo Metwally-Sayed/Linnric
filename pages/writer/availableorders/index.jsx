@@ -22,27 +22,6 @@ const Availableorders = () => {
     );
   });
   const availableOrdersData = data?.data.data;
-  // setAvailableOrdersData(data);
-  // const getWriterOrders = async () => {
-  //   const token = cookies.get('writerrefreshToken');
-  //   try {
-  //     const getData = await axios.get(
-  //       'https://backend420.linnric.com/api/v1/writer/get_writers_dashboard_available_orders/?page_size=10&page=2 ',
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       },
-  //     );
-  //     setAvailableOrdersData(getData.data.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getWriterOrders();
-  // }, []);
 
   return (
     <div>

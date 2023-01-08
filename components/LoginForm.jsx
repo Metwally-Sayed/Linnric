@@ -22,12 +22,14 @@ const LoginForm = () => {
           values,
           router,
         ),
+        router.push('/customer/active'),
         console.log('done writer'))
       : (userLogIn(
           'https://backend420.linnric.com/api/v1/login/',
           values,
           router,
         ),
+        router.push('/writer/availableorders'),
         console.log('done writer'));
   };
 

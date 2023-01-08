@@ -1,18 +1,19 @@
 import { useRouter } from 'next/router';
-
-const people = [
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  // More people...
-];
+import Link from 'next/link';
+import { getWriterOrderData } from '../redux/features/writerOrderData';
+import { useDispatch } from 'react-redux';
 
 export default function WriterMyOrderTable({ orderData }) {
   const router = useRouter();
   const pageName = router.asPath.split('/')[3];
+  const dispatch = useDispatch();
+
+  const selectOrderHandler = (orderId) => {
+    const selected = orderData.filter((order) => order.ID === orderId);
+
+    dispatch(getWriterOrderData(selected));
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -80,14 +81,31 @@ export default function WriterMyOrderTable({ orderData }) {
                   {Array.isArray(orderData)
                     ? orderData.map((item, idx) => (
                         <tr key={idx}>
-                          <td
-                            onClick={() => {
-                              selectOrderHandler(item.ID);
-                            }}
-                            className="whitespace-nowrap flex justify-start py-3 pl-4 text-sm dark:text-gray-400"
-                          >
-                            <span className="mr-3 w-4">{item.ID}</span>
-                          </td>
+                          <Link href={`/writer/myorders/applied/${item.ID}`}>
+                            <td
+                              onClick={() => {
+                                selectOrderHandler(item.ID);
+                              }}
+                              className="whitespace-nowrap flex justify-start py-3 pl-4 text-sm dark:text-gray-400"
+                            >
+                              <span className="mr-3 w-4">{item.ID}</span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 21 21"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-4 h-4"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                                />
+                              </svg>
+                            </td>
+                          </Link>
+
                           <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400 ">
                             {item.assigment_topic}
                           </td>

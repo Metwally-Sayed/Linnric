@@ -1,29 +1,106 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import axios from 'axios';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
 
-const Availableorder = ({ orderData }) => {
-  console.log(orderData);
+const OrderPage = ({ orderData }) => {
   const cookies = new Cookies();
-  const router = useRouter();
-  const id = router.query.id;
-  const [orderId, setOrderId] = useState([]);
-
   const token = cookies.get('writerrefreshToken');
 
-  const startHandler = async () => {
+  const router = useRouter();
+  const id = router.query.id;
+  console.log(id);
+  const [files, setFiles] = useState([]);
+
+  const inputRef = useRef(null);
+  const handleClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const fileObj = (await event.target.files) && event.target.files[0];
+    if (!fileObj) {
+      return;
+    }
+    console.log('fileObj is', fileObj);
+
+    event.target.value = null;
+
+    console.log(fileObj);
+
+    const formData = new FormData();
+    formData.append('file', fileObj);
+    formData.append('upload_preset', 'dmaf6vws');
     try {
-      const start = await axios.get(
-        `https://backend420.linnric.com/api/v1/writer/start_order/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      const sendData = async () => {
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
+          formData,
+        );
+        console.log(res);
+        if (res.status === 200) {
+          const { url } = await res.data;
+          setFiles((prev) => {
+            return [...prev, { file: url }];
+          });
+
+          console.log(files);
+        }
+        return res;
+      };
+      await sendData();
+      console.log(files);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    }
+
+    const saveData = async () => {
+      const data = { Idorder: +id, File: files };
+      console.log(data);
+      const myHeaders = new Headers();
+      myHeaders.append('Authorization', `Bearer ${token}`);
+      myHeaders.append('Content-Type', 'application/json');
+      const raw = JSON.stringify({
+        data,
+      });
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow',
+      };
+      fetch(
+        'https://backend420.linnric.com/api/v1/writer/submit_files',
+        requestOptions,
+      )
+        .then((response) => response.json())
+        .then((result) => console.log(result))
+        .catch((error) => console.log('error', error));
+    };
+    await saveData();
+  };
+
+  const changeHandler = (event) => {
+    const formData = new FormData();
+    formData.append('file', event.target.files[0]);
+    formData.append('upload_preset', 'dmaf6vws');
+    try {
+      const sendData = async () => {
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
+          formData,
+        );
+        const { url } = await res.data;
+        setFiles((prev) => {
+          return [...prev, { field_id: url }];
+        });
+        assignmentDataCollecter('File', url);
+        return res;
+      };
+      sendData();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -46,12 +123,19 @@ const Availableorder = ({ orderData }) => {
                     </p>
                   </div>
                   <div>
-                    <button
-                      onClick={startHandler}
+                    <div
+                      onClick={() => handleClick()}
                       className="bg-blue-600 hover:bg-blue-500 px-9 py-2  rounded-lg text-md font-semibold "
                     >
-                      start
-                    </button>
+                      <input
+                        ref={inputRef}
+                        onChange={handleFileChange}
+                        type="file"
+                        id="file"
+                        style={{ display: 'none' }}
+                      />
+                      Submit
+                    </div>
                   </div>
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:px-6 bg-gray-200 dark:bg-[#273142] ">
@@ -167,7 +251,7 @@ const Availableorder = ({ orderData }) => {
   );
 };
 
-export default Availableorder;
+export default OrderPage;
 
 export const getServerSideProps = async (context) => {
   const token = await context.req.cookies.writerrefreshToken;

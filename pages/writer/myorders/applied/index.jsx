@@ -1,7 +1,7 @@
 import React from 'react';
-import WriterLayoutWrapper from '../../../components/WriterLayoutWrapper';
-import WriterMyOrderLayout from '../../../components/WriterMyOrderLayout';
-import WriterMyOrderTable from '../../../components/WriterMyOrderTable';
+import WriterLayoutWrapper from '../../../../components/WriterLayoutWrapper';
+import WriterMyOrderLayout from '../../../../components/WriterMyOrderLayout';
+import WriterMyOrderTable from '../../../../components/WriterMyOrderTable';
 import axios from 'axios';
 
 const applied = ({ orderData }) => {

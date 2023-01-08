@@ -15,10 +15,7 @@ const PaymentBtn = ({ price }) => {
 
   const handleApprove = () => {
     const myHeaders = new Headers();
-    myHeaders.append(
-      'Authorization',
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzM3MjY3NTAsImlzV3JpdGVyIjpmYWxzZSwidXNlcklkIjoiZWNlMmYyOTItMGQ3ZS00ZDMzLTg2ZDItOWI2Mzc0NzhhMDI0In0.1FAvJE5lbhjVbD7yLO6vAuKg50M9yMyFiW1ayHZ6ioU',
-    );
+    myHeaders.append('Authorization', `Bearer ${token}`);
     myHeaders.append('Content-Type', 'application/json');
 
     const raw = JSON.stringify({

@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import axios from 'axios';
-import { XCircleIcon } from '@heroicons/react/20/solid';
 import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { postingOrderHandler } from '../utilities/apiFunctions';
+import { useRouter } from 'next/router';
 
-const PaymentBtn = ({ price }) => {
-  const orderPrice = Math.round(price);
-  console.log(orderPrice);
+const PaymentBtn = () => {
   const cookies = new Cookies();
   const token = cookies.get('userrefreshToken');
-  const [done, setDone] = useState(false);
+  const router = useRouter();
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    setPrice(window.sessionStorage.getItem('orderPrice'));
+  }, []);
+
+  const orderPrice = price.toString();
+
+  console.log(orderPrice);
 
   const AllFormData = useSelector((state) => state.orderPayData);
+  console.log(AllFormData);
+
+  console.log(
+    JSON.stringify({
+      AllFormData,
+    }),
+  );
 
   const handleApprove = () => {
     const myHeaders = new Headers();
@@ -27,13 +39,17 @@ const PaymentBtn = ({ price }) => {
     const requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
+      body: JSON.stringify({
+        ...AllFormData,
+        dispute: false,
+        late: false,
+        time_js: '',
+      }),
     };
 
     fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
       .then((response) => response.json())
-      .then((result) => result)
+      .then((result) => console.log(result))
       .catch((error) => console.log('error', error));
   };
 
@@ -42,29 +58,34 @@ const PaymentBtn = ({ price }) => {
       <h1 className="text-center text-3xl font-semibold pt-24">
         For Now We Only Accepting PayPal
       </h1>
-      <div className="md:w-[100%] w-full mt-28 min-h-screen mx-auto ">
-        <PayPalButtons
-          className=" flex justify-center"
-          style={{
-            color: 'silver',
-            shape: 'pill',
-          }}
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: orderPrice,
+      <div className="md:w-[100%] w-full mt-28 min-h-screen mx-auto flex justify-center ">
+        <PayPalScriptProvider>
+          <PayPalButtons
+            className=" flex justify-center w-full  "
+            style={{
+              color: 'blue',
+              label: 'pay',
+              shape: 'pill',
+            }}
+            createOrder={(data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: orderPrice,
+                    },
                   },
-                },
-              ],
-            });
-          }}
-          onApprove={async (data, actions) => {
-            const order = await actions.order.capture();
-            handleApprove();
-          }}
-        />
+                ],
+              });
+            }}
+            onApprove={async (data, actions) => {
+              const order = await actions.order.capture();
+              handleApprove();
+              alert('thanks for purchase 💙');
+              router.push('/login');
+            }}
+          />
+        </PayPalScriptProvider>
       </div>
     </>
   );

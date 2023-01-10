@@ -143,7 +143,7 @@ const Payment = () => {
         </div>
       </form> */}
       <div className="w-full mx-auto flex flex-col justify-center items-center ">
-        <PaymentBtn price={price} />
+        <PaymentBtn  />
       </div>
     </>
   );

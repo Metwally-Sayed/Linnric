@@ -21,7 +21,7 @@ export const userSignup = async (endpoint, userData, router) => {
 };
 
 //fuction userLogIn
-export const userLogIn = async (endpoint, userData, router) => {
+export const userLogIn = async (endpoint, userData, router, setIsError) => {
   try {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -67,16 +67,19 @@ export const userLogIn = async (endpoint, userData, router) => {
           cookies.remove('userrefreshToken', { path: '/' });
           router.push('/workersslogin');
         }
-
       })
 
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        setIsError(true);
+        console.log('error', error);
+      });
   } catch (error) {
     console.log(error);
+    await setIsError(true);
   }
 };
 
-export const writerLogIn = async (endpoint, userData, router) => {
+export const writerLogIn = async (endpoint, userData, router, setIsError) => {
   try {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -118,10 +121,12 @@ export const writerLogIn = async (endpoint, userData, router) => {
             alert(result);
           }
         }
-
       })
 
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        setIsError(true);
+        console.log('error', error);
+      });
   } catch (error) {
     console.log(error);
   }

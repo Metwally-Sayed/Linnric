@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -14,23 +14,29 @@ const schema = Yup.object({
 
 const LoginForm = () => {
   const router = useRouter();
+  const [isError, setIsError] = useState(false);
 
   const submitForm = (values) => {
+    let res = ' ';
     router.asPath === '/workersslogin'
-      ? (writerLogIn(
+      ? ((res = writerLogIn(
           'https://backend420.linnric.com/api/v1/login/',
           values,
           router,
-        ),
+          setIsError,
+        )),
         router.push('/customer/active'),
-        console.log('done writer'))
-      : (userLogIn(
+        console.log(isError))
+      : ((res = userLogIn(
           'https://backend420.linnric.com/api/v1/login/',
           values,
           router,
-        ),
+          setIsError,
+        )),
         router.push('/writer/availableorders'),
-        console.log('done writer'));
+        console.log(isError));
+
+    console.log(res.data);
   };
 
   const {
@@ -89,7 +95,16 @@ const LoginForm = () => {
             </Link>
           </div>
         </div>
-
+        <div className="flex justify-center">
+          {isError === true ? (
+            <p className="text-xs h-1 font-semibold text-red-600">
+              {' '}
+              Email or Password is wrong{' '}
+            </p>
+          ) : (
+            ''
+          )}
+        </div>
         <div>
           {router.asPath === '/workersslogin' ? (
             <button
@@ -108,15 +123,6 @@ const LoginForm = () => {
               >
                 Login
               </button>
-              <p>
-                If you are writer please click
-                <Link
-                  href={'/workersslogin'}
-                  className="text-sm text-[#286bb8] hover:text-[#2c76ca] pt-4 pl-1"
-                >
-                  here
-                </Link>
-              </p>
             </div>
           )}
         </div>

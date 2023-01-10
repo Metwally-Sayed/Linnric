@@ -8,11 +8,10 @@ import axios from 'axios';
 import OrderCard from '../../../components/OrderCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderData } from '../../../redux/features/orderData';
-import { NextRequest, NextResponse } from 'next/server';
-
-const cookies = new Cookies();
+import { useQuery } from 'react-query';
 
 const Active = ({ orderData }) => {
+  const cookies = new Cookies();
   const dispatch = useDispatch();
   dispatch(getOrderData(orderData));
 

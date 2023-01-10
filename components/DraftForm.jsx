@@ -28,6 +28,7 @@ const DraftForm = ({ editOrderData }) => {
   const [formData, setFormData] = useState({});
   const [docURL, setDocURL] = useState('');
   const [files, setFiles] = useState([]);
+  const [fileName, setFileName] = useState('');
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
   };
@@ -101,6 +102,7 @@ const DraftForm = ({ editOrderData }) => {
 
   const changeHandler = (event) => {
     const formData = new FormData();
+    setFileName(event.target.files[0].name);
     formData.append('file', event.target.files[0]);
     formData.append('upload_preset', 'dmaf6vws');
     try {
@@ -113,10 +115,10 @@ const DraftForm = ({ editOrderData }) => {
         setFiles((prev) => {
           return [...prev, { field_id: url }];
         });
-        assignmentDataCollecter('File', url);
         return res;
       };
       sendData();
+      assignmentDataCollecter('File', files);
     } catch (error) {
       console.log(error);
     }
@@ -203,9 +205,13 @@ const DraftForm = ({ editOrderData }) => {
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
-                        <p className="text-xs text-gray-500">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
+                        {fileName === '' ? (
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, GIF up to 10MB
+                          </p>
+                        ) : (
+                          <p className="text-xs text-gray-500">{fileName} </p>
+                        )}
                       </div>
                     </div>
                   </div>

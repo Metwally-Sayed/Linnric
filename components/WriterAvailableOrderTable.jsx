@@ -21,11 +21,8 @@ export default function WriterAvailableOrderTable({ availableOrdersData }) {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-500 capitalize">
-            {pageName}
+            Available Orders{' '}
           </h1>
-          <p className="mt-2 text-sm text-gray-700 dark:text-white ">
-            A list of all the available orders now
-          </p>
         </div>
       </div>
       <div className="mt-8 flex flex-col">

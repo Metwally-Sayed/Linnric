@@ -7,11 +7,13 @@ import {
   HomeIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
+import { RiPagesLine } from 'react-icons/ri';
 import { userLogOut } from '../utilities/apiFunctions';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import logo from '../assessed/WhatsApp-Image-logo.jpg';
 import userImage from '../assessed/blank-profile-picture-973460.png';
+import { IoIosNotifications } from 'react-icons/io';
 
 const navigation = [
   {
@@ -23,7 +25,7 @@ const navigation = [
   {
     name: 'Available orders',
     href: '/writer/availableorders',
-    icon: HomeIcon,
+    icon: RiPagesLine,
     current: false,
   },
 ];
@@ -235,6 +237,11 @@ const CustomerLayout = ({ children }) => {
           <div className="flex flex-1 justify-end px-4">
             <div className="flex flex-1"></div>
             <div className="ml-4 flex items-center md:ml-6">
+              <div>
+                <Link href={'/writer/notifications'}>
+                  <IoIosNotifications size={25} />
+                </Link>
+              </div>
               {renderThemeChanger()}
               <button
                 type="button"

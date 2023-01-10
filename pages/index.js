@@ -12,6 +12,7 @@ import { BiSupport } from 'react-icons/bi';
 import { MdOutlineMonetizationOn } from 'react-icons/md';
 import Services from '../components/Services';
 import * as Scroll from 'react-scroll';
+import { AiTwotonePhone } from 'react-icons/ai';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -112,6 +113,11 @@ const navigation = [
       </svg>
     ),
   },
+  {
+    name: 'Phone',
+    href: 'tel:+44-785-7895',
+    icon: (props) => <AiTwotonePhone size={23} />,
+  },
 ];
 
 export default function Home() {
@@ -187,6 +193,15 @@ export default function Home() {
                   className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900 cursor-pointer"
                 >
                   About us{' '}
+                </Scroll.Link>
+                <Scroll.Link
+                  to="footer"
+                  spy={true}
+                  offset={-70}
+                  duration={500}
+                  className="text-base font-medium text-gray-500 dark:text-white hover:text-gray-900 cursor-pointer"
+                >
+                  Contact us{' '}
                 </Scroll.Link>
               </Popover.Group>
               <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -474,7 +489,7 @@ export default function Home() {
           </motion.h2>
           <Services />
         </div>
-        <footer className="">
+        <footer id="footer" className="">
           <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
             <div className="flex justify-center space-x-6 md:order-2">
               {navigation.map((item) => (

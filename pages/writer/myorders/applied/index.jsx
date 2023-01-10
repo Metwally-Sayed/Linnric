@@ -5,6 +5,7 @@ import WriterMyOrderTable from '../../../../components/WriterMyOrderTable';
 import axios from 'axios';
 
 const applied = ({ orderData }) => {
+  console.log(orderData);
   return (
     <>
       <WriterLayoutWrapper>

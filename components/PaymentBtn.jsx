@@ -14,7 +14,7 @@ const PaymentBtn = () => {
     setPrice(window.sessionStorage.getItem('orderPrice'));
   }, []);
 
-  const orderPrice = price.toString();
+  const orderPrice = price;
 
   console.log(orderPrice);
 

@@ -12,7 +12,7 @@ const PaymentBtn = () => {
 
   useEffect(() => {
     setPrice(window.sessionStorage.getItem('orderPrice'));
-  }, []);
+  }, [price]);
 
   const orderPrice = price;
 

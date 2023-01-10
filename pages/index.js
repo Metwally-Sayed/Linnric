@@ -13,6 +13,7 @@ import { MdOutlineMonetizationOn } from 'react-icons/md';
 import Services from '../components/Services';
 import * as Scroll from 'react-scroll';
 import { AiTwotonePhone } from 'react-icons/ai';
+import { SiWhatsapp } from 'react-icons/si';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -117,6 +118,11 @@ const navigation = [
     name: 'Phone',
     href: 'tel:+44-785-7895',
     icon: (props) => <AiTwotonePhone size={23} />,
+  },
+  {
+    name: 'WhatsApp',
+    href: 'https://api.whatsapp.com/message/WSW4QI6W7BGOE1?autoload=1&app_absent=0',
+    icon: (props) => <SiWhatsapp size={23} />,
   },
 ];
 
@@ -493,14 +499,14 @@ export default function Home() {
           <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
             <div className="flex justify-center space-x-6 md:order-2">
               {navigation.map((item) => (
-                <a
+                <Link 
                   key={item.name}
                   href={item.href}
                   className="dark:text-gray-100 dark:hover:text-gray-500"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
+                </Link>
               ))}
             </div>
             <div className="mt-8 md:order-1 md:mt-0">

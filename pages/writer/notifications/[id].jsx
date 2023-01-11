@@ -1,9 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-
+import { useRouter } from 'next/router';
 const Notifications = ({ textData }) => {
+  const router = useRouter();
   return (
     <div className="w-full min-h-screen flex-col justify-center items-center align-middle mt-[340px] ">
+      <div className="flex justify-end m-20">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            router.push('/writer/availableorders');
+          }}
+          className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
+        >
+          x
+        </button>
+      </div>
       {textData.map((text, idx) => (
         <div
           key={idx}

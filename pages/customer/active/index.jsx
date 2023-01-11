@@ -9,8 +9,10 @@ import OrderCard from '../../../components/OrderCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrderData } from '../../../redux/features/orderData';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
 const Active = ({ orderData }) => {
+  const router = useRouter();
   const cookies = new Cookies();
   const dispatch = useDispatch();
   dispatch(getOrderData(orderData));
@@ -24,6 +26,12 @@ const Active = ({ orderData }) => {
   } else {
     renderCondition = <OrderCard data={data} />;
   }
+
+  useEffect(() => {
+    window.sessionStorage.removeItem('orderPrice');
+  }, []);
+
+ 
 
   return (
     <CustomerLayout>

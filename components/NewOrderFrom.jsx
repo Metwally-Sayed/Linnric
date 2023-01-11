@@ -5,13 +5,11 @@ import AssignmentEducationLevel from './NewOrderInputs/AssignmentEducationLevel'
 import AssignmentDeadline from './NewOrderInputs/AssignmentDeadline';
 import AssignmentSize from './NewOrderInputs/AssignmentSize';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAssignmentData } from '../redux/features/assignmentData';
 import { useRouter } from 'next/router';
 import AssignmntQuestion from './NewOrderInputs/AssignmentQuestions';
-import axios from 'axios';
 import Cookies from 'universal-cookie';
-
 const NewOrderFrom = () => {
   const cookies = new Cookies();
   const token = cookies.get('userrefreshToken');
@@ -24,6 +22,8 @@ const NewOrderFrom = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -53,6 +53,7 @@ const NewOrderFrom = () => {
       .then((result) => {
         console.log(result);
         sessionStorage.setItem('orderPrice', result.Total_price);
+        sessionStorage.setItem('writerP', result.writers_price);
       })
       .catch((error) => console.log('error', error));
     dispatch(getAssignmentData(formData));

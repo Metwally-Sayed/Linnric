@@ -14,7 +14,7 @@ const Draftorder = () => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              router.push('/customer/active');
+              router.push('/writer/availableorders');
             }}
             className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
           >

@@ -29,18 +29,22 @@ const DraftForm = ({ editOrderData }) => {
   const [docURL, setDocURL] = useState('');
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
-  const [price, setPrice] = useState(0);
-
-  useEffect(() => {
-    setPrice(window.sessionStorage.getItem('orderPrice'));
-  }, [price]);
+  const [cprice, setPrice] = useState(0);
+  const [wPrice, setWPrice] = useState(0);
 
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
   };
   const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
 
-  const AllFormData = { ...firstFormdata, ...formData };
+  const AllFormData = { ...firstFormdata, ...formData, price: +wPrice };
+  useEffect(() => {
+    setPrice(window.sessionStorage.getItem('orderPrice'));
+  }, [cprice]);
+
+  useEffect(() => {
+    setWPrice(window.sessionStorage.getItem('writerP'));
+  }, [wPrice]);
 
   const orderPrice = {
     service: AllFormData.assignment_details,
@@ -53,7 +57,6 @@ const DraftForm = ({ editOrderData }) => {
   console.log(orderPrice);
 
   const data = useSelector((state) => console.log(state.orderPayData));
-
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(getOrderPayData(AllFormData));
@@ -229,7 +232,7 @@ const DraftForm = ({ editOrderData }) => {
                     ''
                   ) : (
                     <div>
-                      <p>{`Total Price : $${price}`}</p>
+                      <p>{`Total Price : $${+cprice}`}</p>
                     </div>
                   )}
 

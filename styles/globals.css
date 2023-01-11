@@ -12,8 +12,6 @@ body {
   /* background-color: rgb(243 244 246); */
 }
 
-
-
 a {
   color: inherit;
   text-decoration: none;
@@ -38,3 +36,9 @@ a {
   ck-blurred {
   background-color: black;
 } */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

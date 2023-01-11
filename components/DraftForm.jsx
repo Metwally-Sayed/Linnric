@@ -29,6 +29,12 @@ const DraftForm = ({ editOrderData }) => {
   const [docURL, setDocURL] = useState('');
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    setPrice(window.sessionStorage.getItem('orderPrice'));
+  }, [price]);
+
   const assignmentDataCollecter = (dataKey, data) => {
     setFormData({ ...formData, [dataKey]: data });
   };
@@ -52,25 +58,25 @@ const DraftForm = ({ editOrderData }) => {
     e.preventDefault();
     dispatch(getOrderPayData(AllFormData));
 
-    const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${token}`);
-    myHeaders.append('Cookie', 'Cookie_1=value');
+    // const myHeaders = new Headers();
+    // myHeaders.append('Authorization', `Bearer ${token}`);
+    // myHeaders.append('Cookie', 'Cookie_1=value');
 
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      redirect: 'follow',
-    };
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: myHeaders,
+    //   redirect: 'follow',
+    // };
 
-    fetch(
-      `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
-      requestOptions,
-    )
-      .then((response) => response.json())
-      .then((result) =>
-        sessionStorage.setItem('orderPrice', result.Total_price),
-      )
-      .catch((error) => console.log('error', error));
+    // fetch(
+    //   `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
+    //   requestOptions,
+    // )
+    //   .then((response) => response.json())
+    //   .then((result) =>
+    //     sessionStorage.setItem('orderPrice', result.Total_price),
+    //   )
+    //   .catch((error) => console.log('error', error));
 
     router.push('/customer/payment');
   };
@@ -94,9 +100,10 @@ const DraftForm = ({ editOrderData }) => {
       requestOptions,
     )
       .then((response) => response.json())
-      .then((result) =>
+      .then((result) => {
         sessionStorage.setItem('orderPrice', result.Total_price),
-      )
+          router.push('/customer/active');
+      })
       .catch((error) => console.log('error', error));
   };
 
@@ -118,6 +125,7 @@ const DraftForm = ({ editOrderData }) => {
         return res;
       };
       sendData();
+
       assignmentDataCollecter('File', files);
     } catch (error) {
       console.log(error);
@@ -216,7 +224,15 @@ const DraftForm = ({ editOrderData }) => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
+                <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6 w-full flex justify-between">
+                  {currentURL === '/customer/active/[id]' ? (
+                    ''
+                  ) : (
+                    <div>
+                      <p>{`Total Price : $${price}`}</p>
+                    </div>
+                  )}
+
                   {currentURL === '/customer/active/[id]' ? (
                     <button
                       type="button"

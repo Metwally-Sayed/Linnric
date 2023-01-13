@@ -14,7 +14,7 @@ const PaymentBtn = () => {
     setPrice(window.sessionStorage.getItem('orderPrice'));
   }, [price]);
 
-  const orderPrice = price;
+  const orderPrice = Math.round(price);
 
   console.log(orderPrice);
 
@@ -82,7 +82,7 @@ const PaymentBtn = () => {
               const order = await actions.order.capture();
               handleApprove();
               alert('thanks for purchase 💙');
-              router.push('/login');
+              router.push('/customer/active');
             }}
           />
         </PayPalScriptProvider>

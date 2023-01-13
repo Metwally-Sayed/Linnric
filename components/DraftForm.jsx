@@ -245,7 +245,7 @@ const DraftForm = ({ editOrderData }) => {
                     ''
                   ) : (
                     <div>
-                      <p>{`Total Price : $${+cprice}`}</p>
+                      <p>{`Total Price : $${Math.round(+cprice)}`}</p>
                     </div>
                   )}
 

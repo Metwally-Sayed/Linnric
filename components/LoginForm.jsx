@@ -25,7 +25,7 @@ const LoginForm = () => {
           router,
           setIsError,
         )),
-        router.push('/customer/active'),
+        // router.push('/customer/active'),
         console.log(isError))
       : ((res = userLogIn(
           'https://backend420.linnric.com/api/v1/login/',
@@ -33,7 +33,7 @@ const LoginForm = () => {
           router,
           setIsError,
         )),
-        router.push('/writer/availableorders'),
+        // router.push('/writer/availableorders'),
         console.log(isError));
 
     console.log(res.data);

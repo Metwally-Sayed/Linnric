@@ -111,21 +111,34 @@ const DraftForm = ({ editOrderData }) => {
   };
 
   const changeHandler = (event) => {
-    const formData = new FormData();
-    setFileName(event.target.files[0].name);
-    formData.append('file', event.target.files[0]);
-    formData.append('upload_preset', 'dmaf6vws');
+    let headersList = {
+      Accept: '*/*',
+
+      Authorization: `Bearer ${token}`,
+    };
+
+    let bodyContent = new FormData();
+    bodyContent.append('name', event.target.files[0].name);
+    bodyContent.append('file', event.target.files[0]);
+
     try {
       const sendData = async () => {
-        const res = await axios.post(
-          'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
-          formData,
+        let response = await fetch(
+          'https://backend420.linnric.com/api/v1/upload',
+          {
+            method: 'POST',
+            body: bodyContent,
+            headers: headersList,
+          },
         );
-        const { url } = await res.data;
+
+        let data = await response.json();
+        const url = data.publicURL;
+        console.log(url);
         setFiles((prev) => {
-          return [...prev, { field_id: url }];
+          return [...prev, { field_id: data.publicURL }];
         });
-        return res;
+        return response;
       };
       sendData();
 

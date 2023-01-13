@@ -116,7 +116,7 @@ const navigation = [
   },
   {
     name: 'Phone',
-    href: 'tel:+44-785-7895',
+    href: 'tel:+1 (323) 328-5683',
     icon: (props) => <AiTwotonePhone size={23} />,
   },
   {
@@ -499,7 +499,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
             <div className="flex justify-center space-x-6 md:order-2">
               {navigation.map((item) => (
-                <Link 
+                <Link
                   key={item.name}
                   href={item.href}
                   className="dark:text-gray-100 dark:hover:text-gray-500"

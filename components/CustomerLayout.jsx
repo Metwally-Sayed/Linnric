@@ -12,6 +12,9 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import logo from '../assessed/WhatsApp-Image-logo.jpg';
 import userImage from '../assessed/blank-profile-picture-973460.png';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const navigation = [
   {
@@ -79,8 +82,13 @@ const CustomerLayout = ({ children }) => {
 
   const router = useRouter();
   const signOut = () => {
-    userLogOut();
-    window.location.reload(false);
+    cookies.remove('userrefreshToken', { path: '/' });
+    cookies.remove('useraccessToken', { path: '/' });
+    cookies.remove('writerrefreshToken', { path: '/' });
+    cookies.remove('writeraccessToken', { path: '/' });
+    if (cookies.get('userrefreshToken') === undefined) {
+      window.location.reload(false);
+    }
   };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

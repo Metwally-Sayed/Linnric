@@ -6,6 +6,9 @@ import { userLogIn } from '../utilities/apiFunctions';
 import { useForm } from 'react-hook-form';
 import { writerLogIn } from '../utilities/apiFunctions';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
@@ -18,25 +21,26 @@ const LoginForm = () => {
 
   const submitForm = (values) => {
     let res = ' ';
-    router.asPath === '/workersslogin'
-      ? ((res = writerLogIn(
-          'https://backend420.linnric.com/api/v1/login/',
-          values,
-          router,
-          setIsError,
-        )),
-        // router.push('/customer/active'),
-        console.log(isError))
-      : ((res = userLogIn(
-          'https://backend420.linnric.com/api/v1/login/',
-          values,
-          router,
-          setIsError,
-        )),
-        // router.push('/writer/availableorders'),
-        console.log(isError));
 
-    console.log(res.data);
+    if (router.asPath === '/workersslogin') {
+      res = writerLogIn(
+        'https://backend420.linnric.com/api/v1/login/',
+        values,
+        router,
+        setIsError,
+      );
+      console.log(isError);
+    }
+    if (router.asPath === '/login') {
+      userLogIn(
+        'https://backend420.linnric.com/api/v1/login/',
+        values,
+        router,
+        setIsError,
+      );
+    }
+
+    // router.push('/customer/active'),
   };
 
   const {

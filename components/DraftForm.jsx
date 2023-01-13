@@ -121,6 +121,8 @@ const DraftForm = ({ editOrderData }) => {
     bodyContent.append('name', event.target.files[0].name);
     bodyContent.append('file', event.target.files[0]);
 
+    setFileName(event.target.files[0].name);
+
     try {
       const sendData = async () => {
         let response = await fetch(
@@ -245,7 +247,7 @@ const DraftForm = ({ editOrderData }) => {
                     ''
                   ) : (
                     <div>
-                      <p>{`Total Price : $${Math.round(+cprice)}`}</p>
+                      <p>{`Total Price : $${Math.round(cprice)}`}</p>
                     </div>
                   )}
 

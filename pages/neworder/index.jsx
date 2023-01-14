@@ -7,11 +7,14 @@ import {
   AssignmentTypeDataHandler,
   AssignmentEducationLevelDataHandler,
 } from '../../utilities/apiFunctions';
+import Cookies from 'universal-cookie';
 
 const Neworder = () => {
   const router = useRouter();
   console.log(router.pathname);
   if (router.pathname === '/customer/active') {
+    Cookies.remove('orderPrice', { path: '/' });
+
     sessionStorage.removeItem('orderPrice');
   }
   return (

@@ -39,7 +39,8 @@ const DraftForm = ({ editOrderData }) => {
 
   const AllFormData = { ...firstFormdata, ...formData, price: +wPrice };
   useEffect(() => {
-    setPrice(window.sessionStorage.getItem('orderPrice'));
+    // setPrice(window.sessionStorage.getItem('orderPrice'));
+    setPrice(cookies.get('orderPrice'));
   }, [cprice]);
 
   useEffect(() => {
@@ -104,6 +105,7 @@ const DraftForm = ({ editOrderData }) => {
     )
       .then((response) => response.json())
       .then((result) => {
+        cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price),
           router.push('/customer/active');
       })

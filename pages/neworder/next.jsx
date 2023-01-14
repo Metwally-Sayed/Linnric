@@ -2,8 +2,11 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { AiOutlineClose } from 'react-icons/ai';
 import DraftForm from '../../components/DraftForm';
+import Cookies from 'universal-cookie';
 
 const Draftorder = () => {
+  const cookies = new Cookies();
+
   const router = useRouter();
 
   return (
@@ -15,6 +18,7 @@ const Draftorder = () => {
             onClick={(e) => {
               e.preventDefault();
               router.push('/writer/availableorders');
+              cookies.remove('orderPrice', { path: '/' });
             }}
             className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
           >

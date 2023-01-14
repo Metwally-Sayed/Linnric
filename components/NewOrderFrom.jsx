@@ -23,8 +23,6 @@ const NewOrderFrom = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -52,6 +50,7 @@ const NewOrderFrom = () => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
+        cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price);
         sessionStorage.setItem('writerP', result.writers_price);
       })

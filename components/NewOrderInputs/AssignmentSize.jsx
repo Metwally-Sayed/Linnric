@@ -1,9 +1,26 @@
 import React, { useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const AssignmentSize = ({ assignmentDataCollecter }) => {
+  const cookies = new Cookies();
+
+  const allCockies = cookies.getAll();
+
   const [pages, setPages] = useState(0);
-  const [words, setWords] = useState(550);
+  const [words, setWords] = useState('');
   const [space, setSpace] = useState('');
+
+  const checker = (value) => {
+    if (value === 'Single') {
+      setWords('550');
+      assignmentDataCollecter('words', '550');
+    }
+    if (value === 'Double') {
+      setWords('275');
+      assignmentDataCollecter('words', '275');
+      console.log(space);
+    }
+  };
 
   return (
     <>
@@ -51,18 +68,30 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
           </label>
           <select
             onChange={(e) => {
-              setSpace(e.target.value);
-              assignmentDataCollecter('line_spacing', e.target.value);
-              if (e.target.value === 'Single') {
-                setWords(550);
-              } else if (e.target.value === 'Double') {
-                setWords(275);
-              }
+              cookies.set('Line_spacing', e.target.value);
+              checker(e.target.value);
+              console.log(e.target.value);
             }}
-            className="w-[90%]  bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            className="w-[90%] bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
           >
-            <option>Single</option>
-            <option>Double</option>
+            <option
+              onChange={(e) => {
+                console.log(e);
+
+                assignmentDataCollecter('line_spacing', e.target.value);
+              }}
+            >
+              Single
+            </option>
+            <option
+              onClick={(e) => {
+                console.log(e);
+
+                assignmentDataCollecter('line_spacing', e.target.value);
+              }}
+            >
+              Double
+            </option>
           </select>
         </div>
       </div>

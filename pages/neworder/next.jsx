@@ -19,6 +19,7 @@ const Draftorder = () => {
               e.preventDefault();
               router.push('/writer/availableorders');
               cookies.remove('orderPrice', { path: '/' });
+              cookies.remove('Line_spacing', { path: '/' });
             }}
             className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
           >

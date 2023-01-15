@@ -41,10 +41,7 @@ const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
               className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm dark:bg-[#33415a]"
               onChange={(event) => {
                 setQuery(event.target.value);
-                assignmentDataCollecter(
-                  'assignmentEducationLevel',
-                  event.target.value,
-                );
+                assignmentDataCollecter('education', event.target.value);
               }}
               displayValue={(assignmentassignmentEducationLevel) =>
                 assignmentassignmentEducationLevel?.name

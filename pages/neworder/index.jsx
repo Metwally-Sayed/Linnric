@@ -14,6 +14,7 @@ const Neworder = () => {
   console.log(router.pathname);
   if (router.pathname === '/customer/active') {
     Cookies.remove('orderPrice', { path: '/' });
+    Cookies.remove('Line_spacing', { path: '/' });
 
     sessionStorage.removeItem('orderPrice');
   }
@@ -26,6 +27,7 @@ const Neworder = () => {
             onClick={(e) => {
               e.preventDefault();
               router.push('/customer/active');
+              Cookies.remove('Line_spacing', { path: '/' });
             }}
             className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
           >

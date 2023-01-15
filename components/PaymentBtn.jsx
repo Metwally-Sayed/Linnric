@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 const PaymentBtn = () => {
   const cookies = new Cookies();
   const token = cookies.get('userrefreshToken');
+  const line = cookies.get('Line_spacing');
+
   const router = useRouter();
   const [price, setPrice] = useState(0);
 
@@ -43,7 +45,7 @@ const PaymentBtn = () => {
         ...AllFormData,
         dispute: false,
         late: false,
-        time_js: '',
+        line_spacing: line,
       }),
     };
 

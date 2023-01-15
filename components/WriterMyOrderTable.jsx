@@ -118,7 +118,7 @@ export default function WriterMyOrderTable({ orderData }) {
                             ${item.price}
                           </td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm dark:text-gray-400">
-                            {item.deadline}
+                            {item.deadline} ,{item.time_js}
                           </td>
                         </tr>
                       ))

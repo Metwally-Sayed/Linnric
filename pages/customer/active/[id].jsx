@@ -44,8 +44,8 @@ const EditOrder = ({ orderData }) => {
                           Deadline
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300">
-                          {new Date(item.deadline).toLocaleDateString('en-GB')},{' '}
-                          {item.time_js}
+                          {new Date(order.deadline).toLocaleDateString('en-GB')},{' '}
+                          {order.time_js}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">

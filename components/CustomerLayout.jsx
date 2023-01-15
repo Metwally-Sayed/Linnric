@@ -7,12 +7,12 @@ import {
   HomeIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { userLogOut } from '../utilities/apiFunctions';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import logo from '../assessed/WhatsApp-Image-logo.jpg';
 import userImage from '../assessed/blank-profile-picture-973460.png';
 import Cookies from 'universal-cookie';
+import { BsWhatsapp } from 'react-icons/Bs';
 
 const cookies = new Cookies();
 
@@ -22,6 +22,12 @@ const navigation = [
     href: '/customer/active',
     icon: HomeIcon,
     current: true,
+  },
+  {
+    name: ' Create Order Using Whats app',
+    href: 'https://wa.me/message/WSW4QI6W7BGOE1',
+    icon: BsWhatsapp,
+    current: false,
   },
 ];
 const userNavigation = [{ name: 'Sign out', href: '/login' }];
@@ -199,7 +205,7 @@ const CustomerLayout = ({ children }) => {
                   className={classNames(
                     item.current
                       ? 'bg-gray-100 text-gray-900 dark:bg-[#1f2735] dark:text-white'
-                      : 'text-gray-600 hover:bg-gray-50 dark:hover:text-white hover:text-gray-900',
+                      : 'text-gray-600 hover:bg-gray-50 dark:hover:bg-[#1f2735] dark:hover:text-white hover:text-gray-900',
                     'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                   )}
                   href={item.href}
@@ -232,8 +238,17 @@ const CustomerLayout = ({ children }) => {
             <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex flex-1 justify-end px-4">
-            <div className="flex flex-1"></div>
             <div className="ml-4 flex items-center md:ml-6">
+              <div className="flex">
+                <BsWhatsapp />
+                <Link href="https://wa.me/message/WSW4QI6W7BGOE1">
+                  <span className="">
+                    <p className="text-center items-center align-top h-full w-full pl-2">
+                      customer service
+                    </p>
+                  </span>
+                </Link>
+              </div>
               {renderThemeChanger()}
               <button
                 type="button"

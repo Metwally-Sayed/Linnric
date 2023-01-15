@@ -112,6 +112,7 @@ const DraftForm = ({ editOrderData }) => {
       .catch((error) => console.log('error', error));
   };
 
+  let filesLink = [];
   const changeHandler = (event) => {
     let headersList = {
       Accept: '*/*',
@@ -124,10 +125,9 @@ const DraftForm = ({ editOrderData }) => {
     bodyContent.append('file', event.target.files[0]);
 
     setFileName(event.target.files[0].name);
-
     try {
       const sendData = async () => {
-        let response = await fetch(
+        const response = await fetch(
           'https://backend420.linnric.com/api/v1/upload',
           {
             method: 'POST',
@@ -136,17 +136,18 @@ const DraftForm = ({ editOrderData }) => {
           },
         );
 
-        let data = await response.json();
-        const url = data.publicURL;
-        console.log(url);
+        const data = await response.json();
+        // const url = await data.publicURL;
+        console.log(data);
         setFiles((prev) => {
           return [...prev, { field_id: data.publicURL }];
         });
+        filesLink = [...filesLink, { field_id: data.publicURL }];
+        console.log(filesLink);
+        assignmentDataCollecter('File', filesLink);
         return response;
       };
       sendData();
-
-      assignmentDataCollecter('File', files);
     } catch (error) {
       console.log(error);
     }

@@ -7,7 +7,7 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
   const allCockies = cookies.getAll();
 
   const [pages, setPages] = useState(0);
-  const [words, setWords] = useState('');
+  const [words, setWords] = useState('550');
   const [space, setSpace] = useState('');
 
   const checker = (value) => {

@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <PayPalScriptProvider
       options={{
         'client-id':
-          'AbiiEPSjC6e8FaVlZ3YM1mP9Fb48acjZ4gM-7IeDiIZwbOP3-tMpC4rbuuowWi5oTu9KzJYYhaxmeZ_9',
+          'AXEiHbDM7ajpBkGrOy_egV3gHqYkKWuo06BJ8NdqGnvxuv1rR_kUxHAt8HAJ_RK2HUdbN8DFzSGx08wz',
         currency: 'USD',
         intent: 'capture',
       }}

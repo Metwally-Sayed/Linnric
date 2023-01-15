@@ -12,7 +12,7 @@ import Image from 'next/image';
 import logo from '../assessed/WhatsApp-Image-logo.jpg';
 import userImage from '../assessed/blank-profile-picture-973460.png';
 import Cookies from 'universal-cookie';
-import { BsWhatsapp } from 'react-icons/Bs';
+import { RiWhatsappLine } from 'react-icons/ri';
 
 const cookies = new Cookies();
 
@@ -26,7 +26,7 @@ const navigation = [
   {
     name: ' Create Order Using Whats app',
     href: 'https://wa.me/message/WSW4QI6W7BGOE1',
-    icon: BsWhatsapp,
+    icon: RiWhatsappLine,
     current: false,
   },
 ];
@@ -240,7 +240,7 @@ const CustomerLayout = ({ children }) => {
           <div className="flex flex-1 justify-end px-4">
             <div className="ml-4 flex items-center md:ml-6">
               <div className="flex">
-                <BsWhatsapp />
+                <RiWhatsappLine />
                 <Link href="https://wa.me/message/WSW4QI6W7BGOE1">
                   <span className="">
                     <p className="text-center items-center align-top h-full w-full pl-2">

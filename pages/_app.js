@@ -12,8 +12,8 @@ function MyApp({ Component, pageProps }) {
       options={{
         'client-id':
           'AZ4x9Zq31F_4SzKd9Ih5kYhAZfSE9REpLZzM3WF0exLFbzBgwnCuHMJYLbt1Fbys1ptFFabNcspfTM0V',
-        currency: 'USD',
-        intent: 'capture',
+        currency: 'USD ',
+        intent: 'capture ',
       }}
     >
       <ThemeProvider attribute="class">

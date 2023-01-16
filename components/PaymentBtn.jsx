@@ -3,6 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
+import { TbBrandWhatsapp } from 'react-icons/tb';
 
 const PaymentBtn = () => {
   const cookies = new Cookies();
@@ -49,10 +50,20 @@ const PaymentBtn = () => {
   return (
     <>
       <h1 className="text-center text-3xl font-semibold pt-24">
-        For Now We Only Accepting PayPal
+        For Now We Are Using WhatsApp For Payment
       </h1>
       <div className="md:w-[100%] w-full mt-28 min-h-screen mx-auto flex justify-center ">
-        <PayPalScriptProvider>
+        <div>
+          <a
+            className="flex text-center font-semibold text-4xl"
+            href={`https://api.whatsapp.com/send/?phone=%2B13233285683&text=Hello%2C+My+total+price+is+$${orderPrice}.&type=phone_number&app_absent=0`}
+          >
+            <TbBrandWhatsapp />
+            Pay Here!
+          </a>
+          {}
+        </div>
+        {/* <PayPalScriptProvider>
           <PayPalButtons
             className=" flex justify-center w-full  "
             style={{
@@ -78,7 +89,7 @@ const PaymentBtn = () => {
               router.push('/customer/active');
             }}
           />
-        </PayPalScriptProvider>
+        </PayPalScriptProvider> */}
       </div>
     </>
   );

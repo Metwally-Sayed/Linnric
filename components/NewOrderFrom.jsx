@@ -26,13 +26,6 @@ const NewOrderFrom = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(
-      formData.assigment_type,
-      formData.assignmentEducationLevel,
-      formData.assignment_details,
-      formData.pages,
-    );
-
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
     myHeaders.append('Cookie', 'Cookie_1=value');
@@ -49,7 +42,6 @@ const NewOrderFrom = () => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price);
         sessionStorage.setItem('writerP', result.writers_price);
@@ -59,7 +51,6 @@ const NewOrderFrom = () => {
     router.push('/neworder/next');
   };
 
-  console.log(formData);
 
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">

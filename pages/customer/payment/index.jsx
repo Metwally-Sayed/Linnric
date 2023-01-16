@@ -14,7 +14,6 @@ import PaymentBtn from '../../../components/PaymentBtn';
 
 const Payment = () => {
   // const submitForm = (values) => {
-  //   console.log(values);
   // };
 
   const [price, setPrice] = useState(0);

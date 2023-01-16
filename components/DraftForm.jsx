@@ -53,11 +53,8 @@ const DraftForm = ({ editOrderData }) => {
     topic: AllFormData.assigment_type,
     pages: AllFormData.pages,
   };
-  console.log(AllFormData);
 
-  console.log(orderPrice);
 
-  const data = useSelector((state) => console.log(state.orderPayData));
   const submitHandler = async (e) => {
     e.preventDefault();
     dispatch(getOrderPayData(AllFormData));
@@ -138,12 +135,10 @@ const DraftForm = ({ editOrderData }) => {
 
         const data = await response.json();
         // const url = await data.publicURL;
-        console.log(data);
         setFiles((prev) => {
           return [...prev, { field_id: data.publicURL }];
         });
         filesLink = [...filesLink, { field_id: data.publicURL }];
-        console.log(filesLink);
         assignmentDataCollecter('File', filesLink);
         return response;
       };

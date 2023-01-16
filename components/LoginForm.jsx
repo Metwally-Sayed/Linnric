@@ -29,7 +29,6 @@ const LoginForm = () => {
         router,
         setIsError,
       );
-      console.log(isError);
     }
     if (router.asPath === '/login') {
       userLogIn(

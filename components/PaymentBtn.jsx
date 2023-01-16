@@ -18,16 +18,7 @@ const PaymentBtn = () => {
 
   const orderPrice = Math.round(price);
 
-  console.log(orderPrice);
-
   const AllFormData = useSelector((state) => state.orderPayData);
-  console.log(AllFormData);
-
-  console.log(
-    JSON.stringify({
-      AllFormData,
-    }),
-  );
 
   const handleApprove = () => {
     const myHeaders = new Headers();
@@ -51,7 +42,7 @@ const PaymentBtn = () => {
 
     fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((result) => result)
       .catch((error) => console.log('error', error));
   };
 

@@ -45,7 +45,6 @@ export const getServerSideProps = async (context) => {
   };
 
   const Data = await axios(config);
-  // console.log(Data);
   const textData = await Data.data.data;
 
   return {

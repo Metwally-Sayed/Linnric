@@ -10,7 +10,6 @@ const OrderPage = ({ orderData }) => {
 
   const router = useRouter();
   const id = router.query.id;
-  console.log(id);
   const [files, setFiles] = useState([]);
 
   const inputRef = useRef(null);
@@ -23,11 +22,9 @@ const OrderPage = ({ orderData }) => {
     if (!fileObj) {
       return;
     }
-    console.log('fileObj is', fileObj);
 
     event.target.value = null;
 
-    console.log(fileObj);
 
     const formData = new FormData();
     formData.append('file', fileObj);
@@ -38,26 +35,22 @@ const OrderPage = ({ orderData }) => {
           'https://api.cloudinary.com/v1_1/dr7qu1s4l/image/upload',
           formData,
         );
-        console.log(res);
         if (res.status === 200) {
           const { url } = await res.data;
           setFiles((prev) => {
             return [...prev, { file: url }];
           });
 
-          console.log(files);
         }
         return res;
       };
       await sendData();
-      console.log(files);
     } catch (error) {
       console.log(error);
     }
 
     const saveData = async () => {
       const data = { Idorder: +id, File: files };
-      console.log(data);
       const myHeaders = new Headers();
       myHeaders.append('Authorization', `Bearer ${token}`);
       myHeaders.append('Content-Type', 'application/json');
@@ -75,7 +68,7 @@ const OrderPage = ({ orderData }) => {
         requestOptions,
       )
         .then((response) => response.json())
-        .then((result) => console.log(result))
+        .then((result) => result)
         .catch((error) => console.log('error', error));
     };
     await saveData();
@@ -267,7 +260,6 @@ export const getServerSideProps = async (context) => {
   };
 
   const Data = await axios(config);
-  // console.log(Data);
   const orderData = await Data.data.data;
 
   return {

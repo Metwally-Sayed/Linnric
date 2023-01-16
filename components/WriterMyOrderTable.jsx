@@ -7,7 +7,6 @@ export default function WriterMyOrderTable({ orderData }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const currentUrl = router.pathname.split('/');
-  console.log(currentUrl[3]);
 
   const selectOrderHandler = (orderId) => {
     const selected = orderData.filter((order) => order.ID === orderId);

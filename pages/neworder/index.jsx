@@ -11,7 +11,6 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 const Neworder = () => {
   const router = useRouter();
-  console.log(router.pathname);
   if (router.pathname === '/customer/active') {
     cookies.remove('orderPrice', { path: '/' });
     cookies.remove('Line_spacing', { path: '/' });

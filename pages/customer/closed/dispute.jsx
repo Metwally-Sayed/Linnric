@@ -40,7 +40,7 @@ const Dispute = () => {
       requestOptions,
     )
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((result) => result)
       .catch((error) => console.log('error', error));
   };
 

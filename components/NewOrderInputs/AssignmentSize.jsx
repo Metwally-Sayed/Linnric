@@ -18,7 +18,6 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
     if (value === 'Double') {
       setWords('275');
       assignmentDataCollecter('words', '275');
-      console.log(space);
     }
   };
 
@@ -70,13 +69,11 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
             onChange={(e) => {
               cookies.set('Line_spacing', e.target.value);
               checker(e.target.value);
-              console.log(e.target.value);
             }}
             className="w-[90%] bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
           >
             <option
               onChange={(e) => {
-                console.log(e);
 
                 assignmentDataCollecter('line_spacing', e.target.value);
               }}
@@ -85,7 +82,6 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
             </option>
             <option
               onClick={(e) => {
-                console.log(e);
 
                 assignmentDataCollecter('line_spacing', e.target.value);
               }}

@@ -5,7 +5,6 @@ import WriterMyOrderTable from '../../../components/WriterMyOrderTable';
 import axios from 'axios';
 
 const dispute = ({ orderData }) => {
-  console.log(orderData);
   return (
     <WriterLayoutWrapper>
       <WriterMyOrderLayout>

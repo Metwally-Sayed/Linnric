@@ -4,7 +4,6 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 const Availableorder = ({ orderData }) => {
-  console.log(orderData);
   const cookies = new Cookies();
   const router = useRouter();
   const id = router.query.id;
@@ -183,7 +182,6 @@ export const getServerSideProps = async (context) => {
   };
 
   const Data = await axios(config);
-  // console.log(Data);
   const orderData = await Data.data.data;
 
   return {

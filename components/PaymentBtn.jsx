@@ -43,7 +43,9 @@ const PaymentBtn = () => {
 
     fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
       .then((response) => response.json())
-      .then((result) => result)
+      .then((result) =>
+          result.statusCode === 200 ? router.push('/customer/active') : '',
+      )
       .catch((error) => console.log('error', error));
   };
 
@@ -55,6 +57,9 @@ const PaymentBtn = () => {
         <br />
       </h1>
       <div className="md:w-[100%] w-full mt-28  mx-auto flex flex-col items-center justify-center ">
+        <button onClick={handleApprove} className="font-semibold">
+          Click Here To Order
+        </button>
         {/* <PayPalScriptProvider>
           <PayPalButtons
             className=" flex justify-center w-full  "
@@ -83,7 +88,7 @@ const PaymentBtn = () => {
           />
         </PayPalScriptProvider> */}
         <div className="text-center text-3xl font-semibold pt-24">
-          After Paying Check Your Email For Billing And Invoice.
+          Check Your Email For Billing And Invoice.
           <br />
           <br />
           <br />

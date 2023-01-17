@@ -3,7 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
-import { TbBrandWhatsapp } from 'react-icons/tb';
+import { MdOutlineTextsms } from 'react-icons/md';
 
 const PaymentBtn = () => {
   const cookies = new Cookies();
@@ -50,19 +50,11 @@ const PaymentBtn = () => {
   return (
     <>
       <h1 className="text-center text-3xl font-semibold pt-24">
-        For Now We Are Using WhatsApp For Payment
+        Thank You For Placing Your Order!
+        <br />
+        <br />
       </h1>
-      <div className="md:w-[100%] w-full mt-28 min-h-screen mx-auto flex justify-center ">
-        <div>
-          <a
-            className="flex text-center font-semibold text-4xl"
-            href={`https://api.whatsapp.com/send/?phone=%2B13233285683&text=Hello%2C+My+total+price+is+$${orderPrice}.&type=phone_number&app_absent=0`}
-          >
-            <TbBrandWhatsapp />
-            Pay Here!
-          </a>
-          {}
-        </div>
+      <div className="md:w-[100%] w-full mt-28  mx-auto flex flex-col items-center justify-center ">
         {/* <PayPalScriptProvider>
           <PayPalButtons
             className=" flex justify-center w-full  "
@@ -90,6 +82,28 @@ const PaymentBtn = () => {
             }}
           />
         </PayPalScriptProvider> */}
+        <div className="text-center text-3xl font-semibold pt-24">
+          After Paying Check Your Email For Billing And Invoice.
+          <br />
+          <br />
+          <br />
+          For More Inquiries,
+          <a className="animate-pulse" href="tel:+1 (323) 328-5683">
+            {' '}
+            SMS
+          </a>
+          ,{' '}
+          <a className="animate-pulse" href="mailto:linnric45@gmail.com">
+            E-mail
+          </a>{' '}
+          or{' '}
+          <a
+            className="animate-pulse"
+            href={`https://api.whatsapp.com/send/?phone=%2B13233285683&text=Hello%2C+My+total+price+is+$${orderPrice}.&type=phone_number&app_absent=0`}
+          >
+            WhatsAPP
+          </a>
+        </div>
       </div>
     </>
   );

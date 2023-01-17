@@ -52,7 +52,7 @@ const OrderCard = ({ data }) => {
                       <p className="w-[70%]">{order.assigment_topic}</p>
                     </div>
                     <div className="text-sm mt-4 text-gray-500">
-                      {order.pages} slide | {order.assigment_type} |Order Number
+                      {order.pages} Page | {order.assigment_type} |Order Number
                       : {order.ID}
                     </div>
                   </div>

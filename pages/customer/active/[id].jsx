@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const EditOrder = ({ orderData }) => {
   const [updateFormData, setUpdateFormData] = useState({});
-  console.log(orderData);
 
   return (
     <>

@@ -3,6 +3,9 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import PaymentBtn from '../../../components/PaymentBtn';
+import { AiOutlineClose } from 'react-icons/ai';
+import { useRouter } from 'next/router';
+import Cookies from 'universal-cookie';
 
 // const schema = Yup.object({
 //   cardNumber: Yup.string().required(),
@@ -13,6 +16,10 @@ import PaymentBtn from '../../../components/PaymentBtn';
 // });
 
 const Payment = () => {
+  const cookies = new Cookies();
+
+  const router = useRouter();
+
   // const submitForm = (values) => {
   // };
 
@@ -22,7 +29,6 @@ const Payment = () => {
     setPrice(window.sessionStorage.getItem('orderPrice'));
   }, []);
 
-  
   // const {
   //   register,
   //   handleSubmit,
@@ -141,8 +147,21 @@ const Payment = () => {
           </div>
         </div>
       </form> */}
-      <div className="w-full mx-auto flex flex-col justify-center items-center ">
-        <PaymentBtn  />
+      <div className="w-full mx-auto flex flex-col justify-center items-center my-10 ">
+        <div className="flex justify-end items-end w-full mr-20">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              router.push('/writer/availableorders');
+              cookies.remove('orderPrice', { path: '/' });
+              cookies.remove('Line_spacing', { path: '/' });
+            }}
+            className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
+          >
+            <AiOutlineClose />
+          </button>
+        </div>
+        <PaymentBtn />
       </div>
     </>
   );

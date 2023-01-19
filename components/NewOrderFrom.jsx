@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AssignmentTypeInput from './NewOrderInputs/AssignmentTypeInput';
 import AssignmentDetails from './NewOrderInputs/AssignmentDetails';
 import AssignmentEducationLevel from './NewOrderInputs/AssignmentEducationLevel';
 import AssignmentDeadline from './NewOrderInputs/AssignmentDeadline';
 import AssignmentSize from './NewOrderInputs/AssignmentSize';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAssignmentData } from '../redux/features/assignmentData';
 import { useRouter } from 'next/router';
@@ -13,7 +12,7 @@ import Cookies from 'universal-cookie';
 const NewOrderFrom = () => {
   const cookies = new Cookies();
   const token = cookies.get('userrefreshToken');
-
+  const [estimatedPrice, setEstimatedPrice] = useState(0);
   const [formData, setFormData] = useState({});
 
   const assignmentDataCollecter = (dataKey, data) => {
@@ -23,9 +22,7 @@ const NewOrderFrom = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
+  const EstimatePrice = async () => {
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
     myHeaders.append('Cookie', 'Cookie_1=value');
@@ -35,22 +32,29 @@ const NewOrderFrom = () => {
       headers: myHeaders,
       redirect: 'follow',
     };
-
     fetch(
       `https://backend420.linnric.com/api/v1/estimate_order_price?service=${formData.assignment_details}&education=${formData.assignmentEducationLevel}&topic=${formData.assigment_type}&pages=${formData.pages}`,
       requestOptions,
     )
       .then((response) => response.json())
       .then((result) => {
+        setEstimatedPrice(result?.Total_price)
         cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price);
-        sessionStorage.setItem('writerP', result.writers_price);
+        sessionStorage.setItem('writerP', result.writers_price); //check if  writerP is spelled correctly
       })
       .catch((error) => console.log('error', error));
-    dispatch(getAssignmentData(formData));
-    router.push('/neworder/next');
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(getAssignmentData(formData));
+    router.push('/neworder/next');
+  }
+
+  useEffect(() => {
+    EstimatePrice()
+  }, [formData?.assignment_details,formData?.assignment_type, formData?.assignmentEducationLevel, formData?.pages])
 
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
@@ -92,11 +96,14 @@ const NewOrderFrom = () => {
                     )}
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
+                <div className=" flex justify-between items-center bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
+                  <div>
+                    <p>{`Total Price : $${Math.round(estimatedPrice)}`}</p>
+                  </div>
                   <button
                     onClick={submitHandler}
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
                   >
                     Next
                   </button>

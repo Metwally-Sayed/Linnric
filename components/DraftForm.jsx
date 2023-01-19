@@ -10,7 +10,7 @@ import { editingOrderHandler } from '../utilities/apiFunctions';
 import { getOrderPrice } from '../utilities/apiFunctions';
 import { getOrderPayData } from '../redux/features/orderPayData';
 import axios from 'axios';
-
+import { IoIosArrowBack } from 'react-icons/io';
 const cookies = new Cookies();
 const token = cookies.get('userrefreshToken');
 
@@ -19,8 +19,8 @@ const DraftForm = ({ editOrderData }) => {
   let id = 0;
   Array.isArray(editOrderData)
     ? editOrderData.map((order) => {
-        id = order.ID;
-      })
+      id = order.ID;
+    })
     : null;
 
   const router = useRouter();
@@ -29,7 +29,7 @@ const DraftForm = ({ editOrderData }) => {
   const [docURL, setDocURL] = useState('');
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
-  const [cprice, setPrice] = useState(0);
+  // const [cprice, setPrice] = useState(0); 
   const [wPrice, setWPrice] = useState(0);
 
   const assignmentDataCollecter = (dataKey, data) => {
@@ -38,10 +38,10 @@ const DraftForm = ({ editOrderData }) => {
   const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
 
   const AllFormData = { ...firstFormdata, ...formData, price: +wPrice };
-  useEffect(() => {
-    // setPrice(window.sessionStorage.getItem('orderPrice'));
-    setPrice(cookies.get('orderPrice'));
-  }, [cprice]);
+  // useEffect(() => {
+  //   // setPrice(window.sessionStorage.getItem('orderPrice'));
+  //   setPrice(cookies.get('orderPrice'));
+  // }, [cprice]);
 
   useEffect(() => {
     setWPrice(window.sessionStorage.getItem('writerP'));
@@ -158,6 +158,16 @@ const DraftForm = ({ editOrderData }) => {
             <form onSubmit={submitHandler}>
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
+                  <div className=" px-4 py-3 text-left sm:px-6">
+                    <button
+                      onClick={() => router.back()}
+                      type="submit"
+                      className=" items-center inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                    >
+                      <IoIosArrowBack className="pr-1" size={18} />
+                      Back
+                    </button>
+                  </div>
                   <div className="my-5">
                     <AssignmentTopic
                       assignmentDataCollecter={assignmentDataCollecter}
@@ -240,13 +250,14 @@ const DraftForm = ({ editOrderData }) => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6 w-full flex justify-between">
+                <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6 w-full ">
                   {currentURL === '/customer/active/[id]' ? (
                     ''
                   ) : (
-                    <div>
-                      <p>{`Total Price : $${Math.round(cprice)}`}</p>
-                    </div>
+                    null
+                    // <div>
+                    //   <p>{`Total Price : $${Math.round(cprice)}`}</p>
+                    // </div>
                   )}
 
                   {currentURL === '/customer/active/[id]' ? (
@@ -255,7 +266,7 @@ const DraftForm = ({ editOrderData }) => {
                       onClick={(e) => {
                         editHandler(e);
                       }}
-                      className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                      className="inline-flex rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
                     >
                       Save
                     </button>

@@ -38,8 +38,8 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
               value={pages}
               className="w-[88%] bg-[#F3F4F6] rounded-md border border-gray-300 dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm "
               onChange={(e) => {
-                setPages(e.target.value);
-                assignmentDataCollecter('pages', e.target.value);
+                setPages(e?.target?.value);
+                assignmentDataCollecter('pages', e?.target?.value);
               }}
             />{' '}
           </div>

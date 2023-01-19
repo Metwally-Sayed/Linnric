@@ -50,14 +50,14 @@ export default function AssignmentTypeInput({ assignmentDataCollecter }) {
     { id: '36', name: 'Short Answer Questions', questions: 'false' },
     { id: '37', name: 'Word Problems', questions: 'false' },
     { id: '38', name: 'Programming', questions: 'false' },
-    { id: '38', name: 'Excel Assignment', questions: 'true' },
-    { id: '39', name: 'Economics Assignment', questions: 'true' },
-    { id: '40', name: 'Accounting Assignment', questions: 'true' },
-    { id: '41', name: 'Annotated Bibliography', questions: 'false' },
-    { id: '42', name: 'Article Review', questions: 'false' },
-    { id: '43', name: 'Article Writing', questions: 'false' },
-    { id: '44', name: 'Book/Movie Review', questions: 'false' },
-    { id: '45', name: 'Business Plan', questions: 'false' },
+    { id: '39', name: 'Excel Assignment', questions: 'true' },
+    { id: '40', name: 'Economics Assignment', questions: 'true' },
+    { id: '41', name: 'Accounting Assignment', questions: 'true' },
+    { id: '42', name: 'Annotated Bibliography', questions: 'false' },
+    { id: '43', name: 'Article Review', questions: 'false' },
+    { id: '44', name: 'Article Writing', questions: 'false' },
+    { id: '45', name: 'Book/Movie Review', questions: 'false' },
+    { id: '46', name: 'Business Plan', questions: 'false' },
   ]);
 
   const [query, setQuery] = useState('');

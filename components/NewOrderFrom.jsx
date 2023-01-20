@@ -38,7 +38,6 @@ const NewOrderFrom = () => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
         setEstimatedPrice(result.Total_price)
         cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price);

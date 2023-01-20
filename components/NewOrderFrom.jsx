@@ -21,7 +21,7 @@ const NewOrderFrom = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log(formData)
+
   const EstimatePrice = async () => {
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
@@ -33,12 +33,13 @@ const NewOrderFrom = () => {
       redirect: 'follow',
     };
     fetch(
-      `https://backend420.linnric.com/api/v1/estimate_order_price?service=${formData.assignment_details}&education=${formData.assignmentEducationLevel}&topic=${formData.assigment_type}&pages=${formData.pages}&space=${formData.line_spacing}`,
+      `https://backend420.linnric.com/api/v1/estimate_order_price?service=${formData.assignment_details}&education=${formData.education}&topic=${formData.assignment_type}&pages=${formData.pages}&space=${formData.line_spacing}`,
       requestOptions,
     )
       .then((response) => response.json())
       .then((result) => {
-        setEstimatedPrice(result?.Total_price)
+        console.log(result)
+        setEstimatedPrice(result.Total_price)
         cookies.set('orderPrice', result.Total_price);
         sessionStorage.setItem('orderPrice', result.Total_price);
         sessionStorage.setItem('writerP', result.writers_price); //check if  writerP is spelled correctly
@@ -54,7 +55,7 @@ const NewOrderFrom = () => {
 
   useEffect(() => {
     EstimatePrice()
-  }, [formData?.assignment_details,formData?.assignment_type, formData?.assignmenteducation, formData?.pages,formData?.line_spacing])
+  }, [formData?.assignment_details, formData?.assignment_type, formData?.education, formData?.pages, formData?.line_spacing])
 
   return (
     <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">

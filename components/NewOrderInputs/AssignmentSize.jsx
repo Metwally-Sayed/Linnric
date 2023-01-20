@@ -66,28 +66,18 @@ const AssignmentSize = ({ assignmentDataCollecter }) => {
             Line spacing:
           </label>
           <select
+            defaultValue="Single"
             onChange={(e) => {
               cookies.set('Line_spacing', e.target.value);
               checker(e.target.value);
-            }}
+              assignmentDataCollecter('line_spacing', e.target.value);
+            }
+            }
+
             className="w-[90%] bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
           >
-            <option
-              onChange={(e) => {
-
-                assignmentDataCollecter('line_spacing', e.target.value);
-              }}
-            >
-              Single
-            </option>
-            <option
-              onClick={(e) => {
-
-                assignmentDataCollecter('line_spacing', e.target.value);
-              }}
-            >
-              Double
-            </option>
+            <option>Single</option>
+            <option >Double</option>
           </select>
         </div>
       </div>

@@ -44,7 +44,7 @@ const PaymentBtn = () => {
     fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
       .then((response) => response.json())
       .then((result) =>
-          result.statusCode === 200 ? router.push('/customer/active') : '',
+        result.statusCode === 200 ? router.push('/customer/active') : '',
       )
       .catch((error) => console.log('error', error));
   };
@@ -57,7 +57,10 @@ const PaymentBtn = () => {
         <br />
       </h1>
       <div className="md:w-[100%] w-full mt-28  mx-auto flex flex-col items-center justify-center ">
-        <button onClick={handleApprove} className="font-semibold">
+        <button
+          onClick={handleApprove}
+          className="inline-flex items-center rounded-md border border-transparent bg-[#286bb8] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#2f7bd3] focus:outline-none focus:ring-2 focus:ring-[#286bb8] focus:ring-offset-2"
+        >
           Click Here To Save Your Order
         </button>
         {/* <PayPalScriptProvider>

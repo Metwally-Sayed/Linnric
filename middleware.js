@@ -29,7 +29,9 @@ export default function middleware(req) {
       res.cookies.delete('writerrefreshToken');
     }
 
-    return NextResponse.redirect('http://linnric.com/writer/availableorders');
+    return NextResponse.redirect(
+      'http://linnric.com/writer/availableorders',
+    );
   }
 
   if (url.includes('/writer') && !writerVerify) {

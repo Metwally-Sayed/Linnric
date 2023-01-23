@@ -58,7 +58,7 @@ const PaymentBtn = () => {
       </h1>
       <div className="md:w-[100%] w-full mt-28  mx-auto flex flex-col items-center justify-center ">
         <button onClick={handleApprove} className="font-semibold">
-          Click Here To Order
+          Click Here To Save Your Order
         </button>
         {/* <PayPalScriptProvider>
           <PayPalButtons

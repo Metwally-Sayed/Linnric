@@ -58,7 +58,7 @@ const ConfirmOrderForm = () => {
     fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
       .then((response) => response.json())
       .then((result) =>
-          result.statusCode === 200 ? router.push('/customer/active') : '',
+          result.statusCode === 200 
       )
       .catch((error) => console.log('error', error));
     

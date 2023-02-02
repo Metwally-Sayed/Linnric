@@ -23,13 +23,13 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
   }, [space]);
 
   return (
-    <>
-      <p className='className="block text-sm font-medium  dark:text-white text-gray-700'>
+    <div className="bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md">
+      <p className="block text-lg font-medium md:text-lg dark:text-white text-gray-700">
         Assignment size:
       </p>
-      <div className=" flex flex-col md:flex-row md:w-[70%] mf:mt-0 mt-3 ">
-        <div className="w-[30%]">
-          <label className="text-gray-500 md:text-lg text-[0.55rem]  dark:text-white ">
+      <div className=" flex flex-col justify-center md:flex-row md:items-center ">
+        <div className="flex flex-col  md:pr-12 w-full  md:w-[30%] ">
+          <label className="text-gray-500 text-base  md:text-lg text-[0.55rem]  dark:text-white ">
             Pages:
           </label>
           <div>
@@ -37,7 +37,7 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
               type="number"
               placeholder="Pages*"
               value={pages?.length > 0 ? pages : formData?.pages}
-              className="w-[88%] bg-[#F3F4F6] rounded-md border border-gray-300 dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm "
+              className="w-full bg-[#F3F4F6] rounded-md border border-gray-300 dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm "
               onChange={(e) => {
                 setPages(e?.target?.value);
                 assignmentDataCollecter("pages", e?.target?.value);
@@ -45,14 +45,14 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
             />{" "}
           </div>
         </div>
-        <div className="w-[30%]">
+        <div className=" flex flex-col  md:pr-12 my-2 md:my-0 w-full md:w-[30%]">
           {" "}
-          <label className="  dark:text-white text-gray-500 md:text-lg text-[0.45rem]">
-            Words per one page:
+          <label className="  dark:text-white text-gray-500 text-base md:text-lg text-[0.45rem]">
+            Words:
           </label>
           <input
             type="number"
-            className="w-[88%]  bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            className="w-[full%]  bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a]  shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
             placeholder="Words*"
             value={words}
             onChange={(e) => {
@@ -61,9 +61,9 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
             }}
           />
         </div>
-        <div className="w-[30%]">
+        <div className="flex flex-col  md:pr-12 my-2 md:my-0 w-full md:w-[30%]">
           {" "}
-          <label className="  dark:text-white text-gray-500 break-all whitespace-pre-line md:text-lg text-[0.65rem] m-0 p-0">
+          <label className="  dark:text-white text-gray-500 text-base break-all whitespace-pre-line md:text-lg text-[0.65rem] m-0 p-0">
             Line spacing:
           </label>
           <select
@@ -74,7 +74,7 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
               setSpace(e.target.value);
               assignmentDataCollecter("line_spacing", e.target.value);
             }}
-            className="w-[90%] bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
+            className="w-full bg-[#F3F4F6] rounded-md border border-gray-300  dark:bg-[#33415a] shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
           >
             <option value={"default"} className="text-white" disabled>
               Choose an option
@@ -84,7 +84,7 @@ const AssignmentSize = ({ assignmentDataCollecter, formData }) => {
           </select>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

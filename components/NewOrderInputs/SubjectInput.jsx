@@ -1,47 +1,47 @@
-import React from 'react';
-import { Fragment, useState } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Combobox, Dialog, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import React from "react";
+import { Fragment, useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const people = [
-  { id: 1, name: 'Leslie Alexander', url: '#' },
+  { id: 1, name: "Leslie Alexander", url: "#" },
   // More people...
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 const SubjectInput = ({ assignmentDataCollecter, formData }) => {
   const [assignmentSubject, setAssignmentSubject] = useState([
-    { id: '1', name: 'Advertising' },
-    { id: '2', name: 'Agriculture' },
-    { id: '3', name: 'Algebra' },
-    { id: '4', name: 'American History' },
-    { id: '5', name: 'American Literature' },
-    { id: '6', name: 'Anatomy' },
-    { id: '7', name: 'Ancient Literature' },
-    { id: '8', name: 'Anthropology' },
-    { id: '9', name: 'Application Writing' },
-    { id: '10', name: 'Architecture' },
-    { id: '11', name: 'Art' },
-    { id: '12', name: 'Astronomy' },
-    { id: '13', name: 'Aviation' },
-    { id: '14', name: 'Biology' },
-    { id: '15', name: 'Business and manageme' },
-    { id: '16', name: 'Criminology' },
-    { id: '17', name: 'Cryptography' },
-    { id: '18', name: 'Cultural Studies' },
-    { id: '19', name: 'Dance' },
-    { id: '20', name: 'Dentistry' },
-    { id: '21', name: 'Drama and Theatre' },
-    { id: '22', name: 'Economics' },
-    { id: '23', name: 'Education' },
-    { id: '24', name: 'Engineering' },
-    { id: '25', name: 'English' },
-    { id: '26', name: 'Entrepreneurship' },
-    { id: '27', name: 'Environmental Science' },
-    { id: '28', name: 'Ethics' },
+    { id: "1", name: "Advertising" },
+    { id: "2", name: "Agriculture" },
+    { id: "3", name: "Algebra" },
+    { id: "4", name: "American History" },
+    { id: "5", name: "American Literature" },
+    { id: "6", name: "Anatomy" },
+    { id: "7", name: "Ancient Literature" },
+    { id: "8", name: "Anthropology" },
+    { id: "9", name: "Application Writing" },
+    { id: "10", name: "Architecture" },
+    { id: "11", name: "Art" },
+    { id: "12", name: "Astronomy" },
+    { id: "13", name: "Aviation" },
+    { id: "14", name: "Biology" },
+    { id: "15", name: "Business and manageme" },
+    { id: "16", name: "Criminology" },
+    { id: "17", name: "Cryptography" },
+    { id: "18", name: "Cultural Studies" },
+    { id: "19", name: "Dance" },
+    { id: "20", name: "Dentistry" },
+    { id: "21", name: "Drama and Theatre" },
+    { id: "22", name: "Economics" },
+    { id: "23", name: "Education" },
+    { id: "24", name: "Engineering" },
+    { id: "25", name: "English" },
+    { id: "26", name: "Entrepreneurship" },
+    { id: "27", name: "Environmental Science" },
+    { id: "28", name: "Ethics" },
     { id: "29", name: "Fashion" },
     { id: "30", name: "Feminism" },
     { id: "31", name: "Finance" },
@@ -70,17 +70,47 @@ const SubjectInput = ({ assignmentDataCollecter, formData }) => {
     { id: "54", name: "Music" },
     { id: "55", name: "Natural Science" },
     { id: "56", name: "Nursing" },
-    { id: "57", name: "Nutrition" }
+    { id: "57", name: "Nutrition" },
+    { id: "58", name: "Photography" },
+    { id: "59", name: "PHP" },
+    { id: "60", name: "Physics" },
+    { id: "61", name: "Physiology" },
+    { id: "62", name: "Political Science" },
+    { id: "63", name: "Programming" },
+    { id: "64", name: "Psychiatry" },
+    { id: "65", name: "Psychology" },
+    { id: "66", name: "Public Administration" },
+    { id: "67", name: "Public Relations" },
+    { id: "68", name: "Python" },
+    { id: "69", name: "Religion and Theology" },
+    { id: "70", name: "Scholarship Writing" },
+    { id: "71", name: "Sex Education" },
+    { id: "72", name: "Shakespeare Literature" },
+    { id: "73", name: "Social work" },
+    { id: "74", name: "Sociology" },
+    { id: "75", name: "Special Education" },
+    { id: "76", name: "Sports and Athletics" },
+    { id: "77", name: "SQL" },
+    { id: "78", name: "Statistics" },
+    { id: "79", name: "Technology" },
+    { id: "80", name: "Telecommunications" },
+    { id: "81", name: "Tourism" },
+    { id: "82", name: "Trigonometry" },
+    { id: "83", name: "Urban and Environmental Planning" },
+    { id: "84", name: "Veterinary Science" },
+    { id: "85", name: "Visual Arts" },
+    { id: "86", name: "Web design" },
+    { id: "87", name: "Other" },
   ]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   const filteredPeople =
-    query === ''
+    query === ""
       ? assignmentSubject
       : assignmentSubject.filter((subject) => {
-        return subject.name.toLowerCase().includes(query.toLowerCase());
-      });
+          return subject.name.toLowerCase().includes(query.toLowerCase());
+        });
 
   return (
     <>
@@ -94,9 +124,11 @@ const SubjectInput = ({ assignmentDataCollecter, formData }) => {
               className="w-full rounded-md border dark:bg-[#33415a] border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
               onChange={(event) => {
                 setQuery(event.target.value);
-                assignmentDataCollecter('subject', event.target.value);
+                assignmentDataCollecter("subject", event.target.value);
               }}
-              displayValue={(person) => person?.name ? person?.name : formData?.subject}
+              displayValue={(person) =>
+                person?.name ? person?.name : formData?.subject
+              }
               placeholder="Select subject"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -114,8 +146,8 @@ const SubjectInput = ({ assignmentDataCollecter, formData }) => {
                     value={person}
                     className={({ active }) =>
                       classNames(
-                        'relative cursor-default select-none py-2 pl-3 pr-9',
-                        active ? 'bg-[#367fd3] text-white' : 'text-gray-900',
+                        "relative cursor-default select-none py-2 pl-3 pr-9",
+                        active ? "bg-[#367fd3] text-white" : "text-gray-900"
                       )
                     }
                   >
@@ -123,8 +155,8 @@ const SubjectInput = ({ assignmentDataCollecter, formData }) => {
                       <>
                         <span
                           className={classNames(
-                            'block truncate',
-                            selected && 'font-semibold',
+                            "block truncate",
+                            selected && "font-semibold"
                           )}
                         >
                           {person.name}
@@ -133,8 +165,8 @@ const SubjectInput = ({ assignmentDataCollecter, formData }) => {
                         {selected && (
                           <span
                             className={classNames(
-                              'absolute inset-y-0 right-0 flex items-center pr-4',
-                              active ? 'text-white' : 'text-[#367fd3]',
+                              "absolute inset-y-0 right-0 flex items-center pr-4",
+                              active ? "text-white" : "text-[#367fd3]"
                             )}
                           >
                             <CheckIcon className="h-5 w-5" aria-hidden="true" />

@@ -11,10 +11,13 @@ import AssignmntQuestion from "./NewOrderInputs/AssignmentQuestions";
 import Cookies from "universal-cookie";
 import { IoIosArrowForward } from "react-icons/io";
 import OrderFormContext from "../context/OrderFormContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const NewOrderFrom = () => {
   const cookies = new Cookies();
   const token = cookies.get("userrefreshToken");
-  const { formData, setFormData,estimatedPrice, setEstimatedPrice } = useContext(OrderFormContext);
+  const { formData, setFormData, estimatedPrice, setEstimatedPrice } =
+    useContext(OrderFormContext);
   const [disabled, setDisabled] = useState(true);
 
   const assignmentDataCollecter = (dataKey, data) => {
@@ -23,6 +26,18 @@ const NewOrderFrom = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const notify = () =>
+    toast.error("Some fields are mising", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   const EstimatePrice = async () => {
     const myHeaders = new Headers();
@@ -50,8 +65,21 @@ const NewOrderFrom = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(getAssignmentData(formData));
-    router.push("/neworder/next");
+    if (
+      formData?.assignment_details &&
+      formData?.assigment_type &&
+      formData?.education &&
+      formData?.pages &&
+      formData?.line_spacing &&
+      formData?.deadline &&
+      formData?.time_js
+    ) {
+      dispatch(getAssignmentData(formData));
+      router.push("/neworder/next");
+    } else {
+      notify();
+     
+    }
   };
 
   useEffect(() => {
@@ -64,98 +92,114 @@ const NewOrderFrom = () => {
     formData?.line_spacing,
   ]);
 
-  useEffect(() => {
-    if (
-      (
-        formData?.assignment_details &&
-        formData?.assigment_type &&
-        formData?.education &&
-        formData?.pages &&
-        formData?.line_spacing &&
-        formData?.deadline &&
-        formData?.time_js
-      )?.length > 0
-    ) {
-      setDisabled(false);
-    }
-  }, [
-    formData?.assignment_details,
-    formData?.assigment_type,
-    formData?.education,
-    formData?.pages,
-    formData?.line_spacing,
-    formData?.deadline,
-    formData?.time_js,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     (
+  //       formData?.assignment_details &&
+  //       formData?.assigment_type &&
+  //       formData?.education &&
+  //       formData?.pages &&
+  //       formData?.line_spacing &&
+  //       formData?.deadline &&
+  //       formData?.time_js
+  //     )?.length > 0
+  //   ) {
+  //     setDisabled(false);
+  //   }
+  // }, [
+  //   formData?.assignment_details,
+  //   formData?.assigment_type,
+  //   formData?.education,
+  //   formData?.pages,
+  //   formData?.line_spacing,
+  //   formData?.deadline,
+  //   formData?.time_js,
+  // ]);
 
   return (
-    <div className="mx-auto my-11 max-w-full shadow-lg bg-white dark:bg-[#273142] ">
-      <div className="mt-10 sm:mt-0">
-        <div className="md:grid md:grid-cols-2 md:gap-6">
-          <div className="mt-5 md:col-span-2 md:mt-0">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <div className="overflow-hidden shadow sm:rounded-md">
-                <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
-                  <div className="grid grid-cols-6 gap-6 my-5">
-                    <AssignmentTypeInput
-                      assignmentDataCollecter={assignmentDataCollecter}
-                      formData={formData}
-                    />
-                  </div>
-                  <div className="grid grid-cols-6 gap-6 mt-20 ">
-                    <AssignmentDetails
-                      assignmentDataCollecter={assignmentDataCollecter}
-                      formData={formData}
-                    />
-                    <AssignmentDeadline
-                      assignmentDataCollecter={assignmentDataCollecter}
-                      formData={formData}
-                    />
-                    <AssignmentEducationLevel
-                      assignmentDataCollecter={assignmentDataCollecter}
-                      formData={formData}
-                    />
-                  </div>
-                  <div className="mt-20">
-                    {formData?.assigment_type?.includes("Assignment") ? (
-                      <AssignmntQuestion
-                        assignmentDataCollecter={assignmentDataCollecter}
-                      />
-                    ) : (
-                      <AssignmentSize
-                        assignmentDataCollecter={assignmentDataCollecter}
-                        formData={formData}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className=" flex justify-between items-center bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
-                  <div>
-                    <p>{`Total Price : $${Math.round(estimatedPrice)}`}</p>
-                  </div>
-                  <button
-                    onClick={submitHandler}
-                    type="submit"
-                    disabled={disabled}
-                    className={
-                      disabled
-                        ? "inline-flex items-center justify-center rounded-md border border-transparent bg-gray-400  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
-                        : "inline-flex items-center justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
-                    }
-                  >
-                    Next
-                    <IoIosArrowForward />
-                  </button>
-                </div>
+    <div className=" flex my-11 w-full shadow-lg bg-white dark:bg-[#273142] ">
+      {/* <div className="mt-10 sm:mt-0"> */}
+      <div className="flex w-full ">
+        <form
+          className="flex flex-col w-full"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <div className="  overflow-hidden shadow sm:rounded-md">
+            <div className="bg-white px-2 md:px-4 py-5 sm:p-3 dark:bg-[#242d3d] ">
+              <div className="flex flex-col w-full bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md  md:my-5">
+                <AssignmentTypeInput
+                  assignmentDataCollecter={assignmentDataCollecter}
+                  formData={formData}
+                />
               </div>
-            </form>
+              <div className="flex flex-col w-full items-center bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md mt-4  ">
+                <AssignmentDetails
+                  assignmentDataCollecter={assignmentDataCollecter}
+                  formData={formData}
+                />
+              </div>
+              <div className="flex flex-col w-full items-center bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md mt-4  ">
+                <AssignmentDeadline
+                  assignmentDataCollecter={assignmentDataCollecter}
+                  formData={formData}
+                />
+              </div>
+              <div className="flex flex-col w-full items-center bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md mt-4  ">
+                <AssignmentEducationLevel
+                  assignmentDataCollecter={assignmentDataCollecter}
+                  formData={formData}
+                />
+              </div>
+              <div className="mt-4">
+                {formData?.assigment_type?.includes("Assignment") ? (
+                  <div className="flex flex-col w-full bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md items-center mt-4  ">
+                    <AssignmntQuestion
+                      assignmentDataCollecter={assignmentDataCollecter}
+                    />
+                  </div>
+                ) : (
+                  <AssignmentSize
+                    assignmentDataCollecter={assignmentDataCollecter}
+                    formData={formData}
+                  />
+                )}
+              </div>
+            </div>
+            <div className=" flex justify-between items-center bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6">
+              <div>
+                <p>{`Total Price : $${Math.round(estimatedPrice)}`}</p>
+              </div>
+              <button
+                onClick={submitHandler}
+                type="submit"
+                className={
+                  "inline-flex items-center justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                }
+              >
+                Next
+                <IoIosArrowForward />
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
+      {/* </div> */}
     </div>
   );
 };

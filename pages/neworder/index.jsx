@@ -29,7 +29,7 @@ const Neworder = () => {
               </OrderFormProgressBar>
             </div>
           </div>
-          <div className='w-3/5 px-2 py-4'>
+          <div className='w-full md:w-3/5 px-2 py-4'>
             <div className="  mx-auto w-full my-8 flex justify-between">
               <h1 className="text-2xl md:text-5xl font-bold">Create new order</h1>
               <button

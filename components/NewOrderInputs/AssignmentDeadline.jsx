@@ -13,12 +13,12 @@ var day = date.getDate().toString().padStart(2, "0");
 
 var outputDateStr = year + "-" + month + "-" + day;
   return (
-    <div className="flex flex-col justify-start w-full md:flex-row ">
-      <Combobox className="mr-3 w-full " as="div">
-        <Combobox.Label className="block text-sm font-medium mr-3 dark:text-white text-gray-700">
+    <div className="flex flex-col w-full md:flex-row md:justify-between ">
+      <Combobox className="md:w-1/3" as="div">
+        <Combobox.Label className="block text-base font-medium mr-3 dark:text-white text-gray-700">
           Deadline:
         </Combobox.Label>
-        <div className="relative mt-1 w-[260px] md:w-auto">
+        <div className="relative mt-1 w-[100%] md:w-full md:flex]">
           <input
             type="date"
             name="party"
@@ -34,8 +34,8 @@ var outputDateStr = year + "-" + month + "-" + day;
           />
         </div>
       </Combobox>
-      <Combobox as="div">
-        <div className="relative mt-6 w-[260px] md:w-auto">
+      <Combobox className="md:w-1/3" as="div">
+        <div className="relative mt-6 w-[100%] md:w-auto">
           <input
             type="time"
             name="time"

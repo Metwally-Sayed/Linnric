@@ -30,9 +30,9 @@ const AssignmentDetails = ({ assignmentDataCollecter, formData }) => {
 
   return (
     <>
-      <div className="col-span-6 sm:col-span-3">
-        <Combobox as="div" value={selectedPerson} onChange={setSelectedPerson}>
-          <Combobox.Label className="block text-sm font-medium dark:text-white text-gray-700">
+      <div className="flex w-[100%]">
+        <Combobox as="div" className="flex flex-col w-[100%]" value={selectedPerson} onChange={setSelectedPerson}>
+          <Combobox.Label className="block text-base font-medium dark:text-white text-gray-700">
             Assignment details:
           </Combobox.Label>
           <div className="relative mt-1">

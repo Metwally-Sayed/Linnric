@@ -1,43 +1,56 @@
-import React, { useState, useEffect ,useContext} from 'react';
-import AssignmentTopic from './NewOrderInputs/AssignmentTopic';
-import SubjectInput from './NewOrderInputs/SubjectInput';
-import StyleInput from './NewOrderInputs/StyleInput';
-import { useSelector, useDispatch } from 'react-redux';
-import { postingOrderHandler } from '../utilities/apiFunctions';
-import Cookies from 'universal-cookie';
-import { useRouter } from 'next/router';
-import { editingOrderHandler } from '../utilities/apiFunctions';
-import { getOrderPrice } from '../utilities/apiFunctions';
-import { getOrderPayData } from '../redux/features/orderPayData';
-import axios from 'axios';
-import { IoIosArrowBack,IoIosArrowForward } from 'react-icons/io';
-import OrderFormContext from "../context/OrderFormContext"
+import React, { useState, useEffect, useContext } from "react";
+import AssignmentTopic from "./NewOrderInputs/AssignmentTopic";
+import SubjectInput from "./NewOrderInputs/SubjectInput";
+import StyleInput from "./NewOrderInputs/StyleInput";
+import { useSelector, useDispatch } from "react-redux";
+import { postingOrderHandler } from "../utilities/apiFunctions";
+import Cookies from "universal-cookie";
+import { useRouter } from "next/router";
+import { editingOrderHandler } from "../utilities/apiFunctions";
+import { getOrderPrice } from "../utilities/apiFunctions";
+import { getOrderPayData } from "../redux/features/orderPayData";
+import axios from "axios";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import OrderFormContext from "../context/OrderFormContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cookies = new Cookies();
-const token = cookies.get('userrefreshToken');
+const token = cookies.get("userrefreshToken");
 
 const DraftForm = ({ editOrderData }) => {
   const dispatch = useDispatch();
-  
+
+  const notify = () =>
+    toast.error("Some fields are mising", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   let id = 0;
   Array.isArray(editOrderData)
     ? editOrderData.map((order) => {
-      id = order.ID;
-    })
+        id = order.ID;
+      })
     : null;
 
   const router = useRouter();
   const firstFormdata = useSelector((state) => state.assignmentData);
-  
-  const [docURL, setDocURL] = useState('');
+
+  const [docURL, setDocURL] = useState("");
   const [files, setFiles] = useState([]);
-  const [fileName, setFileName] = useState('');
-  // const [cprice, setPrice] = useState(0); 
+  const [fileName, setFileName] = useState("");
+  // const [cprice, setPrice] = useState(0);
   const [wPrice, setWPrice] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
-  const {setSecondFormData,secondFormData}=useContext(OrderFormContext)
-
+  const { setSecondFormData, secondFormData } = useContext(OrderFormContext);
 
   const assignmentDataCollecter = (dataKey, data) => {
     setSecondFormData({ ...secondFormData, [dataKey]: data });
@@ -51,10 +64,8 @@ const DraftForm = ({ editOrderData }) => {
   //   setPrice(cookies.get('orderPrice'));
   // }, [cprice]);
 
-  
-
   useEffect(() => {
-    setWPrice(window.sessionStorage.getItem('writerP'));
+    setWPrice(window.sessionStorage.getItem("writerP"));
   }, [wPrice]);
 
   const orderPrice = {
@@ -66,9 +77,17 @@ const DraftForm = ({ editOrderData }) => {
 
   const NavigateToConfirm = (e) => {
     e.preventDefault();
-    router.push('/neworder/confirmOrder');
-  }
-
+    if (
+      secondFormData?.assigment_topic &&
+      secondFormData?.style &&
+      secondFormData?.subject &&
+      secondFormData?.instruction
+    ) {
+      router.push("/neworder/confirmOrder");
+    } else {
+      notify();
+    }
+  };
 
   // const submitHandler = async (e) => {
   //   e.preventDefault();
@@ -102,50 +121,50 @@ const DraftForm = ({ editOrderData }) => {
     editingOrderHandler(secondFormData, token, endpoint);
 
     const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${token}`);
-    myHeaders.append('Cookie', 'Cookie_1=value');
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Cookie", "Cookie_1=value");
 
     const requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
     fetch(
       `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
-      requestOptions,
+      requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
-        cookies.set('orderPrice', result.Total_price);
-        sessionStorage.setItem('orderPrice', result.Total_price),
-          router.push('/customer/active');
+        cookies.set("orderPrice", result.Total_price);
+        sessionStorage.setItem("orderPrice", result.Total_price),
+          router.push("/customer/active");
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => console.log("error", error));
   };
 
   let filesLink = [];
   const changeHandler = (event) => {
     let headersList = {
-      Accept: '*/*',
+      Accept: "*/*",
 
       Authorization: `Bearer ${token}`,
     };
 
     let bodyContent = new FormData();
-    bodyContent.append('name', event.target.files[0].name);
-    bodyContent.append('file', event.target.files[0]);
+    bodyContent.append("name", event.target.files[0].name);
+    bodyContent.append("file", event.target.files[0]);
 
     setFileName(event.target.files[0].name);
     try {
       const sendData = async () => {
         const response = await fetch(
-          'https://backend420.linnric.com/api/v1/upload',
+          "https://backend420.linnric.com/api/v1/upload",
           {
-            method: 'POST',
+            method: "POST",
             body: bodyContent,
             headers: headersList,
-          },
+          }
         );
 
         const data = await response.json();
@@ -154,7 +173,7 @@ const DraftForm = ({ editOrderData }) => {
           return [...prev, { field_id: data.publicURL }];
         });
         filesLink = [...filesLink, { field_id: data.publicURL }];
-        assignmentDataCollecter('File', filesLink);
+        assignmentDataCollecter("File", filesLink);
         return response;
       };
       sendData();
@@ -163,11 +182,23 @@ const DraftForm = ({ editOrderData }) => {
     }
   };
 
-  useEffect(() => {
-    if ((secondFormData?.assigment_topic && secondFormData?.style && secondFormData?.subject && secondFormData?.instruction) ?.length > 0) {
-      setDisabled(false)
-    }
-  }, [secondFormData?.assigment_topic, secondFormData?.style, secondFormData?.subject, secondFormData?.instruction])
+  // useEffect(() => {
+  //   if (
+  //     (
+  //       secondFormData?.assigment_topic &&
+  //       secondFormData?.style &&
+  //       secondFormData?.subject &&
+  //       secondFormData?.instruction
+  //     )?.length > 0
+  //   ) {
+  //     setDisabled(false);
+  //   }
+  // }, [
+  //   secondFormData?.assigment_topic,
+  //   secondFormData?.style,
+  //   secondFormData?.subject,
+  //   secondFormData?.instruction,
+  // ]);
 
   const currentURL = router.pathname;
 
@@ -176,9 +207,9 @@ const DraftForm = ({ editOrderData }) => {
       <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-2 md:gap-6">
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form onSubmit={(e)=>NavigateToConfirm(e)}>
+            <form onSubmit={(e) => NavigateToConfirm(e)}>
               <div className="overflow-hidden shadow sm:rounded-md">
-                <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
+                <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#242d3d] ">
                   <div className=" px-4 py-3 text-left sm:px-6">
                     <button
                       onClick={() => router.back()}
@@ -189,25 +220,24 @@ const DraftForm = ({ editOrderData }) => {
                       Back
                     </button>
                   </div>
-                  <div className="my-5">
+                  <div className=" bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md my-5">
                     <AssignmentTopic
                       assignmentDataCollecter={assignmentDataCollecter}
-                     formData={secondFormData}
-                      
+                      formData={secondFormData}
                     />
                   </div>
-                  <div className="grid grid-cols-6 gap-6 mt-20 ">
+                  <div className="bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md grid grid-cols-6 gap-6 mt-4 ">
                     <StyleInput
-                   formData={secondFormData}
+                      formData={secondFormData}
                       assignmentDataCollecter={assignmentDataCollecter}
                     />
                     <SubjectInput
-                   formData={secondFormData}
+                      formData={secondFormData}
                       assignmentDataCollecter={assignmentDataCollecter}
                     />
                     {/* <SourcesInput /> */}
                   </div>
-                  <div className="mt-20">
+                  <div className="mt-4 bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md">
                     <label
                       htmlFor="message"
                       className="block text-sm font-medium text-gray-700 dark:text-white"
@@ -220,19 +250,19 @@ const DraftForm = ({ editOrderData }) => {
                         name="message"
                         rows={4}
                         className="block w-full rounded-md bg-[#F3F4F6] border-gray-300 py-3 px-4 shadow-sm dark:bg-[#33415a] focus:border-[#367fd3] focus:ring-[#367fd3]"
-                        defaultValue={''}
+                        defaultValue={""}
                         value={secondFormData?.instruction}
                         onChange={(e) => {
                           assignmentDataCollecter(
-                            'instruction',
-                            e.target.value,
+                            "instruction",
+                            e.target.value
                           );
                         }}
                       />
                     </div>
                   </div>
 
-                  <div className="sm:col-span-6 mt-20">
+                  <div className="sm:col-span-6 mt-4 bg-[#fcfcfc] dark:bg-[#2c374b] px-3 py-5 shadow-md">
                     <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                       <div className="space-y-1 text-center">
                         <svg
@@ -265,7 +295,7 @@ const DraftForm = ({ editOrderData }) => {
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
-                        {fileName === '' ? (
+                        {fileName === "" ? (
                           <p className="text-xs text-gray-500">
                             PNG, JPG, GIF up to 10MB
                           </p>
@@ -277,16 +307,14 @@ const DraftForm = ({ editOrderData }) => {
                   </div>
                 </div>
                 <div className="bg-gray-50 dark:bg-[#273142] px-4 py-3 text-right sm:px-6 w-full ">
-                  {currentURL === '/customer/active/[id]' ? (
-                    ''
-                  ) : (
-                    null
+                  {
+                    currentURL === "/customer/active/[id]" ? "" : null
                     // <div>
                     //   <p>{`Total Price : $${Math.round(cprice)}`}</p>
                     // </div>
-                  )}
+                  }
 
-                  {currentURL === '/customer/active/[id]' ? (
+                  {currentURL === "/customer/active/[id]" ? (
                     <button
                       type="button"
                       onClick={(e) => {
@@ -298,20 +326,33 @@ const DraftForm = ({ editOrderData }) => {
                     </button>
                   ) : (
                     <button
-                    onClick={(e)=>NavigateToConfirm(e)}
-                    type="submit"
-                    disabled={disabled}
-                    className= {disabled?"inline-flex items-center justify-center rounded-md border border-transparent bg-gray-400  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2":"inline-flex items-center justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"}
-                  >
-                    Next
-                    <IoIosArrowForward/>
-                  </button>
+                      onClick={(e) => NavigateToConfirm(e)}
+                      type="submit"
+                      className="inline-flex items-center justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
+                    >
+                      Next
+                      <IoIosArrowForward />
+                    </button>
                   )}
                 </div>
               </div>
             </form>
           </div>
         </div>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
       </div>
     </div>
   );

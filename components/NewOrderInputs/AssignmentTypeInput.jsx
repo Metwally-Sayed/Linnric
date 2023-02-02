@@ -72,9 +72,9 @@ export default function AssignmentTypeInput({ assignmentDataCollecter, formData 
 
   return (
     <>
-      <div className="col-span-6 sm:col-span-3">
-        <Combobox as="div" onChange={setSelectedPerson}>
-          <Combobox.Label className="block text-sm font-medium text-gray-700 dark:text-white">
+      <div className="flex w-full ">
+        <Combobox as="div" className="flex flex-col w-[100%]"  onChange={setSelectedPerson}>
+          <Combobox.Label className="block text-base font-medium text-gray-700 dark:text-white">
             Assignment type:
           </Combobox.Label>
           <div className="relative mt-1">

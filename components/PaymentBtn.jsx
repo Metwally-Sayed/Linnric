@@ -21,33 +21,8 @@ const PaymentBtn = () => {
 
   const AllFormData = useSelector((state) => state.orderPayData);
 
-  const handleApprove = () => {
-    const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${token}`);
-    myHeaders.append('Content-Type', 'application/json');
 
-    const raw = JSON.stringify({
-      AllFormData,
-    });
 
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify({
-        ...AllFormData,
-        dispute: false,
-        late: false,
-        line_spacing: line,
-      }),
-    };
-
-    fetch('https://backend420.linnric.com/api/v1/create_order', requestOptions)
-      .then((response) => response.json())
-      .then((result) =>
-          result.statusCode === 200 ? router.push('/customer/active') : '',
-      )
-      .catch((error) => console.log('error', error));
-  };
 
   return (
     <>
@@ -57,9 +32,9 @@ const PaymentBtn = () => {
         <br />
       </h1>
       <div className="md:w-[100%] w-full mt-28  mx-auto flex flex-col items-center justify-center ">
-        <button onClick={handleApprove} className="font-semibold">
-          Click Here To Order
-        </button>
+        <p  className="font-semibold">
+          Order Confirmed
+        </p>
         {/* <PayPalScriptProvider>
           <PayPalButtons
             className=" flex justify-center w-full  "

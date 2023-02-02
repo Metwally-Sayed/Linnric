@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const StyleInput = ({ assignmentDataCollecter }) => {
+const StyleInput = ({ assignmentDataCollecter,formData }) => {
   const [assignmentStyle, setAssignmentStyle] = useState([
     { id: 1, name: 'APA 6th edition' },
     { id: 2, name: 'APA 7th edition' },
@@ -42,7 +42,7 @@ const StyleInput = ({ assignmentDataCollecter }) => {
                 setQuery(event.target.value);
                 assignmentDataCollecter('style', event.target.value);
               }}
-              displayValue={(assignmentStyle) => assignmentStyle?.name}
+              displayValue={(assignmentStyle) => assignmentStyle?.name?assignmentStyle?.name:formData?.style}
               placeholder="Select style"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

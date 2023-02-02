@@ -21,10 +21,10 @@ const EditOrder = ({ orderData }) => {
                   <div className="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-[#273142] flex justify-between ">
                     <div className="">
                       <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-300">
-                        {order.assigment_topic}
+                        {order?.assigment_topic}
                       </h3>
                       <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                        {order.assignment_details}
+                        {order?.assignment_details}
                       </p>
                     </div>
                   </div>
@@ -35,7 +35,7 @@ const EditOrder = ({ orderData }) => {
                           Assigment Type
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300">
-                          {order.assigment_type}
+                          {order?.assigment_type}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
@@ -154,6 +154,7 @@ export const getServerSideProps = async (context) => {
 
   const Data = await axios(config);
   const orderData = await Data.data.data;
+  
 
   return {
     props: { orderData },

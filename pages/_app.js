@@ -4,7 +4,7 @@ import { store } from '../redux/store';
 import { Provider } from 'react-redux';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-
+import {OrderFormContextProvider} from '../context/OrderFormContext'
 function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient();
   return (
@@ -18,9 +18,11 @@ function MyApp({ Component, pageProps }) {
     >
       <ThemeProvider attribute="class">
         <Provider store={store}>
-          <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-          </QueryClientProvider>
+          <OrderFormContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <Component {...pageProps} />
+            </QueryClientProvider>
+          </OrderFormContextProvider>
         </Provider>
       </ThemeProvider>
     </PayPalScriptProvider>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import AssignmentTopic from './NewOrderInputs/AssignmentTopic';
 import SubjectInput from './NewOrderInputs/SubjectInput';
 import StyleInput from './NewOrderInputs/StyleInput';
@@ -10,12 +10,15 @@ import { editingOrderHandler } from '../utilities/apiFunctions';
 import { getOrderPrice } from '../utilities/apiFunctions';
 import { getOrderPayData } from '../redux/features/orderPayData';
 import axios from 'axios';
-import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowBack,IoIosArrowForward } from 'react-icons/io';
+import OrderFormContext from "../context/OrderFormContext"
+
 const cookies = new Cookies();
 const token = cookies.get('userrefreshToken');
 
 const DraftForm = ({ editOrderData }) => {
   const dispatch = useDispatch();
+  
   let id = 0;
   Array.isArray(editOrderData)
     ? editOrderData.map((order) => {
@@ -25,23 +28,30 @@ const DraftForm = ({ editOrderData }) => {
 
   const router = useRouter();
   const firstFormdata = useSelector((state) => state.assignmentData);
-  const [formData, setFormData] = useState({});
+  
   const [docURL, setDocURL] = useState('');
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState('');
   // const [cprice, setPrice] = useState(0); 
   const [wPrice, setWPrice] = useState(0);
+  const [disabled, setDisabled] = useState(true);
+
+  const {setSecondFormData,secondFormData}=useContext(OrderFormContext)
+
 
   const assignmentDataCollecter = (dataKey, data) => {
-    setFormData({ ...formData, [dataKey]: data });
+    setSecondFormData({ ...secondFormData, [dataKey]: data });
   };
+
   const endpoint = `https://backend420.linnric.com/api/v1/update_client_orders/${id}`;
 
-  const AllFormData = { ...firstFormdata, ...formData, price: +wPrice };
+  const AllFormData = { ...firstFormdata, ...secondFormData, price: +wPrice };
   // useEffect(() => {
   //   // setPrice(window.sessionStorage.getItem('orderPrice'));
   //   setPrice(cookies.get('orderPrice'));
   // }, [cprice]);
+
+  
 
   useEffect(() => {
     setWPrice(window.sessionStorage.getItem('writerP'));
@@ -49,42 +59,47 @@ const DraftForm = ({ editOrderData }) => {
 
   const orderPrice = {
     service: AllFormData.assignment_details,
-    education: AllFormData.assignmentEducationLevel,
-    topic: AllFormData.assigment_type,
+    education: AllFormData.education,
+    topic: AllFormData.assignent_type,
     pages: AllFormData.pages,
   };
 
-
-  const submitHandler = async (e) => {
+  const NavigateToConfirm = (e) => {
     e.preventDefault();
-    dispatch(getOrderPayData(AllFormData));
+    router.push('/neworder/confirmOrder');
+  }
 
-    // const myHeaders = new Headers();
-    // myHeaders.append('Authorization', `Bearer ${token}`);
-    // myHeaders.append('Cookie', 'Cookie_1=value');
 
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: myHeaders,
-    //   redirect: 'follow',
-    // };
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   dispatch(getOrderPayData(AllFormData));
 
-    // fetch(
-    //   `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
-    //   requestOptions,
-    // )
-    //   .then((response) => response.json())
-    //   .then((result) =>
-    //     sessionStorage.setItem('orderPrice', result.Total_price),
-    //   )
-    //   .catch((error) => console.log('error', error));
+  //   // const myHeaders = new Headers();
+  //   // myHeaders.append('Authorization', `Bearer ${token}`);
+  //   // myHeaders.append('Cookie', 'Cookie_1=value');
 
-    router.push('/customer/payment');
-  };
+  //   // const requestOptions = {
+  //   //   method: 'POST',
+  //   //   headers: myHeaders,
+  //   //   redirect: 'follow',
+  //   // };
+
+  //   // fetch(
+  //   //   `https://backend420.linnric.com/api/v1/estimate_order_price?service=${AllFormData.assignment_details}&education=${AllFormData.assignmentEducationLevel}&topic=${AllFormData.assigment_type} Plan&pages=${AllFormData.pages}`,
+  //   //   requestOptions,
+  //   // )
+  //   //   .then((response) => response.json())
+  //   //   .then((result) =>
+  //   //     sessionStorage.setItem('orderPrice', result.Total_price),
+  //   //   )
+  //   //   .catch((error) => console.log('error', error));
+
+  //   router.push('/customer/payment');
+  // };
 
   const editHandler = (e) => {
     e.preventDefault();
-    editingOrderHandler(formData, token, endpoint);
+    editingOrderHandler(secondFormData, token, endpoint);
 
     const myHeaders = new Headers();
     myHeaders.append('Authorization', `Bearer ${token}`);
@@ -148,6 +163,12 @@ const DraftForm = ({ editOrderData }) => {
     }
   };
 
+  useEffect(() => {
+    if ((secondFormData?.assigment_topic && secondFormData?.style && secondFormData?.subject && secondFormData?.instruction) ?.length > 0) {
+      setDisabled(false)
+    }
+  }, [secondFormData?.assigment_topic, secondFormData?.style, secondFormData?.subject, secondFormData?.instruction])
+
   const currentURL = router.pathname;
 
   return (
@@ -155,7 +176,7 @@ const DraftForm = ({ editOrderData }) => {
       <div className="mt-10 sm:mt-0">
         <div className="md:grid md:grid-cols-2 md:gap-6">
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <form onSubmit={submitHandler}>
+            <form onSubmit={(e)=>NavigateToConfirm(e)}>
               <div className="overflow-hidden shadow sm:rounded-md">
                 <div className="bg-white px-4 py-5 sm:p-6 dark:bg-[#273142] ">
                   <div className=" px-4 py-3 text-left sm:px-6">
@@ -171,13 +192,17 @@ const DraftForm = ({ editOrderData }) => {
                   <div className="my-5">
                     <AssignmentTopic
                       assignmentDataCollecter={assignmentDataCollecter}
+                     formData={secondFormData}
+                      
                     />
                   </div>
                   <div className="grid grid-cols-6 gap-6 mt-20 ">
                     <StyleInput
+                   formData={secondFormData}
                       assignmentDataCollecter={assignmentDataCollecter}
                     />
                     <SubjectInput
+                   formData={secondFormData}
                       assignmentDataCollecter={assignmentDataCollecter}
                     />
                     {/* <SourcesInput /> */}
@@ -196,6 +221,7 @@ const DraftForm = ({ editOrderData }) => {
                         rows={4}
                         className="block w-full rounded-md bg-[#F3F4F6] border-gray-300 py-3 px-4 shadow-sm dark:bg-[#33415a] focus:border-[#367fd3] focus:ring-[#367fd3]"
                         defaultValue={''}
+                        value={secondFormData?.instruction}
                         onChange={(e) => {
                           assignmentDataCollecter(
                             'instruction',
@@ -272,11 +298,14 @@ const DraftForm = ({ editOrderData }) => {
                     </button>
                   ) : (
                     <button
-                      type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"
-                    >
-                      Check out
-                    </button>
+                    onClick={(e)=>NavigateToConfirm(e)}
+                    type="submit"
+                    disabled={disabled}
+                    className= {disabled?"inline-flex items-center justify-center rounded-md border border-transparent bg-gray-400  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2":"inline-flex items-center justify-center rounded-md border border-transparent bg-[#367fd3]  py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#367fd3] focus:ring-offset-2"}
+                  >
+                    Next
+                    <IoIosArrowForward/>
+                  </button>
                   )}
                 </div>
               </div>

@@ -12,7 +12,7 @@ const people = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
-const SubjectInput = ({ assignmentDataCollecter }) => {
+const SubjectInput = ({ assignmentDataCollecter, formData }) => {
   const [assignmentSubject, setAssignmentSubject] = useState([
     { id: '1', name: 'Advertising' },
     { id: '2', name: 'Agriculture' },
@@ -50,8 +50,8 @@ const SubjectInput = ({ assignmentDataCollecter }) => {
     query === ''
       ? assignmentSubject
       : assignmentSubject.filter((subject) => {
-          return subject.name.toLowerCase().includes(query.toLowerCase());
-        });
+        return subject.name.toLowerCase().includes(query.toLowerCase());
+      });
 
   return (
     <>
@@ -67,7 +67,7 @@ const SubjectInput = ({ assignmentDataCollecter }) => {
                 setQuery(event.target.value);
                 assignmentDataCollecter('subject', event.target.value);
               }}
-              displayValue={(person) => person?.name}
+              displayValue={(person) => person?.name ? person?.name : formData?.subject}
               placeholder="Select subject"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

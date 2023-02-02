@@ -18,7 +18,7 @@ const Active = ({ orderData }) => {
   dispatch(getOrderData(orderData));
 
   const data = useSelector((state) => state.orderData);
-
+   
   let renderCondition = '';
 
   if (data.length === 0) {
@@ -56,7 +56,6 @@ export const getServerSideProps = async (context) => {
   };
   const getData = await axios(config);
   const orderData = await getData.data.data;
-
   return {
     props: {
       orderData,

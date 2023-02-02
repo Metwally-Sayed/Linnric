@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import PaymentBtn from '../../../components/PaymentBtn';
-import { AiOutlineClose } from 'react-icons/ai';
-import { useRouter } from 'next/router';
-import Cookies from 'universal-cookie';
+import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import PaymentBtn from "../../../components/PaymentBtn";
+import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
+import { useContext } from "react";
+import OrderFormContext from "../../../context/OrderFormContext";
 
 // const schema = Yup.object({
 //   cardNumber: Yup.string().required(),
@@ -17,7 +19,8 @@ import Cookies from 'universal-cookie';
 
 const Payment = () => {
   const cookies = new Cookies();
-
+  const { setFormData, setSecondFormData, setEstimatedPrice } =
+    useContext(OrderFormContext);
   const router = useRouter();
 
   // const submitForm = (values) => {
@@ -26,7 +29,13 @@ const Payment = () => {
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
-    setPrice(window.sessionStorage.getItem('orderPrice'));
+    setPrice(window.sessionStorage.getItem("orderPrice"));
+  }, []);
+
+  useEffect(() => {
+    setFormData({});
+    setSecondFormData({});
+    setEstimatedPrice(0);
   }, []);
 
   // const {
@@ -152,9 +161,9 @@ const Payment = () => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              router.push('/writer/availableorders');
-              cookies.remove('orderPrice', { path: '/' });
-              cookies.remove('Line_spacing', { path: '/' });
+              router.push("/writer/availableorders");
+              cookies.remove("orderPrice", { path: "/" });
+              cookies.remove("Line_spacing", { path: "/" });
             }}
             className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
           >

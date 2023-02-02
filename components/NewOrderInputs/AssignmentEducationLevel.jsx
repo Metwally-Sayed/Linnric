@@ -7,12 +7,12 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
-const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
+const AssignmentEducationLevel = ({ assignmentDataCollecter, formData }) => {
   const [
     assignmentassignmentEducationLevel,
     setAssignmentassignmentEducationLevel,
   ] = useState([
-    { id: '1', name: 'School' },
+    { id: '1', name: 'High School' },
     { id: '2', name: 'College' },
     { id: '3', name: 'University' },
     { id: '4', name: 'Master' },
@@ -26,10 +26,10 @@ const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
     query === ''
       ? assignmentassignmentEducationLevel
       : assignmentassignmentEducationLevel.filter((assignmentassignment) => {
-          return assignmentassignment.name
-            .toLowerCase()
-            .includes(query.toLowerCase());
-        });
+        return assignmentassignment.name
+          .toLowerCase()
+          .includes(query.toLowerCase());
+      });
 
   return (
     <>
@@ -44,7 +44,7 @@ const AssignmentEducationLevel = ({ assignmentDataCollecter }) => {
                 assignmentDataCollecter('education', event.target.value);
               }}
               displayValue={(assignmentassignmentEducationLevel) =>
-                assignmentassignmentEducationLevel?.name
+                assignmentassignmentEducationLevel?.name ? assignmentassignmentEducationLevel?.name : formData.education
               }
               placeholder="Education Level*"
             />

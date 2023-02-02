@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const AssignmentDetails = ({ assignmentDataCollecter }) => {
+const AssignmentDetails = ({ assignmentDataCollecter, formData }) => {
   const [assignmentDetails, setAssignmentDetails] = useState([
     { id: '1', name: 'Writing' },
     { id: '2', name: 'Rewriting' },
@@ -25,8 +25,8 @@ const AssignmentDetails = ({ assignmentDataCollecter }) => {
     query === ''
       ? assignmentDetails
       : assignmentDetails.filter((assignment) => {
-          return assignment.name.toLowerCase().includes(query.toLowerCase());
-        });
+        return assignment.name.toLowerCase().includes(query.toLowerCase());
+      });
 
   return (
     <>
@@ -37,6 +37,7 @@ const AssignmentDetails = ({ assignmentDataCollecter }) => {
           </Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
+              required
               className="w-full rounded-md border border-gray-300 dark:bg-[#33415a] bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm"
               onChange={(event) => {
                 setQuery(event.target.value);
@@ -45,7 +46,7 @@ const AssignmentDetails = ({ assignmentDataCollecter }) => {
                   event.target.value,
                 );
               }}
-              displayValue={(assignmentDetails) => assignmentDetails?.name}
+              displayValue={(assignmentDetails) => assignmentDetails?.name ? assignmentDetails?.name : formData.assignment_details}
               placeholder="Service*"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

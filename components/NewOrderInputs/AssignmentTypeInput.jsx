@@ -6,7 +6,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function AssignmentTypeInput({ assignmentDataCollecter }) {
+export default function AssignmentTypeInput({ assignmentDataCollecter, formData }) {
   const [assignments, setAssignment] = useState([
     { id: '1', name: 'Paperwork', questions: 'false' },
     { id: '2', name: 'Coursework', questions: 'false' },
@@ -67,8 +67,8 @@ export default function AssignmentTypeInput({ assignmentDataCollecter }) {
     query === ''
       ? assignments
       : assignments.filter((assignment) => {
-          return assignment.name.toLowerCase().includes(query.toLowerCase());
-        });
+        return assignment.name.toLowerCase().includes(query.toLowerCase());
+      });
 
   return (
     <>
@@ -79,12 +79,13 @@ export default function AssignmentTypeInput({ assignmentDataCollecter }) {
           </Combobox.Label>
           <div className="relative mt-1">
             <Combobox.Input
+              required
               className="w-full rounded-md border border-gray-300 bg-[#F3F4F6] py-2 pl-3 pr-10 shadow-sm dark:bg-[#33415a] focus:border-[#367fd3] focus:outline-none focus:ring-1 focus:ring-[#367fd3] sm:text-sm  "
               onChange={(event) => {
                 setQuery(event.target.value);
-                assignmentDataCollecter('assignment_type', event.target.value);
+                assignmentDataCollecter('assigment_type', event.target.value);
               }}
-              displayValue={(assignment) => assignment?.name}
+              displayValue={(assignment) => assignment?.name?assignment?.name:formData.assigment_type}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
               <ChevronUpDownIcon

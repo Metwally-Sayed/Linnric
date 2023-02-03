@@ -10,7 +10,7 @@ const ConfirmOrderForm = () => {
   const [words, setWords] = useState();
   const [time, setTime] = useState();
   const [newDateString, setNewDateString] = useState();
-  const { formData, secondFormData, estimatedPrice} = useContext(OrderFormContext);
+  const { formData, secondFormData, estimatedPrice,randomID,} = useContext(OrderFormContext);
   console.log(formData);
   console.log(secondFormData);
 
@@ -52,6 +52,7 @@ const ConfirmOrderForm = () => {
         dispute: false,
         late: false,
         line_spacing: line,
+        order_code:randomID,
       }),
     };
 
@@ -84,42 +85,42 @@ const ConfirmOrderForm = () => {
                   </button>
                 </div>
                 <div className="my-5">
-                  <h1 className="text-md text-gray-400  ">Assignment Topic</h1>
+                  <h1 className=" text-sm md:text-base text-gray-400  ">Assignment Topic</h1>
                   <p className="text-xl mb-4 text-white font-semibold">
                     {secondFormData?.assigment_topic}
                   </p>
                   <hr style={{ borderColor: "grey" }} />
                 </div>
                 <div className="flex flex-col w-full">
-                  <div className="flex items-center my-2">
-                    <span className="text-center text-md pr-4 text-gray-400 ">
+                  <div className="flex md:items-center my-2">
+                    <span className="text-center text-sm md:text-base pr-4 text-gray-400 ">
                       Pages/Words
                     </span>
-                    <span className="text-center text-white font-semibold">
+                    <span className=" text-sm md:text-base text-white font-semibold">
                       {`${formData?.pages} Pages/ ${words} words (${formData?.line_spacing} Spacing) `}
                     </span>
                   </div>
-                  <div className="flex items-center my-2">
-                    <span className="text-center text-md pr-4 text-gray-400 ">
+                  <div className="flex md:items-center my-2">
+                    <span className="text-center  text-sm md:text-base pr-4 text-gray-400 ">
                       Service
                     </span>
-                    <span className="text-center text-white font-semibold">
+                    <span className="text-center  text-sm md:text-base text-white font-semibold">
                       {formData?.assignment_details}
                     </span>
                   </div>
-                  <div className="flex items-center my-2">
-                    <span className="text-center text-md pr-4 text-gray-400 ">
+                  <div className="flex md:items-center my-2">
+                    <span className="text-center  text-sm md:text-base pr-4 text-gray-400 ">
                       Education Level
                     </span>
-                    <span className="text-center text-white font-semibold">
+                    <span className="text-center  text-sm md:text-base text-white font-semibold">
                       {formData?.education}
                     </span>
                   </div>
-                  <div className="flex items-center my-2">
-                    <span className="text-center text-md pr-4 text-gray-400 ">
+                  <div className="flex md:items-center my-2">
+                    <span className="text-center  text-sm md:text-base pr-4 text-gray-400 ">
                       Your Deadline
                     </span>
-                    <span className="text-center text-white font-semibold">
+                    <span className="text-center  text-sm md:text-base text-white font-semibold">
                       {`${formData?.deadline?.toDateString() + " " + time}`}
                     </span>
                   </div>
@@ -127,11 +128,11 @@ const ConfirmOrderForm = () => {
                   <div className="flex items-center w-full justify-between">
                     <div></div>
                     <div>
-                    <span className="text-center text-md pr-4 text-gray-400 ">
+                    <span className="text-center  text-sm md:text-base pr-4 text-gray-400 ">
                       Estimated Price
                     </span>
-                    <span className="text-center text-white font-semibold">
-                      {estimatedPrice}
+                    <span className="text-center  text-sm md:text-base text-white font-semibold">
+                      {`$${estimatedPrice}`}
                     </span>
                     </div>
                   </div>

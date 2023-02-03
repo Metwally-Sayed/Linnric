@@ -19,7 +19,7 @@ import OrderFormContext from "../../../context/OrderFormContext";
 
 const Payment = () => {
   const cookies = new Cookies();
-  const { setFormData, setSecondFormData, setEstimatedPrice } =
+  const { setFormData, setSecondFormData, setEstimatedPrice ,setRandomID} =
     useContext(OrderFormContext);
   const router = useRouter();
 
@@ -36,6 +36,7 @@ const Payment = () => {
     setFormData({});
     setSecondFormData({});
     setEstimatedPrice(0);
+    setRandomID()
   }, []);
 
   // const {

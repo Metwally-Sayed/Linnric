@@ -10,7 +10,7 @@ export default function middleware(req) {
   // const writer = jwt_decode(verify?.value?.isWriter);
 
   if (!userVerify && url.includes('/customer')) {
-    return NextResponse.redirect('https://linnric.com/login');
+    return NextResponse.redirect('http://localhost:3000/login');
   }
 
   if (userVerify && url.includes('/login')) {
@@ -20,7 +20,7 @@ export default function middleware(req) {
       res.cookies.delete('useraccessToken');
     }
 
-    return NextResponse.redirect('https://linnric.com/customer/active');
+    return NextResponse.redirect('http://localhost:3000/customer/active');
   }
 
   if (writerVerify && url.includes('/writerlogin')) {
@@ -35,6 +35,6 @@ export default function middleware(req) {
   }
 
   if (url.includes('/writer') && !writerVerify) {
-    return NextResponse.redirect('https://linnric.com/login');
+    return NextResponse.redirect('http://localhost:3000/login');
   }
 }

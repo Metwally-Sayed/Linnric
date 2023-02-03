@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { AiOutlineClose } from "react-icons/ai";
 
-import { AiOutlineClose } from 'react-icons/ai';
-
-import axios from 'axios';
+import axios from "axios";
 
 const EditOrder = ({ orderData }) => {
   const [updateFormData, setUpdateFormData] = useState({});
-
+  const router = useRouter();
   return (
     <>
       <div className="flex justify-center flex-col items-center ">
@@ -18,6 +18,20 @@ const EditOrder = ({ orderData }) => {
                   key={idx}
                   className="overflow-hidden items-center  dark:bg-[#273142] dark:text-white shadow sm:rounded-lg max-w-full md:w-[60%] w-full mt-[120px]"
                 >
+                  <div className="mx-auto w-full my-8   flex justify-between">
+                    <h1 className="text-2xl md:text-5xl font-bold">
+                      Order Details
+                    </h1>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push("/writer/availableorders");
+                      }}
+                      className="bg-white dark:bg-[#273142] w-10 h-10 flex items-center justify-center rounded border-spacing-10 shadow-lg text-lg "
+                    >
+                      <AiOutlineClose />
+                    </button>
+                  </div>
                   <div className="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-[#273142] flex justify-between ">
                     <div className="">
                       <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-300">
@@ -43,8 +57,8 @@ const EditOrder = ({ orderData }) => {
                           Deadline
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300">
-                          {new Date(order.deadline).toLocaleDateString('en-GB')},{' '}
-                          {order.time_js}
+                          {new Date(order.deadline).toLocaleDateString("en-GB")}
+                          , {order.time_js}
                         </dd>
                       </div>
                       <div className="sm:col-span-1">
@@ -60,7 +74,7 @@ const EditOrder = ({ orderData }) => {
                           words
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 dark:text-gray-300">
-                          {' '}
+                          {" "}
                           {order.words}
                         </dd>
                       </div>
@@ -144,17 +158,16 @@ export const getServerSideProps = async (context) => {
   const token = await context.req.cookies.userrefreshToken;
   const id = context.params?.id;
   const config = {
-    method: 'get',
-    url: 'https://backend420.linnric.com/api/v1/get_client_detail_order/' + id,
+    method: "get",
+    url: "https://backend420.linnric.com/api/v1/get_client_detail_order/" + id,
     headers: {
       Authorization: `Bearer ${token}`,
-      Cookie: 'Cookie_1=value',
+      Cookie: "Cookie_1=value",
     },
   };
 
   const Data = await axios(config);
   const orderData = await Data.data.data;
-  
 
   return {
     props: { orderData },
